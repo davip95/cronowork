@@ -21,6 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('tipo', 45);
+            $table->string('apellidos');
+            $table->string('telefono', 45);
+            $table->string('direccion');
+            $table->date('fecha_nacimiento');
+            $table->date('fecha_alta');
+            $table->unsignedBigInteger('empresas_id');
+            $table->unsignedBigInteger('horarios_id')->nullable();
         });
     }
 
