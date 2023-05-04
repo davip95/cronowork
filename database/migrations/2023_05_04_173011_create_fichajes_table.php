@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAusenciasTable extends Migration
+class CreateFichajesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateAusenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ausencias', function (Blueprint $table) {
+        Schema::create('fichajes', function (Blueprint $table) {
             $table->id();
             $table->string('tipo', 45);
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
-            $table->tinyInteger('aceptada')->nullable();
-            $table->string('motivos')->nullable();
+            $table->dateTime('fecha_hora_fichaje');
+            $table->tinyInteger('modificado');
             $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('horarios_id');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateAusenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ausencias');
+        Schema::dropIfExists('fichajes');
     }
 }

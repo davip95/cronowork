@@ -20,7 +20,7 @@ class CreateEmpresasTable extends Migration
             $table->string('email');
             $table->string('direccion')->nullable();
             $table->string('telefono', 45)->nullable();
-            $table->date('fecha_alta');
+            $table->dateTime('fecha_alta');
         });
     }
 
