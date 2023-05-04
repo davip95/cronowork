@@ -24,10 +24,10 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
             $table->string('tipo', 45);
             $table->string('apellidos');
-            $table->string('telefono', 45);
-            $table->string('direccion');
-            $table->date('fecha_nacimiento');
-            $table->date('fecha_alta');
+            $table->string('telefono', 45)->nullable();
+            $table->string('direccion')->nullable();
+            $table->date('fecha_nacimiento')->nullable();
+            $table->date('fecha_alta')->nullable();
             $table->unsignedBigInteger('empresas_id');
             $table->unsignedBigInteger('horarios_id')->nullable();
         });
