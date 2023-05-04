@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Empresa extends Model
+class Ausencia extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $dates = ['fecha_alta'];
-    protected $table = 'empresas';
+    protected $dates = ['fecha_inicio', 'fecha_fin'];
+    protected $table = 'ausencias';
     protected $fillable = [
-        'nombre',
-        'cif',
-        'email',
-        'direccion',
-        'telefono',
-        'fecha_alta',
+        'tipo',
+        'fecha_inicio',
+        'fecha_fin',
+        'aceptada',
+        'motivos'
     ];
 
     public $timestamps = false;
