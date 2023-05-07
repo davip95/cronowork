@@ -19,4 +19,12 @@ class Jornada extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Obtiene el horario de la jornada.
+     */
+    public function horarios()
+    {
+        return $this->belongsTo(Horario::class);
+    }
 }

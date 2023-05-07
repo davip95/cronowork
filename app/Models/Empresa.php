@@ -22,4 +22,20 @@ class Empresa extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Obtiene los empleados de la empresa.
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /**
+     * Obtiene los horarios de la empresa.
+     */
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class);
+    }
 }

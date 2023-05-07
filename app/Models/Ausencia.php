@@ -21,4 +21,12 @@ class Ausencia extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Obtiene el empleado al que esta asignada la ausencia.
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

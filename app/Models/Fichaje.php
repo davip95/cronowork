@@ -19,4 +19,20 @@ class Fichaje extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Obtiene el empleado que realiza el fichaje.
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Obtiene el horario del fichaje.
+     */
+    public function horarios()
+    {
+        return $this->belongsTo(Horario::class);
+    }
 }

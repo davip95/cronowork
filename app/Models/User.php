@@ -50,4 +50,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Obtiene los fichaes del usuario.
+     */
+    public function fichajes()
+    {
+        return $this->hasMany(Fichaje::class);
+    }
+
+    /**
+     * Obtiene las ausencias del usuario.
+     */
+    public function ausencias()
+    {
+        return $this->hasMany(Ausencia::class);
+    }
+
+    /**
+     * Obtiene la empresa a la que pertenece el empleado.
+     */
+    public function empresas()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
+
+    /**
+     * Obtiene el horario al que esta asignado el empleado.
+     */
+    public function horarios()
+    {
+        return $this->belongsTo(Horario::class);
+    }
 }

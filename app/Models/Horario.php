@@ -19,4 +19,36 @@ class Horario extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * Obtiene los empleados del horario.
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /**
+     * Obtiene los fichajes del horario.
+     */
+    public function fichajes()
+    {
+        return $this->hasMany(Fichaje::class);
+    }
+
+    /**
+     * Obtiene las jornadas del horario.
+     */
+    public function jornadas()
+    {
+        return $this->hasMany(Jornada::class);
+    }
+
+    /**
+     * Obtiene la empresa a la que pertenece el horario.
+     */
+    public function empresas()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
 }
