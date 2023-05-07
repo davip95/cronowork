@@ -19,7 +19,6 @@ class EmpresaFactory extends Factory
             'email' => $this->faker->safeEmail(),
             'direccion' => $this->faker->streetName() . ' ' . $this->faker->buildingNumber() . ', ' . $this->faker->city(),
             'telefono' => $this->faker->phoneNumber(),
-            'fecha_alta' => $this->faker->dateTime(),
         ];
     }
 }

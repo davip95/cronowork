@@ -30,7 +30,6 @@ class UserFactory extends Factory
             'telefono' => $this->faker->phoneNumber(),
             'direccion' => $this->faker->streetName() . ' ' . $this->faker->buildingNumber() . ', ' . $this->faker->city(),
             'fecha_nacimiento' => $this->faker->date(),
-            'fecha_alta' => $this->faker->dateTime(),
             'empresas_id' => function () {
                 return Empresa::factory()->create()->id;
             },
