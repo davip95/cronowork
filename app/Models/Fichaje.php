@@ -23,7 +23,7 @@ class Fichaje extends Model
     /**
      * Obtiene el empleado que realiza el fichaje.
      */
-    public function users()
+    public function empleados()
     {
         return $this->belongsTo(User::class);
     }

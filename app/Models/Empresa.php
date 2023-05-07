@@ -18,7 +18,6 @@ class Empresa extends Model
         'email',
         'direccion',
         'telefono',
-        'fecha_alta',
     ];
 
     public $timestamps = false;
@@ -26,7 +25,7 @@ class Empresa extends Model
     /**
      * Obtiene los empleados de la empresa.
      */
-    public function users()
+    public function empleados()
     {
         return $this->hasMany(User::class);
     }

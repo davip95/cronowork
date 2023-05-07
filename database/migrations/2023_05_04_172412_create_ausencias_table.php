@@ -20,7 +20,7 @@ class CreateAusenciasTable extends Migration
             $table->date('fecha_fin');
             $table->tinyInteger('aceptada')->nullable();
             $table->string('motivos')->nullable();
-            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('empleados_id');
         });
     }
 

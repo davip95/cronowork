@@ -15,6 +15,8 @@ class User extends Authenticatable
 
     protected $dates = ['fecha_nacimiento', 'fecha_alta'];
 
+    protected $table = 'empleados';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,12 +26,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tipo',
         'apellidos',
         'telefono',
         'direccion',
         'fecha_nacimiento',
-        'fecha_alta',
-        'horarios_id'
+        'horarios_id',
+        'empresas_id'
     ];
 
     /**

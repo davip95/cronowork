@@ -25,7 +25,7 @@ class Ausencia extends Model
     /**
      * Obtiene el empleado al que esta asignada la ausencia.
      */
-    public function users()
+    public function empleados()
     {
         return $this->belongsTo(User::class);
     }

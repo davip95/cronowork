@@ -23,7 +23,7 @@ class Horario extends Model
     /**
      * Obtiene los empleados del horario.
      */
-    public function users()
+    public function empleados()
     {
         return $this->hasMany(User::class);
     }
