@@ -12,6 +12,15 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <style>
+            html{ 
+                background-image: url(" {{ asset('imgs/wallpaperflare.com_wallpaper.jpg') }}");
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+        </style>
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>

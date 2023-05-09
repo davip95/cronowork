@@ -11,29 +11,33 @@
             <x-auth-session-status class="mb-3" :status="session('status')" />
 
             <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-3" :errors="$errors" />
+            {{-- <x-auth-validation-errors class="mb-3" :errors="$errors" /> --}}
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <!-- Email Address -->
-                <div class="mb-3">
-                    <x-label for="email" :value="__('Email')" />
-
+                <div class="mb-1">
+                    <x-label for="email" :value="__('Correo')" />
                     <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />
                 </div>
+                @error('email')
+                    <span class="text-danger"><strong>{{ $message }}</strong></span>
+                @enderror
 
                 <!-- Password -->
-                <div class="mb-3">
+                <div class="mt-3 mb-1">
                     <x-label for="password" :value="__('Password')" />
-
                     <x-input id="password" type="password"
                              name="password"
                              required autocomplete="current-password" />
                 </div>
+                @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
 
                 <!-- Remember Me -->
-                <div class="mb-3">
+                <div class="mb-3 mt-3">
                     <div class="form-check">
                         <x-checkbox id="remember_me" name="remember" />
 
@@ -47,12 +51,12 @@
                     <div class="d-flex justify-content-end align-items-baseline">
                         @if (Route::has('password.request'))
                             <a class="text-muted me-3" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
+                                {{ __('¿Olvidó su contraseña?') }}
                             </a>
                         @endif
 
                         <x-button>
-                            {{ __('Log in') }}
+                            {{ __('Entrar') }}
                         </x-button>
                     </div>
                 </div>
