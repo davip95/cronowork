@@ -1,10 +1,36 @@
 <x-guest-layout>
+    <div class="container-fluid p-4 mb-0 pb-0">
+        <div class="row align-items-center">
+          <div class="col-md-6 d-flex flex-column justify-content-center flex-wrap justify-content-md-center">
+            <div class="d-flex justify-content-center text-center">
+              <h4>Cronowork</h4>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex flex-column justify-content-center flex-wrap justify-content-md-start">
+            <div class="d-flex justify-content-center text-center">
+              @if (Route::has('login'))
+              <div class="">
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="ms-4 text-decoration-underline text-dark">Registro Empleado</a>
+                @endif
+                @if (Route::has('company.register'))
+                    <a href="{{ route('company.register') }}" class="ms-4 text-decoration-underline text-dark">Registro Compañía</a>
+                @endif
+              </div>
+              @endif
+            </div>
+          </div>
+        </div>
+    </div>
+
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
                 <x-application-logo width="82" />
             </a>
         </x-slot>
+
+        <h3 class="card-title text-center mt-3">Inicio Sesión</h3>
 
         <div class="card-body">
             <!-- Session Status -->

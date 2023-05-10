@@ -14,18 +14,19 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <style>
             html{ 
-                background-image: url(" {{ asset('imgs/wallpaperflare.com_wallpaper.jpg') }}");
+                background-image: url(" {{ asset('imgs/wallpaperflare.com_wallpaper.jpg') }}") !important;
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-size: cover;
+                background-color: transparent;
             }
         </style>
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased bg-light">
+    <body class="font-sans antialiased bg-transparent">
         {{ $slot }}
     </body>
 </html>

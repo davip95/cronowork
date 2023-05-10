@@ -1,10 +1,36 @@
 <x-guest-layout>
+    <div class="container-fluid p-4 mb-0 pb-0">
+        <div class="row align-items-center">
+          <div class="col-md-6 d-flex flex-column justify-content-center flex-wrap justify-content-md-center">
+            <div class="d-flex justify-content-center text-center">
+              <h4>Cronowork</h4>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex flex-column justify-content-center flex-wrap justify-content-md-start">
+            <div class="d-flex justify-content-center text-center">
+              @if (Route::has('login'))
+              <div class="">
+                <a href="{{ route('login') }}" class="text-decoration-underline text-dark">Entrar</a>
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="ms-4 text-decoration-underline text-dark">Registro Empleado</a>
+                @endif
+              </div>
+              @endif
+            </div>
+          </div>
+        </div>
+    </div>
+      
+
     <x-auth-card>
+        
         <x-slot name="logo">
             <a href="/">
                 <x-application-logo width="82" />
             </a>
         </x-slot>
+
+        <h3 class="card-title text-center mt-3">Registro Empresa</h3>
 
         <div class="card-body">
             <!-- Validation Errors -->
@@ -47,11 +73,11 @@
                 <div class="mb-0">
                     <div class="d-flex justify-content-end align-items-baseline">
                         <a class="text-muted me-3 text-decoration-none" href="{{ route('login') }}">
-                            {{ __('Already registered?') }}
+                            {{ __('¿Ya registrada?') }}
                         </a>
 
                         <x-button>
-                            {{ __('Register Company') }}
+                            {{ __('Registrar Compañía') }}
                         </x-button>
                     </div>
                 </div>
