@@ -17,7 +17,7 @@ class CreateEmpresasTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('cif')->unique();
-            $table->string('email');
+            $table->string('correo');
             $table->string('direccion')->nullable();
             $table->string('telefono', 45)->nullable();
         });

@@ -40,9 +40,6 @@
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-3" :status="session('status')" />
 
-                <!-- Validation Errors -->
-                {{-- <x-auth-validation-errors class="mb-3" :errors="$errors" /> --}}
-
                 <form method="POST" action="{{ route('password.email') }}">
                 @csrf
 
@@ -52,7 +49,7 @@
                         <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />
                     </div>
                     @error('email')
-                    <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger"><strong>{{ $message }}</strong></span>
                     @enderror
 
                     <div class="d-flex justify-content-end align-items-baseline mt-4">

@@ -36,9 +36,6 @@
             <!-- Session Status -->
             <x-auth-session-status class="mb-3" :status="session('status')" />
 
-            <!-- Validation Errors -->
-            {{-- <x-auth-validation-errors class="mb-3" :errors="$errors" /> --}}
-
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -59,7 +56,7 @@
                              required autocomplete="current-password" />
                 </div>
                 @error('password')
-                    <span class="text-danger">{{ $message }}</span>
+                    <span class="text-danger"><strong>{{ $message }}</strong></span>
                 @enderror
 
                 <!-- Remember Me -->

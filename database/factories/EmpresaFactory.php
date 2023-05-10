@@ -16,7 +16,7 @@ class EmpresaFactory extends Factory
         return [
             'nombre' => $this->faker->company(),
             'cif' => $this->faker->unique()->vat(),
-            'email' => $this->faker->safeEmail(),
+            'correo' => $this->faker->safeEmail(),
             'direccion' => $this->faker->streetName() . ' ' . $this->faker->buildingNumber() . ', ' . $this->faker->city(),
             'telefono' => $this->faker->phoneNumber(),
         ];

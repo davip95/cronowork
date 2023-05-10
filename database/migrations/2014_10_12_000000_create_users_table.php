@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('apellidos');
             $table->string('telefono', 45)->nullable();
             $table->string('direccion')->nullable();
-            $table->date('fecha_nacimiento')->nullable();
             $table->unsignedBigInteger('empresas_id');
             $table->unsignedBigInteger('horarios_id')->nullable();
         });

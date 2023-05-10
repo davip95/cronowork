@@ -29,7 +29,6 @@ class UserFactory extends Factory
             'apellidos' => $this->faker->lastName(),
             'telefono' => $this->faker->phoneNumber(),
             'direccion' => $this->faker->streetName() . ' ' . $this->faker->buildingNumber() . ', ' . $this->faker->city(),
-            'fecha_nacimiento' => $this->faker->date(),
             'empresas_id' => function () {
                 return Empresa::factory()->create()->id;
             },
