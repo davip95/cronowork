@@ -7,21 +7,20 @@
             </div>
           </div>
           <div class="col-md-6 d-flex flex-column justify-content-center flex-wrap justify-content-md-start">
-            <div class="d-flex justify-content-center text-center">
+            <div class="d-flex justify-content-center text-center flex-column flex-md-row">
               @if (Route::has('login'))
-              <div class="">
-                <a href="{{ route('login') }}" class="text-decoration-underline text-dark">Entrar</a>
+              <div class="mt-3 mt-md-0">
+                <a href="{{ route('login') }}" class="text-decoration-underline text-dark d-block d-md-inline-block text-center">Entrar</a>
                 @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ms-4 text-decoration-underline text-dark">Registro Empleado</a>
+                <a href="{{ route('register') }}" class="mt-3 mt-md-0 ms-0 ms-md-4 text-decoration-underline text-dark d-block d-md-inline-block text-center">Registro Empleado</a>
                 @endif
               </div>
               @endif
             </div>
           </div>
         </div>
-    </div>
+      </div>
       
-
     <x-auth-card>
         
         <x-slot name="logo">

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <style>
             html{ 
-                background-image: url(" {{ asset('imgs/wallpaperflare.com_wallpaper.jpg') }}") !important;
+                background-image: url(" {{ asset('imgs/fondo.jpg') }}") !important;
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
