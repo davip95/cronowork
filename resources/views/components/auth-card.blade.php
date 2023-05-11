@@ -5,7 +5,7 @@
                 {{ $logo }}
             </div>
 
-            <div class="card shadow-sm px-3 overflow-auto" style="max-height: 60vh;">
+            <div class="card shadow-sm px-3 overflow-auto" style="max-height: 60vh; background-color: rgba(255, 255, 255, 0.9);">
                 {{ $slot }}
             </div>
         </div>

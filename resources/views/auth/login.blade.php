@@ -1,4 +1,15 @@
 <x-guest-layout>
+    <style>
+        @media (max-width: 768px) {
+            .enlace-final{
+                margin: 0 auto !important;
+                margin-bottom: 1em !important;
+            }
+            .enlace-superior{
+                margin-bottom: 1em;
+            }
+        }
+    </style>
     <div class="container-fluid p-4 mb-0 pb-0">
         <div class="row align-items-center">
           <div class="col-md-6 d-flex flex-column justify-content-center flex-wrap justify-content-md-center">
@@ -11,10 +22,10 @@
               @if (Route::has('login'))
               <div class="mt-3 mt-md-0">
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="text-decoration-underline text-dark d-block d-md-inline-block text-center">Registro Empleado</a>
+                    <a href="{{ route('register') }}" class="text-decoration-underline text-dark d-block d-md-inline-block text-center mx-auto enlace-superior" style="width: fit-content">Registro Empleado</a>
                 @endif
                 @if (Route::has('company.register'))
-                    <a href="{{ route('company.register') }}" class="mt-3 mt-md-0 ms-0 ms-md-4 text-decoration-underline text-dark d-block d-md-inline-block text-center">Registro Compañía</a>
+                    <a href="{{ route('company.register') }}" class="mt-3 mt-md-0 ms-0 ms-md-4 text-decoration-underline text-dark d-block d-md-inline-block text-center enlace-final" style="width: fit-content;">Registro Compañía</a>
                 @endif
               </div>
               @endif
