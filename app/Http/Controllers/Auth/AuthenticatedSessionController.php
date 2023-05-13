@@ -33,6 +33,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
+        // Otra opción: enviar a una vista de listado que compartan todos los usuarios o cambiar la vista de HOME
+        // por ejemplo: return redirect()->action([TareasCtrl::class, 'index']);
     }
 
     /**
