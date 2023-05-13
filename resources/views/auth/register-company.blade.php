@@ -60,10 +60,16 @@
                                     <x-label for="name" :value="__('Name')" />
                                     <x-input id="name" type="text" name="name" :value="old('name')" required autofocus />
                                 </div>
+                                @error('name')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
                                 <div class="col-6">
                                     <x-label for="apellidos" :value="__('Apellidos')" />
                                     <x-input id="apellidos" type="text" name="apellidos" :value="old('apellidos')" required autofocus />
                                 </div>
+                                @error('apellidos')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
                               </div>
                           </div>
                           <div class="col-12 mb-3">
@@ -72,10 +78,16 @@
                                     <x-label for="email" :value="__('Email')" />
                                     <x-input id="email" type="email" name="email" :value="old('email')" required />
                                 </div>
+                                @error('email')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
                                 <div class="col-6">
                                     <x-label for="telefono" :value="__('Teléfono')" />
                                     <x-input id="telefono" type="text" name="telefono" :value="old('telefono')" autofocus />
                                 </div>
+                                @error('telefono')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
                               </div>
                           </div>
                           <div class="col-12 mb-3">
@@ -84,15 +96,24 @@
                             name="password"
                             required autocomplete="new-password" />
                           </div>
+                          @error('password')
+                            <span class="text-danger"><strong>{{ $message }}</strong></span>
+                          @enderror
                           <div class="col-12 mb-3">
                             <x-label for="password_confirmation" :value="__('Confirm Password')" />
                             <x-input id="password_confirmation" type="password"
                             name="password_confirmation" required />
                           </div>
+                          @error('password_confirmation')
+                            <span class="text-danger"><strong>{{ $message }}</strong></span>
+                          @enderror
                           <div class="col-12 mb-3">
                             <x-label for="direccion" :value="__('Dirección')" />
                             <x-input id="direccion" type="text" name="direccion" :value="old('direccion')" autofocus />
                           </div>
+                          @error('direccion')
+                            <span class="text-danger"><strong>{{ $message }}</strong></span>
+                          @enderror
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -105,22 +126,37 @@
                                 <x-label for="nombre" :value="__('Nombre Empresa')" />
                                 <x-input id="nombre" type="text" name="nombre" :value="old('nombre')" required autofocus />
                             </div>
+                            @error('nombre')
+                              <span class="text-danger"><strong>{{ $message }}</strong></span>
+                            @enderror
                             <div class="col-12 mb-3">
                                 <x-label for="cif" :value="__('CIF')" />
                                 <x-input id="cif" type="text" name="cif" :value="old('cif')" required autofocus />
                             </div>
+                            @error('cif')
+                              <span class="text-danger"><strong>{{ $message }}</strong></span>
+                            @enderror
                             <div class="col-12 mb-3">
                                 <x-label for="correo" :value="__('Correo Empresa')" />
                                 <x-input id="correo" type="email" name="correo" :value="old('correo')" required />
                             </div>
+                            @error('correo')
+                              <span class="text-danger"><strong>{{ $message }}</strong></span>
+                            @enderror
                             <div class="col-12 mb-3">
                                 <x-label for="telefono_empresa" :value="__('Teléfono Empresa')" />
                                 <x-input id="telefono_empresa" type="text" name="telefono_empresa" :value="old('telefono_empresa')" autofocus />
                               </div>
+                              @error('telefono_empresa')
+                                <span class="text-danger"><strong>{{ $message }}</strong></span>
+                              @enderror
                               <div class="col-12 mb-3">
                                 <x-label for="direccion_empresa" :value="__('Dirección Empresa')" />
                                 <x-input id="direccion_empresa" type="text" name="direccion_empresa" :value="old('direccion_empresa')" autofocus />
                               </div>
+                              @error('direccion_empresa')
+                                <span class="text-danger"><strong>{{ $message }}</strong></span>
+                              @enderror
                         </div>
                       </div>
                     </div>
