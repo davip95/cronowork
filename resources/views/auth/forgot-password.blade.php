@@ -58,10 +58,10 @@
                     <div class="mb-3">
                         <x-label for="email" :value="__('Correo')" />
                         <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />
+                        @error('email')
+                            <span class="text-danger"><strong>{{ $message }}</strong></span>
+                        @enderror
                     </div>
-                    @error('email')
-                        <span class="text-danger"><strong>{{ $message }}</strong></span>
-                    @enderror
 
                     <div class="d-flex justify-content-end align-items-baseline mt-4">
                         <x-button>

@@ -54,10 +54,10 @@
                 <div class="mb-1">
                     <x-label for="email" :value="__('Correo')" />
                     <x-input id="email" type="email" name="email" :value="old('email')" required autofocus />
+                    @error('email')
+                        <span class="text-danger"><strong>{{ $message }}</strong></span>
+                    @enderror
                 </div>
-                @error('email')
-                    <span class="text-danger"><strong>{{ $message }}</strong></span>
-                @enderror
 
                 <!-- Password -->
                 <div class="mt-3 mb-1">
@@ -65,10 +65,10 @@
                     <x-input id="password" type="password"
                              name="password"
                              required autocomplete="current-password" />
+                    @error('password')
+                        <span class="text-danger"><strong>{{ $message }}</strong></span>
+                    @enderror
                 </div>
-                @error('password')
-                    <span class="text-danger"><strong>{{ $message }}</strong></span>
-                @enderror
 
                 <!-- Remember Me -->
                 <div class="mb-3 mt-3">

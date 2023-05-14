@@ -61,10 +61,10 @@
                                 <div class="col-6">
                                     <x-label for="apellidos" :value="__('Apellidos')" />
                                     <x-input id="apellidos" type="text" name="apellidos" :value="old('apellidos')" required autofocus />
+                                    @error('apellidos')
+                                      <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                    @enderror
                                 </div>
-                                @error('apellidos')
-                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
-                                @enderror
                               </div>
                           </div>
                           <div class="col-12 mb-3">
@@ -72,17 +72,17 @@
                                 <x-input id="password" type="password"
                                 name="password"
                                 required autocomplete="new-password" />
+                                @error('password')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
                           </div>
-                          @error('password')
-                            <span class="text-danger"><strong>{{ $message }}</strong></span>
-                          @enderror
                           <div class="col-12 mb-3">
                                 <x-label for="direccion" :value="__('Dirección')" />
                                 <x-input id="direccion" type="text" name="direccion" :value="old('direccion')" autofocus />
+                                @error('direccion')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
                           </div>
-                          @error('direccion')
-                            <span class="text-danger"><strong>{{ $message }}</strong></span>
-                          @enderror
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -90,25 +90,25 @@
                             <div class="col-12 mb-3">
                                 <x-label for="email" :value="__('Email')" />
                                 <x-input id="email" type="email" name="email" :value="old('email')" required />
-                            </div>
-                            @error('email')
-                                <span class="text-danger"><strong>{{ $message }}</strong></span>
-                            @enderror
+                                @error('email')
+                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>                            
                             <div class="col-12 mb-3">
                                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
                                 <x-input id="password_confirmation" type="password"
                                 name="password_confirmation" required />
-                            </div>
-                            @error('password_confirmation')
-                                <span class="text-danger"><strong>{{ $message }}</strong></span>
-                            @enderror
+                                @error('password_confirmation')
+                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>                            
                             <div class="col-12 mb-3">
                                 <x-label for="telefono" :value="__('Teléfono')" />
                                 <x-input id="telefono" type="text" name="telefono" :value="old('telefono')" autofocus />
-                            </div>
-                            @error('telefono')
-                                <span class="text-danger"><strong>{{ $message }}</strong></span>
-                            @enderror
+                                @error('telefono')
+                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>                            
                         </div>
                       </div>
                     </div>

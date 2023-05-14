@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $datos = $request->validate([
-            'name' => ['required', 'max:255', 'alpha'],
+            'name' => ['required', 'max:255', 'string'],
             'email' => ['required', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/', 'unique:empleados'],
             'password' => ['required', 'confirmed', Rules\Password::defaults(), 'max:255'],
             'apellidos' => ['required', 'max:255', 'string'],
@@ -77,7 +77,7 @@ class RegisteredUserController extends Controller
     {
         // Validación y creación de la empresa 
         $datosEmpresa = $request->validate([
-            'nombre' => ['required', 'max:255', 'alpha_num'],
+            'nombre' => ['required', 'max:255', 'string'],
             'cif' => ['required', 'max:255', 'regex:/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/', 'unique:empresas'],
             'correo' => ['required', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
             'telefono_empresa' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
@@ -93,7 +93,7 @@ class RegisteredUserController extends Controller
 
         // Validación y creación del administrador
         $datosAdmin = $request->validate([
-            'name' => ['required', 'max:255', 'alpha'],
+            'name' => ['required', 'max:255', 'string'],
             'email' => ['required', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/', 'unique:empleados'],
             'password' => ['required', 'confirmed', Rules\Password::defaults(), 'max:255'],
             'apellidos' => ['required', 'max:255', 'string'],
