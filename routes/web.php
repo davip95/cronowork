@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // TODO cambiar la esta de dashboard por una de home personalizada
-    return view('dashboard');
+    return view('layouts.base');
 })->middleware(['auth'])->name('home');
 
 require __DIR__ . '/auth.php';
