@@ -44,8 +44,8 @@ class RegisteredUserController extends Controller
         ]);
         // Encripto la contraseña para poder utilizar el login de Breeze
         $datos['password'] = Hash::make($request->password);
-        // Añado el tipo empleado
-        $datos['tipo'] = 'empleado';
+        // Añado el tipo usuario, será empleado cuando el admin le de el alta
+        $datos['tipo'] = 'usuario';
         $user = User::create($datos);
 
         event(new Registered($user));

@@ -21,14 +21,16 @@
         <div class="d-flex" id="wrapper">
             {{-- SIDEBAR MENU --}}
             <div class="bg-light" id="sidebar-wrapper">
-                <div class="sidebar-heading text-center py-4 fs-5 fw-bold text-uppercase">
+                <div class="sidebar-heading text-center py-4 fs-5 fw-bold text-uppercase border-bottom">
                     <x-application-icon /> Cronowork
                 </div>
                 <div class="list-group list-group-flush my-3">
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent active">
+                    <a href="{{ route('home') }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">
                         <i class="bi bi-house-fill me-2"></i>Inicio</a>
+                    @if(Auth::user()->tipo != 'usuario')
                     <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold">
                         <i class="bi bi-calendar3 me-2"></i>Fichajes</a>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                     <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
@@ -59,9 +61,14 @@
                                     <i class="bi bi-person-circle me-2" style="-webkit-text-stroke: 0.6px;"></i> {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold">
+                                            <i class="bi bi-power me-2" style="-webkit-text-stroke: 1px;"></i>Salir</a>
+                                        </form>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -70,13 +77,18 @@
 
                 {{-- CONTENIDO --}}
                 <div class="container-fluid px-4">
-                    <h1>Contenido</h1>
+                    @yield('contenido')
                 </div>
-
             </div>
-            
         </div>
 
-        
+        <script>
+            var el = document.getElementById("wrapper");
+            var toggleButton = document.getElementById("menu-toggle");
+    
+            toggleButton.onclick = function () {
+                el.classList.toggle("toggled");
+            };
+        </script>
     </body>
 </html>

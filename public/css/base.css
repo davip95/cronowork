@@ -1,28 +1,5 @@
-:root {
-    --main-bg-color: #00699d;
-    --main-text-color: #00699d;
-    --second-text-color: #bbbec5;
-    --second-bg-color: #c1d3ef;
-}
-
 .primary-text {
-    color: var(--main-text-color);
-}
-
-.second-text {
-    color: var(--second-text-color);
-}
-
-.primary-bg {
-    background-color: var(--main-bg-color);
-}
-
-.secondary-bg {
-    background-color: var(--second-bg-color);
-}
-
-.rounded-full {
-    border-radius: 100%;
+    color: #00699d;
 }
 
 #wrapper {
@@ -67,7 +44,7 @@
 
 .list-group-item.active {
     background-color: transparent;
-    color: var(--main-text-color);
+    color: #00699d !important;
     font-weight: bold;
     border: none;
 }
