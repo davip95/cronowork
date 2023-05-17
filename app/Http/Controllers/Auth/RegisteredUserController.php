@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -107,7 +108,20 @@ class RegisteredUserController extends Controller
         // Asigno la empresa creada al admin
         $datosAdmin['empresas_id'] = $empresa->id;
 
-        $user = User::create($datosAdmin);
+        if (is_null($datosAdmin['telefono'])) {
+            $datosAdmin['telefono'] = DB::raw('NULL');
+        }
+
+        if (is_null($datosAdmin['direccion'])) {
+            $datosAdmin['direccion'] = DB::raw('NULL');
+        }
+
+        // Ejecuto el procedimiento almacenado
+        DB::select('CALL insertarAdmin(:name, :email, :password, :apellidos, :telefono, :direccion, :tipo, :empresas_id)', $datosAdmin);
+        // Obtengo el parámetro de salida
+        $empleadoId = User::max('id');
+        // Obtengo el administrador
+        $user = User::find($empleadoId);
 
         event(new Registered($user));
 
