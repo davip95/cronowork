@@ -17,7 +17,7 @@ class CreateFichajesTable extends Migration
             $table->id();
             $table->string('tipo', 45);
             $table->dateTime('fecha_hora_fichaje');
-            $table->tinyInteger('modificado');
+            $table->boolean('modificado')->nullable();
             $table->unsignedBigInteger('empleados_id');
             $table->unsignedBigInteger('horarios_id');
         });
