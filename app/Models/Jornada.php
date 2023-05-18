@@ -14,8 +14,12 @@ class Jornada extends Model
     protected $fillable = [
         'dia',
         'minutos_descanso',
+        'minutos_descanso_intensiva',
         'hora_inicio',
+        'hora_inicio_intensiva',
         'hora_fin',
+        'hora_fin_intensiva',
+        'horarios_id'
     ];
 
     public $timestamps = false;

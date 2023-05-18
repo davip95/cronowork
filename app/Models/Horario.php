@@ -14,8 +14,9 @@ class Horario extends Model
     protected $table = 'horarios';
     protected $fillable = [
         'descripcion',
-        'fecha_inicio',
-        'fecha_fin',
+        'fecha_inicio_intensivo',
+        'fecha_fin_intensivo',
+        'empresas_id'
     ];
 
     public $timestamps = false;

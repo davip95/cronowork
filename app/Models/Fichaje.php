@@ -16,6 +16,8 @@ class Fichaje extends Model
         'tipo',
         'fecha_hora_fichaje',
         'modificado',
+        'empleados_id',
+        'horarios_id'
     ];
 
     public $timestamps = false;

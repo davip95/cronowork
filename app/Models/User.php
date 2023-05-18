@@ -29,7 +29,6 @@ class User extends Authenticatable
         'apellidos',
         'telefono',
         'direccion',
-        'fecha_nacimiento',
         'horarios_id',
         'empresas_id'
     ];

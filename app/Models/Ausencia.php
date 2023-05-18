@@ -17,7 +17,8 @@ class Ausencia extends Model
         'fecha_inicio',
         'fecha_fin',
         'aceptada',
-        'motivos'
+        'motivos',
+        'empleados_id'
     ];
 
     public $timestamps = false;
