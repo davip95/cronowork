@@ -17,8 +17,11 @@ class CreateJornadasTable extends Migration
             $table->id();
             $table->string('dia', 1);
             $table->integer('minutos_descanso');
+            $table->integer('minutos_descanso_intensiva')->nullable();
             $table->time('hora_inicio');
+            $table->time('hora_inicio_intensiva')->nullable();
             $table->time('hora_fin');
+            $table->time('hora_fin_intensiva')->nullable();
             $table->unsignedBigInteger('horarios_id');
         });
     }
