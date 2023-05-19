@@ -20,6 +20,7 @@ class CreateEmpresasTable extends Migration
             $table->string('correo');
             $table->string('direccion')->nullable();
             $table->string('telefono', 45)->nullable();
+            $table->softDeletes();
         });
     }
 

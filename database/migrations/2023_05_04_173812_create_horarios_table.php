@@ -18,6 +18,7 @@ class CreateHorariosTable extends Migration
             $table->string('descripcion');
             $table->date('fecha_inicio_intensivo')->nullable();
             $table->date('fecha_fin_intensivo')->nullable();
+            $table->softDeletes();
             $table->unsignedBigInteger('empresas_id');
         });
     }

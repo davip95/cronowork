@@ -22,6 +22,7 @@ class CreateJornadasTable extends Migration
             $table->time('hora_inicio_intensiva')->nullable();
             $table->time('hora_fin');
             $table->time('hora_fin_intensiva')->nullable();
+            $table->softDeletes();
             $table->unsignedBigInteger('horarios_id');
         });
     }

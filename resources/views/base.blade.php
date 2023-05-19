@@ -43,18 +43,20 @@
 
             <div id="page-content-wrapper">
                 {{-- CABECERA --}}
-                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent pt-4 px-4">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-layout-sidebar-inset primary-text fs-4 me-3" id="menu-toggle"></i>
-                        <h2 class="fs-2 m-0">Panel</h2>
+                        <i class="bi bi-layout-sidebar-inset primary-text fs-4 me-2" id="menu-toggle"></i>
+                        @if(Auth::user()->empresas_id)
+                            <h2 class="fs-4 m-0 d-none d-md-block">{{Auth::user()->empresas->nombre}}</h2>
+                        @endif
                     </div>
 
                     <div class="btn-group ms-auto mb-0">
-                    <button type="button" class="btn btn-outline-dark dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle me-2" style="-webkit-text-stroke: 0.6px;"></i> {{ Auth::user()->name }}
+                    <button type="button" class="btn btn-outline-dark btn-sm fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
+                        {{-- <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li> --}}
                         <li><a class="dropdown-item" href="#">Perfil</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
