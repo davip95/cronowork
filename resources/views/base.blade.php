@@ -49,31 +49,23 @@
                         <h2 class="fs-2 m-0">Panel</h2>
                     </div>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <div class="btn-group ms-auto mb-0">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle me-2" style="-webkit-text-stroke: 0.6px;"></i> {{ Auth::user()->name }}
                     </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark-50 fw-bold" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle me-2" style="-webkit-text-stroke: 0.6px;"></i> {{ Auth::user()->name }}
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold">
+                                    <i class="bi bi-power me-2" style="-webkit-text-stroke: 1px;"></i>Salir
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
-                                    <li>
-                                        <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold">
-                                            <i class="bi bi-power me-2" style="-webkit-text-stroke: 1px;"></i>Salir</a>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                            </form>
+                        </li>
+                    </ul>
                     </div>
                 </nav>
 
