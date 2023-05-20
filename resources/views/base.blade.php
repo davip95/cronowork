@@ -43,12 +43,27 @@
 
             <div id="page-content-wrapper">
                 {{-- CABECERA --}}
-                <nav class="navbar navbar-expand-lg navbar-light bg-transparent pt-4 px-4">
-                    <div class="d-flex align-items-center">
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                    <div class="d-flex align-items-center mr-2">
                         <i class="bi bi-layout-sidebar-inset primary-text fs-4 me-2" id="menu-toggle"></i>
                         @if(Auth::user()->empresas_id)
-                            <h2 class="fs-4 m-0 d-none d-md-block">{{Auth::user()->empresas->nombre}}</h2>
+                            <h2 class="fs-4 m-0 d-none d-lg-block me-4">{{Auth::user()->empresas->nombre}}</h2>
                         @endif
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2 ms-auto">
+                        @php
+                            setlocale(LC_TIME, config('app.locale')); 
+                        @endphp 
+                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ now()->formatLocalized('%d de %B de %Y') }}</h2>
+                        {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
+                        <a role="button" href="#" class="btn btn-outline-dark bg-success btn-sm">
+                            <i class="bi bi-box-arrow-in-right me-2"></i><span class="fw-bold">Fichar Entrada</span>
+                        </a>
+                        {{-- AQUI EL ELSE DE LA LÓGICA (DESCOMENTAR BOTON DE ABAJO) --}}
+                        {{-- <a role="button" href="#"  class="btn btn-outline-dark bg-danger btn-sm ml-2">
+                            <i class="bi bi-box-arrow-left me-2"></i> <span class="fw-bold">Fichar Salida</span>
+                        </a> --}}
                     </div>
 
                     <div class="btn-group ms-auto mb-0">
@@ -56,9 +71,10 @@
                         <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        {{-- <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li> --}}
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
