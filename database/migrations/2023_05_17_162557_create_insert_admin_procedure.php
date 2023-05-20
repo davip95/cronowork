@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateInsertAdminProcedure extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        $procedure = "DROP PROCEDURE IF EXISTS `insertarAdmin`;
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    $procedure = "DROP PROCEDURE IF EXISTS `insertarAdmin`;
         CREATE PROCEDURE `insertarAdmin`(
             IN p_name VARCHAR(255),
             IN p_email VARCHAR(191),
@@ -22,23 +22,25 @@ class CreateInsertAdminProcedure extends Migration
             IN p_apellidos VARCHAR(255),
             IN p_telefono VARCHAR(45),
             IN p_direccion VARCHAR(255),
+            IN p_codpostal INT(11),
             IN p_tipo VARCHAR(45),
+            IN p_fecha_alta DATE,
             IN p_empresas_id INT
           )
           BEGIN
-            INSERT INTO empleados (name, email, password, apellidos, telefono, direccion, tipo, empresas_id)
-            VALUES (p_name, p_email, p_password, p_apellidos, p_telefono, p_direccion, p_tipo, p_empresas_id);
+            INSERT INTO empleados (name, email, password, apellidos, telefono, direccion, codpostal, tipo, fecha_alta, empresas_id)
+            VALUES (p_name, p_email, p_password, p_apellidos, p_telefono, p_direccion, p_codpostal, p_tipo, p_fecha_alta, p_empresas_id);
           END;";
 
-        DB::unprepared($procedure);
-    }
+    DB::unprepared($procedure);
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+  }
 }

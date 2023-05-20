@@ -120,6 +120,14 @@
                             <span class="text-danger"><strong>{{ $message }}</strong></span>
                           @enderror
                           </div>
+
+                          <div class="col-12 mb-3">
+                            <x-label for="codpostal" :value="__('Código Postal')" />
+                            <x-input id="codpostal" type="text" name="codpostal" :value="old('codpostal')" autofocus />
+                            @error('codpostal')
+                              <span class="text-danger"><strong>{{ $message }}</strong></span>
+                            @enderror
+                          </div> 
                           
                         </div>
                       </div>
@@ -168,6 +176,14 @@
                                 <span class="text-danger"><strong>{{ $message }}</strong></span>
                               @enderror
                               </div>
+
+                              <div class="col-12 mb-3">
+                                <x-label for="codigo_postal" :value="__('Código Postal Empresa')" />
+                                <x-input id="codigo_postal" type="text" name="codigo_postal" :value="old('codigo_postal')" autofocus />
+                                @error('codigo_postal')
+                                  <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
+                              </div> 
                               
                         </div>
                       </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Empresa;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,7 @@ class RegisteredUserController extends Controller
             'apellidos' => ['required', 'max:255', 'string'],
             'telefono' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
             'direccion' => ['nullable', 'max:255', 'string'],
+            'codpostal' => ['nullable', 'max:45', 'regex:/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/'],
         ]);
         // Encripto la contraseña para poder utilizar el login de Breeze
         $datos['password'] = Hash::make($request->password);
@@ -83,6 +85,7 @@ class RegisteredUserController extends Controller
             'correo' => ['required', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
             'telefono_empresa' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
             'direccion_empresa' => ['nullable', 'max:255', 'string'],
+            'codigo_postal' => ['nullable', 'max:45', 'regex:/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/'],
         ]);
         // Cambio el nombre de las claves 'telefono_empresa' y 'direccion_empresa'
         $datosEmpresa['telefono'] = $datosEmpresa['telefono_empresa'];
@@ -100,6 +103,7 @@ class RegisteredUserController extends Controller
             'apellidos' => ['required', 'max:255', 'string'],
             'telefono' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
             'direccion' => ['nullable', 'max:255', 'string'],
+            'codpostal' => ['nullable', 'max:45', 'regex:/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/'],
         ]);
         // Encripto la contraseña para poder utilizar el login de Breeze
         $datosAdmin['password'] = Hash::make($request->password);
@@ -107,6 +111,8 @@ class RegisteredUserController extends Controller
         $datosAdmin['tipo'] = 'admin';
         // Asigno la empresa creada al admin
         $datosAdmin['empresas_id'] = $empresa->id;
+        // Asigno la fecha de alta al admin
+        $datosAdmin['fecha_alta'] = Carbon::now()->toDateString();
 
         if (is_null($datosAdmin['telefono'])) {
             $datosAdmin['telefono'] = DB::raw('NULL');
@@ -116,8 +122,12 @@ class RegisteredUserController extends Controller
             $datosAdmin['direccion'] = DB::raw('NULL');
         }
 
+        if (is_null($datosAdmin['codpostal'])) {
+            $datosAdmin['codpostal'] = DB::raw('NULL');
+        }
+
         // Ejecuto el procedimiento almacenado
-        DB::select('CALL insertarAdmin(:name, :email, :password, :apellidos, :telefono, :direccion, :tipo, :empresas_id)', $datosAdmin);
+        DB::select('CALL insertarAdmin(:name, :email, :password, :apellidos, :telefono, :direccion, :codpostal, :tipo, :fecha_alta, :empresas_id)', $datosAdmin);
         // Obtengo el parámetro de salida
         $empleadoId = User::max('id');
         // Obtengo el administrador

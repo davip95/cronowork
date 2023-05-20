@@ -10,7 +10,6 @@ class Empresa extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $dates = ['fecha_alta'];
     protected $table = 'empresas';
     protected $fillable = [
         'nombre',
@@ -18,6 +17,7 @@ class Empresa extends Model
         'correo',
         'direccion',
         'telefono',
+        'codigo_postal'
     ];
 
     public $timestamps = false;

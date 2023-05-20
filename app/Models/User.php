@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $dates = ['fecha_nacimiento', 'fecha_alta'];
+    protected $dates = ['fecha_alta'];
 
     protected $table = 'empleados';
 
@@ -29,6 +29,8 @@ class User extends Authenticatable
         'apellidos',
         'telefono',
         'direccion',
+        'codpostal',
+        'fecha_alta',
         'horarios_id',
         'empresas_id'
     ];
