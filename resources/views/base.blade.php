@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/usuarios/inicio.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
         <!-- Scripts -->
@@ -24,7 +25,7 @@
             {{-- SIDEBAR MENU --}}
             <div class="bg-light" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center py-4 fs-5 fw-bold text-uppercase border-bottom">
-                    <x-application-icon /> Cronowork
+                    <x-application-icon /> <span>Cronowork</span> <i class="bi bi-layout-sidebar-inset-reverse fs-4" id="menu-toggle-sidebar"></i>
                 </div>
                 <div class="list-group list-group-flush my-3">
                     <a href="{{ route('home') }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">
@@ -57,20 +58,22 @@
                         @endphp 
                         <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ now()->formatLocalized('%d de %B de %Y') }}</h2>
                         {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
+                        @if(!is_null(auth()->user()->empresas_id))
                         <a role="button" href="#" class="btn btn-outline-dark bg-success btn-sm">
                             <i class="bi bi-box-arrow-in-right me-2"></i><span class="fw-bold">Fichar Entrada</span>
                         </a>
+                        @endif
                         {{-- AQUI EL ELSE DE LA LÓGICA (DESCOMENTAR BOTON DE ABAJO) --}}
                         {{-- <a role="button" href="#"  class="btn btn-outline-dark bg-danger btn-sm ml-2">
                             <i class="bi bi-box-arrow-left me-2"></i> <span class="fw-bold">Fichar Salida</span>
                         </a> --}}
                     </div>
 
-                    <div class="btn-group ms-auto mb-0">
-                    <button type="button" class="btn btn-outline-dark btn-sm fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="btn-group ms-auto mb-0 mt-1">
+                    <button type="button" class="btn btn-outline-dark btn-sm fw-bold dropdown-toggle mb-1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end m-0">
                         <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Perfil</a></li>
@@ -97,8 +100,12 @@
         <script>
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
+            var toggleButtonSidebar = document.getElementById("menu-toggle-sidebar");
     
             toggleButton.onclick = function () {
+                el.classList.toggle("toggled");
+            };
+            toggleButtonSidebar.onclick = function () {
                 el.classList.toggle("toggled");
             };
         </script>

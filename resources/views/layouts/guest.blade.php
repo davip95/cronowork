@@ -14,6 +14,9 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
         <style>
+            ::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
             html{ 
                 background-image: url(" {{ asset('imgs/fondo.jpg') }}") !important;
                 background-position: center center;

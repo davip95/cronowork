@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('contenidoPrueba');
+    return view('usuarios.inicio');
 })->middleware(['auth'])->name('home');
 
 require __DIR__ . '/auth.php';

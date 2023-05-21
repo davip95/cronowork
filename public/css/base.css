@@ -1,3 +1,9 @@
+/* BREADCRUMB */
+.breadcrumb a {
+    color: royalblue;
+}
+
+/* FIN BREADCRUMB */
 .primary-text {
     color: #00699d;
 }
@@ -15,6 +21,11 @@
     -o-transition: margin 0.25s ease-out;
     transition: margin 0.25s ease-out;
 }
+
+/* .sidebar-heading {
+    padding-top: 1.5em !important;
+    padding-bottom: 1.5em !important;
+} */
 
 #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;
@@ -35,6 +46,11 @@
 
 #menu-toggle {
     cursor: pointer;
+}
+
+#menu-toggle-sidebar {
+    cursor: pointer;
+    margin-left: 30px;
 }
 
 .list-group-item {
@@ -61,5 +77,12 @@
 
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
+    }
+}
+
+@media (max-width: 300px) {
+    #menu-toggle-sidebar {
+        cursor: pointer;
+        margin-left: 0;
     }
 }
