@@ -34,6 +34,8 @@
                     <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold">
                         <i class="bi bi-calendar3 me-2"></i>Fichajes</a>
                     @endif
+                </div>
+                <div class="logout-sidebar m-0 p-0">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                     <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
@@ -76,8 +78,9 @@
                     <ul class="dropdown-menu dropdown-menu-end m-0">
                         <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
                         <li><hr class="dropdown-divider"></li>
+                        @if(Auth::user()->tipo != 'usuario')
                         <li><a class="dropdown-item" href="#">Perfil</a></li>
-                        
+                        @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

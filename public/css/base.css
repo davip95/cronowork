@@ -44,6 +44,16 @@
     margin-left: 0;
 }
 
+.logout-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#wrapper.toggled .logout-sidebar {
+    display: none;
+}
+
 #menu-toggle {
     cursor: pointer;
 }
@@ -82,7 +92,6 @@
 
 @media (max-width: 300px) {
     #menu-toggle-sidebar {
-        cursor: pointer;
         margin-left: 0;
     }
 }

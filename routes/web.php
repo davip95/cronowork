@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,8 @@ Route::get('/', function () {
 })->middleware(['auth'])->name('home');
 
 require __DIR__ . '/auth.php';
+
+// Route::controller(UserController::class)->group(function () {
+
+// });
+Route::resource('usuarios', UserController::class)->only(['show', 'edit', 'update', 'destroy']);
