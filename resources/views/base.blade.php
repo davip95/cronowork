@@ -34,8 +34,6 @@
                     <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold">
                         <i class="bi bi-calendar3 me-2"></i>Fichajes</a>
                     @endif
-                </div>
-                <div class="logout-sidebar m-0 p-0">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                     <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
