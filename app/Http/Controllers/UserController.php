@@ -7,17 +7,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Muestra datos de usuario sin empresa.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Muestra formulario para editar datos personales del usuario.
      *
      * @param  int  $id
@@ -47,6 +36,17 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        //
+    }
+
+    /**
+     * Muestra el formulario para borrar (soft delete) el usuario sin empresa.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function borrar($id)
     {
         //
     }

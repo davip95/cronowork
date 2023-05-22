@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PersonalMiddleware
+class UsuarioMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,11 @@ class PersonalMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            $userId = Auth::id(); // Obtiene el ID del usuario autenticado
-
+        if (Auth::check() && $request->route()->hasParameter('usuario')) {
+            // Obtiene el ID del usuario autenticado
+            $userId = Auth::id();
             // Obtén el ID del usuario de la ruta
-            $routeUsertId = $request->route('empleado');
+            $routeUsertId = $request->route('usuario');
 
             // Verifica si el usuario autenticado está intentando acceder a sus propios datos
             if ($userId == $routeUsertId) {

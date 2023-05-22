@@ -22,7 +22,7 @@ class EmpresaMiddleware
             $empresaId = Auth::user()->empresas_id;
 
             // Verifica si el usuario tiene una empresa asignada y si coincide con la empresa de los datos de la ruta si es que existe en la ruta
-            if ($empresaId != null && $request->route()->hasParameter('empresaId') && $empresaId == $request->route('empresa')) {
+            if ($empresaId != null && $request->route()->hasParameter('empresa') && $empresaId == $request->route('empresa')) {
                 return $next($request);
             } else {
                 return redirect()->action([AuthenticatedSessionController::class, 'destroy']);

@@ -19,7 +19,14 @@ Route::get('/', [AuthenticatedSessionController::class, 'redireccionaInicio'])->
 
 require __DIR__ . '/auth.php';
 
-// Route::controller(UserController::class)->group(function () {
-
-// });
-Route::resource('usuarios', UserController::class)->only(['show', 'edit', 'update', 'destroy']);
+Route::controller(UserController::class)->group(function () {
+    Route::get('/empresas/{empresa}/empleados/admin/listar', 'listarEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.listarEmpleados');
+    Route::post('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'asignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.asignarHorario');
+    Route::get('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
+    Route::post('/empresas/admin/alta', 'guardarAlta')->middleware(['auth', 'admin'])->name('admin.guardarAlta');
+    Route::get('/empresas/admin/alta', 'crearAlta')->middleware(['auth', 'admin'])->name('admin.crearAlta');
+    Route::post('/empresas/admin/baja', 'guardarBaja')->middleware(['auth', 'admin'])->name('admin.guardarBaja');
+    Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
+    Route::get('/usuarios/{usuario}/borrar', 'borrar')->middleware(['auth', 'usuario'])->name('usuario.borrar');
+});
+Route::resource('usuarios', UserController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'usuario']);
