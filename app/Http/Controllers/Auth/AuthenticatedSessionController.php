@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,10 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return redirect()->intended(RouteServiceProvider::HOME);
-        return redirect('/');
-        // Otra opción: enviar a una vista de listado que compartan todos los usuarios o cambiar la vista de HOME
-        // por ejemplo: return redirect()->action([TareasCtrl::class, 'index']);
+        return redirect()->action([AuthenticatedSessionController::class, 'redireccionaInicio']);
     }
 
     /**
@@ -53,5 +51,27 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    /**
+     * Redirecciona a la vista de inicio que corresponda según el tipo de usuario.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function redireccionaInicio()
+    {
+        switch (Auth::user()->tipo) {
+            case "usuario":
+                return view('usuarios.inicioUsuario');
+                break;
+            case "empleado":
+                return view('empleados.inicioEmpleado');
+                break;
+            case "admin":
+                return view('admins.inicioAdmin');
+                break;
+            default:
+                return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+        }
     }
 }
