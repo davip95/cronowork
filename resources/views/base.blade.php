@@ -16,9 +16,10 @@
         <link rel="stylesheet" href="{{ asset('css/scroll.css') }}">
         <link rel="stylesheet" href="{{ asset('css/usuarios/inicio.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+        
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     </head>
     <body class="font-sans antialiased bg-light">
         <div class="d-flex" id="wrapper">
@@ -74,7 +75,8 @@
                         <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end m-0">
-                        <li><h6 class="dropdown-header">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
+                        <li><h6 class="dropdown-header text-center d-none d-md-block">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
+                        <li><h6 class="dropdown-header text-center d-md-none">{{ strtoupper(Auth::user()->name) }}</h6></li>
                         <li><hr class="dropdown-divider"></li>
                         @if(Auth::user()->tipo != 'usuario')
                         <li><a class="dropdown-item" href="#">Perfil</a></li>
