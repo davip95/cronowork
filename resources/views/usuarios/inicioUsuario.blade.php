@@ -117,9 +117,9 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-12 text-center">
-                        <a role="button" href="#" class="btn btn-outline-dark bg-warning btn-sm">
+                        <button type="button" class="btn btn-outline-dark bg-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             <i class="bi bi-pencil-fill me-2"></i><span class="fw-bold">Editar Datos</span>
-                        </a>
+                        </button>
                     </div>
                   </div>
                 </div>
@@ -129,7 +129,9 @@
           <div class="row">
             <div class="col-12">
               <div id="app">
-                <example-component></example-component>
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                  <edit-modal></edit-modal>
+                </div>
               </div>
             </div>
           </div>

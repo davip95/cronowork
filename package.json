@@ -14,7 +14,7 @@
         "@tailwindcss/forms": "^0.4.0",
         "alpinejs": "^3.2.6",
         "autoprefixer": "^10.4.2",
-        "axios": "^0.21",
+        "axios": "^0.21.4",
         "bootstrap": "^5.1.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
@@ -28,6 +28,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "bootstrap-icons": "^1.10.5"
+        "bootstrap-icons": "^1.10.5",
+        "vform": "^2.1.2"
     }
 }
