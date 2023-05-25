@@ -8878,7 +8878,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getUser: function getUser() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
+        var _response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -8886,8 +8886,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/usuarios/".concat(_this.user.id, "/edit"));
             case 3:
-              response = _context.sent;
-              _this.usuario = response.data;
+              _response = _context.sent;
+              _this.usuario = _response.data;
               _context.next = 11;
               break;
             case 7:
@@ -8910,21 +8910,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return _this2.form.put("usuarios/".concat(_this2.user.id));
+              return _this2.form.put("usuarios/3");
             case 3:
+              if (response.status === 405) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              }
               _this2.getUser();
               document.getElementById("close").click();
-              _context2.next = 10;
+              _context2.next = 12;
               break;
-            case 7:
-              _context2.prev = 7;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
               console.error(_context2.t0);
-            case 10:
+              if (_context2.t0.response && _context2.t0.response.status === 405) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              }
+            case 12:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 8]]);
       }))();
     }
   }

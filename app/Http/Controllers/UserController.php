@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 class UserController extends Controller
 {
@@ -31,6 +33,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // if ($id != Auth::user()->id) {
+        //     return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+        // }
         $datos = $request->validate([
             'name' => ['nullable', 'max:255', 'string'],
             'email' => ['nullable', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/', Rule::unique('empleados')->ignore($id)],
