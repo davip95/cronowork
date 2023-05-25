@@ -8806,6 +8806,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8818,6 +8862,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
         name: this.user.name,
         email: this.user.email,
+        password: null,
+        password_confirmation: null,
         apellidos: this.user.apellidos,
         telefono: this.user.telefono,
         direccion: this.user.direccion,
@@ -33527,6 +33573,113 @@ var render = function () {
                                           {
                                             name: "model",
                                             rawName: "v-model",
+                                            value: _vm.form.password,
+                                            expression: "form.password",
+                                          },
+                                        ],
+                                        staticClass: "form-control",
+                                        class: {
+                                          "is-invalid":
+                                            _vm.form.errors.has("password"),
+                                        },
+                                        attrs: {
+                                          type: "password",
+                                          name: "password",
+                                        },
+                                        domProps: { value: _vm.form.password },
+                                        on: {
+                                          input: function ($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.form,
+                                              "password",
+                                              $event.target.value
+                                            )
+                                          },
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("has-error", {
+                                        attrs: {
+                                          form: _vm.form,
+                                          field: "password",
+                                        },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mb-3" }, [
+                                  _vm._m(14),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-sm-9 text-secondary" },
+                                    [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.form.password_confirmation,
+                                            expression:
+                                              "form.password_confirmation",
+                                          },
+                                        ],
+                                        staticClass: "form-control",
+                                        class: {
+                                          "is-invalid": _vm.form.errors.has(
+                                            "password_confirmation"
+                                          ),
+                                        },
+                                        attrs: {
+                                          type: "password",
+                                          name: "password_confirmation",
+                                        },
+                                        domProps: {
+                                          value: _vm.form.password_confirmation,
+                                        },
+                                        on: {
+                                          input: function ($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.form,
+                                              "password_confirmation",
+                                              $event.target.value
+                                            )
+                                          },
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("has-error", {
+                                        attrs: {
+                                          form: _vm.form,
+                                          field: "password_confirmation",
+                                        },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mb-3" }, [
+                                  _vm._m(15),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-sm-9 text-secondary" },
+                                    [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
                                             value: _vm.form.telefono,
                                             expression: "form.telefono",
                                           },
@@ -33567,7 +33720,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(14),
+                                  _vm._m(16),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -33618,7 +33771,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(15),
+                                  _vm._m(17),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -33668,7 +33821,7 @@ var render = function () {
                                   ),
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(16),
+                                _vm._m(18),
                               ]
                             )
                           : _vm._e(),
@@ -33767,7 +33920,13 @@ var staticRenderFns = [
           },
           [
             _c("i", { staticClass: "bi bi-pencil-fill me-2" }),
-            _c("span", { staticClass: "fw-bold" }, [_vm._v("Editar Datos")]),
+            _c("span", { staticClass: "fw-bold" }, [_vm._v("Editar Datos /")]),
+            _vm._v(" "),
+            _c("i", { staticClass: "bi bi-key-fill" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "fw-bold" }, [
+              _vm._v("Cambiar Contraseña"),
+            ]),
           ]
         ),
       ]),
@@ -33832,6 +33991,22 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-sm-3 d-flex justify-content-end" }, [
       _c("h6", { staticClass: "mb-0" }, [_vm._v("Correo")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3 d-flex justify-content-end" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Contraseña")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3 d-flex justify-content-end" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Repita Contraseña")]),
     ])
   },
   function () {

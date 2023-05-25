@@ -31,20 +31,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        // $userEmail = User::find($id)->email;
-        // // Pongo vacío el email del array para no validarlo y eliminarlo luego si es el mismo ya que daría error al existir y ser un campo unique
-        // if ($userEmail == $request->email) {
-        //     $request['email'] = '';
-        // }
         $datos = $request->validate([
             'name' => ['nullable', 'max:255', 'string'],
             'email' => ['nullable', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/', Rule::unique('empleados')->ignore($id)],
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults(), 'max:255'],
             'apellidos' => ['nullable', 'max:255', 'string'],
             'telefono' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
             'direccion' => ['nullable', 'max:255', 'string'],
             'codpostal' => ['nullable', 'max:45', 'regex:/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/'],
         ]);
+        if (!empty($datos['password'])) {
+            $datos['password'] = Hash::make($request->password);
+        }
         // Convertir los strings vacíos a null
         foreach ($datos as $key => $value) {
             if (is_string($value) && $value === '') {

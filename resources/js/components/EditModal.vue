@@ -113,7 +113,9 @@
                     data-bs-target="#staticBackdrop"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
-                    ><span class="fw-bold">Editar Datos</span>
+                    ><span class="fw-bold">Editar Datos /</span>
+                    <i class="bi bi-key-fill"></i>
+                    <span class="fw-bold">Cambiar Contraseña</span>
                   </button>
                 </div>
               </div>
@@ -247,6 +249,48 @@
                         </div>
                         <div class="row mb-3">
                           <div class="col-sm-3 d-flex justify-content-end">
+                            <h6 class="mb-0">Contraseña</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            <input
+                              v-model="form.password"
+                              type="password"
+                              name="password"
+                              class="form-control"
+                              :class="{
+                                'is-invalid': form.errors.has('password'),
+                              }"
+                            />
+                            <has-error
+                              :form="form"
+                              field="password"
+                            ></has-error>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-sm-3 d-flex justify-content-end">
+                            <h6 class="mb-0">Repita Contraseña</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            <input
+                              v-model="form.password_confirmation"
+                              type="password"
+                              name="password_confirmation"
+                              class="form-control"
+                              :class="{
+                                'is-invalid': form.errors.has(
+                                  'password_confirmation'
+                                ),
+                              }"
+                            />
+                            <has-error
+                              :form="form"
+                              field="password_confirmation"
+                            ></has-error>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Teléfono</h6>
                           </div>
                           <div class="col-sm-9 text-secondary">
@@ -349,6 +393,8 @@ export default {
       form: new Form({
         name: this.user.name,
         email: this.user.email,
+        password: null,
+        password_confirmation: null,
         apellidos: this.user.apellidos,
         telefono: this.user.telefono,
         direccion: this.user.direccion,
