@@ -22,7 +22,7 @@
                   />
                 </svg>
                 <div class="my-3">
-                  <h4 class="mb-4">{{ user.name }}</h4>
+                  <h4 class="mb-4">{{ usuario.name }}</h4>
                   <a role="button" href="#" class="btn btn-danger btn-sm">
                     <i class="bi bi-person-x-fill me-2"></i
                     ><span class="fw-bold">Borrar Cuenta</span>
@@ -42,7 +42,7 @@
                   <h6 class="mb-0">Nombre</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{ user.name }} {{ user.apellidos }}
+                  {{ usuario.name }} {{ usuario.apellidos }}
                 </div>
               </div>
               <hr />
@@ -51,7 +51,7 @@
                   <h6 class="mb-0">Correo</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{ user.email }}
+                  {{ usuario.email }}
                 </div>
               </div>
               <hr />
@@ -60,7 +60,7 @@
                   <h6 class="mb-0">Rol</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{ user.tipo }}
+                  {{ usuario.tipo }}
                 </div>
               </div>
               <hr />
@@ -70,8 +70,10 @@
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <span
-                    v-if="user.telefono && user.telefono.trim().length !== 0"
-                    >{{ user.telefono }}</span
+                    v-if="
+                      usuario.telefono && usuario.telefono.trim().length !== 0
+                    "
+                    >{{ usuario.telefono }}</span
                   >
                   <span v-else>-</span>
                 </div>
@@ -83,8 +85,10 @@
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <span
-                    v-if="user.direccion && user.direccion.trim().length !== 0"
-                    >{{ user.direccion }}</span
+                    v-if="
+                      usuario.direccion && usuario.direccion.trim().length !== 0
+                    "
+                    >{{ usuario.direccion }}</span
                   >
                   <span v-else>-</span>
                 </div>
@@ -95,7 +99,7 @@
                   <h6 class="mb-0">Código Postal</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <span v-if="user.codpostal">{{ user.codpostal }}</span>
+                  <span v-if="usuario.codpostal">{{ usuario.codpostal }}</span>
                   <span v-else>-</span>
                 </div>
               </div>
@@ -107,7 +111,6 @@
                     class="btn btn-outline-dark bg-warning btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop"
-                    @click="getUser"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
                     ><span class="fw-bold">Editar Datos</span>
@@ -141,10 +144,55 @@
                         class="btn-close align-self-end"
                         data-bs-dismiss="modal"
                         aria-label="Close"
+                        id="close"
                       ></button>
                     </div>
                     <div class="card-body">
-                      <form @submit.prevent="editUser">
+                      <div class="row mb-3">
+                        <div
+                          class="alert alert-secondary d-inline-block w-auto mx-auto"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: none"
+                          >
+                            <symbol
+                              id="info-fill"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+                              />
+                            </symbol>
+                          </svg>
+                          <svg
+                            class="bi flex-shrink-0 me-2"
+                            width="24"
+                            height="24"
+                            role="img"
+                            aria-label="Info:"
+                          >
+                            <use xlink:href="#info-fill" />
+                          </svg>
+                          <span>Los campos vacíos no se modificarán.</span>
+                        </div>
+                      </div>
+                      <div class="row mb-1">
+                        <div
+                          class="alert alert-danger d-inline-block w-auto mx-auto"
+                          v-if="errorGetUser"
+                        >
+                          <span
+                            ><strong>Error</strong> No se pudo obtener los datos
+                            del usuario.</span
+                          >
+                        </div>
+                      </div>
+                      <form
+                        @submit.prevent="editUser"
+                        v-if="errorGetUser == false"
+                      >
                         <div class="row mb-3">
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Nombre</h6>
@@ -195,48 +243,6 @@
                               }"
                             />
                             <has-error :form="form" field="email"></has-error>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <div class="col-sm-3 d-flex justify-content-end">
-                            <h6 class="mb-0">Contraseña</h6>
-                          </div>
-                          <div class="col-sm-9 text-secondary">
-                            <input
-                              v-model="form.password"
-                              type="password"
-                              name="password"
-                              class="form-control"
-                              :class="{
-                                'is-invalid': form.errors.has('password'),
-                              }"
-                            />
-                            <has-error
-                              :form="form"
-                              field="password"
-                            ></has-error>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <div class="col-sm-3 d-flex justify-content-end">
-                            <h6 class="mb-0">Repita Contraseña</h6>
-                          </div>
-                          <div class="col-sm-9 text-secondary">
-                            <input
-                              v-model="form.password_confirmation"
-                              type="password"
-                              name="password_confirmation"
-                              class="form-control"
-                              :class="{
-                                'is-invalid': form.errors.has(
-                                  'password_confirmation'
-                                ),
-                              }"
-                            />
-                            <has-error
-                              :form="form"
-                              field="password_confirmation"
-                            ></has-error>
                           </div>
                         </div>
                         <div class="row mb-3">
@@ -306,12 +312,12 @@
                           <div
                             class="col-sm-9 text-secondary d-flex justify-content-between"
                           >
-                            <button type="button" class="btn btn-primary px-4">
+                            <button type="submit" class="btn btn-dark px-4">
                               Editar
                             </button>
                             <button
                               type="button"
-                              class="btn btn-danger align-self-end"
+                              class="btn btn-secondary align-self-end"
                               data-bs-dismiss="modal"
                             >
                               Cancelar
@@ -338,12 +344,11 @@ export default {
   props: ["user"],
   data() {
     return {
+      errorGetUser: false,
       usuario: {},
       form: new Form({
         name: this.user.name,
         email: this.user.email,
-        password: "",
-        password_confirmation: "",
         apellidos: this.user.apellidos,
         telefono: this.user.telefono,
         direccion: this.user.direccion,
@@ -351,20 +356,27 @@ export default {
       }),
     };
   },
-  // mounted() {
-  //   this.getUser();
-  // },
+  mounted() {
+    this.getUser();
+  },
   methods: {
     async getUser() {
       try {
         const response = await axios.get(`/usuarios/${this.user.id}/edit`);
         this.usuario = response.data;
       } catch (error) {
+        this.errorGetUser = true;
         console.error(error);
       }
     },
-    editUser() {
-      this.form.put("usuarios/2");
+    async editUser() {
+      try {
+        await this.form.put(`usuarios/${this.user.id}`);
+        this.getUser();
+        document.getElementById("close").click();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
