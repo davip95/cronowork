@@ -20,6 +20,14 @@ class AdminMiddleware
     {
         if (Auth::check() && Auth::user()->tipo == 'admin')
             return $next($request);
-        return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+        else {
+            if ($request->ajax()) {
+                Auth::logout();
+                return response()->json(['error' => 'Acceso prohibido'], 403);
+            } else {
+                //return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                return redirect()->route('exit');
+            }
+        }
     }
 }

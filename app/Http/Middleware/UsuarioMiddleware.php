@@ -28,13 +28,22 @@ class UsuarioMiddleware
             if ($userId == $routeUsertId) {
                 return $next($request);
             } else {
-                Auth::logout(); // Cierra la sesión
-                return redirect()->route('login'); // Redirige al login
-                // return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                if ($request->ajax()) {
+                    Auth::logout();
+                    return response()->json(['error' => 'Acceso prohibido'], 403);
+                } else {
+                    //return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                    return redirect()->route('exit');
+                }
+            }
+        } else {
+            if ($request->ajax()) {
+                Auth::logout();
+                return response()->json(['error' => 'Acceso prohibido'], 403);
+            } else {
+                //return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                return redirect()->route('exit');
             }
         }
-        Auth::logout(); // Cierra la sesión
-        return redirect()->route('login'); // Redirige al login
-        // return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
     }
 }

@@ -26,9 +26,22 @@ class EmpresaMiddleware
             if ($empresaId != null && $request->route()->hasParameter('empresa') && $empresaId == $request->route('empresa')) {
                 return $next($request);
             } else {
-                return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                if ($request->ajax()) {
+                    Auth::logout();
+                    return response()->json(['error' => 'Acceso prohibido'], 403);
+                } else {
+                    //return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                    return redirect()->route('exit');
+                }
+            }
+        } else {
+            if ($request->ajax()) {
+                Auth::logout();
+                return response()->json(['error' => 'Acceso prohibido'], 403);
+            } else {
+                //return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
+                return redirect()->route('exit');
             }
         }
-        return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
     }
 }

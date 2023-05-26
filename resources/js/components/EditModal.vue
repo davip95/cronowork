@@ -417,18 +417,15 @@ export default {
     },
     async editUser() {
       try {
-        await this.form.put(`usuarios/3`);
-        if (response.status === 405) {
-          // Recargar la página para mostrar el formulario de inicio de sesión
-          location.reload();
-        }
+        await this.form.put(`usuarios/${this.user.id}`);
         this.getUser();
         document.getElementById("close").click();
       } catch (error) {
-        console.error(error);
-        if (error.response && error.response.status === 405) {
+        if (error.response && error.response.status === 403) {
           // Recargar la página para mostrar el formulario de inicio de sesión
           location.reload();
+        } else {
+          console.log(error);
         }
       }
     },
