@@ -419,6 +419,10 @@ export default {
       try {
         this.$Progress.start();
         await this.form.put(`usuarios/${this.user.id}`);
+        Toast.fire({
+          icon: "warning",
+          title: "Datos editados correctamente",
+        });
         this.$Progress.finish();
         this.getUser();
         document.getElementById("close").click();
