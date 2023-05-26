@@ -33,9 +33,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // if ($id != Auth::user()->id) {
-        //     return redirect()->action([AuthenticatedSessionController::class, 'destroy']);
-        // }
         $datos = $request->validate([
             'name' => ['nullable', 'max:255', 'string'],
             'email' => ['nullable', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/', Rule::unique('empleados')->ignore($id)],
@@ -67,20 +64,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Muestra el formulario para borrar (soft delete) el usuario sin empresa.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function borrar($id)
-    {
-        //
+        User::find($id)->delete();
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return ['mensaje' => "borrado"];
     }
 
     /**

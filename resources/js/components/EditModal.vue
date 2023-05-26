@@ -23,10 +23,15 @@
                 </svg>
                 <div class="my-3">
                   <h4 class="mb-4">{{ usuario.name }}</h4>
-                  <a role="button" href="#" class="btn btn-danger btn-sm">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                  >
                     <i class="bi bi-person-x-fill me-2"></i
                     ><span class="fw-bold">Borrar Cuenta</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -117,6 +122,144 @@
                     <i class="bi bi-key-fill"></i>
                     <span class="fw-bold">Cambiar Contraseña</span>
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="modal fade"
+            id="deleteModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div class="container modal-dialog">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card modal-content">
+                    <div
+                      class="card-header text-center bg-danger d-flex justify-content-between"
+                    >
+                      Borrar Cuenta
+                      <button
+                        type="button"
+                        class="btn-close align-self-end"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        id="close"
+                      ></button>
+                    </div>
+                    <div class="card-body">
+                      <div class="row mb-1">
+                        <div
+                          class="alert alert-danger d-inline-block w-auto mx-auto"
+                        >
+                          <span
+                            ><strong>¡Cuidado!</strong> Va a eliminar su cuenta,
+                            asegúrese de que quiere hacerlo antes de
+                            confirmar.</span
+                          >
+                        </div>
+                      </div>
+                      <form @submit.prevent="deleteUser">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Nombre</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{ usuario.name }} {{ usuario.apellidos }}
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Correo</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{ usuario.email }}
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Rol</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{ usuario.tipo }}
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Teléfono</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            <span
+                              v-if="
+                                usuario.telefono &&
+                                usuario.telefono.trim().length !== 0
+                              "
+                              >{{ usuario.telefono }}</span
+                            >
+                            <span v-else>-</span>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Dirección</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            <span
+                              v-if="
+                                usuario.direccion &&
+                                usuario.direccion.trim().length !== 0
+                              "
+                              >{{ usuario.direccion }}</span
+                            >
+                            <span v-else>-</span>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Código Postal</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            <span v-if="usuario.codpostal">{{
+                              usuario.codpostal
+                            }}</span>
+                            <span v-else>-</span>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div
+                            class="col-sm-3 d-flex justify-content-end"
+                          ></div>
+                          <div
+                            class="col-sm-9 text-secondary d-flex justify-content-between"
+                          >
+                            <button type="submit" class="btn btn-danger px-4">
+                              Borrar Cuenta
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-secondary align-self-end"
+                              data-bs-dismiss="modal"
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -420,7 +563,7 @@ export default {
         this.$Progress.start();
         await this.form.put(`usuarios/${this.user.id}`);
         Toast.fire({
-          icon: "warning",
+          icon: "success",
           title: "Datos editados correctamente",
         });
         this.$Progress.finish();
@@ -434,6 +577,27 @@ export default {
         } else {
           console.log(error);
         }
+      }
+    },
+    async deleteUser() {
+      try {
+        this.$Progress.start();
+        await this.form.delete(`usuarios/${this.user.id}`);
+        this.$Progress.finish();
+        Toast.fire({
+          icon: "success",
+          title: "Cuenta borrada correctamente",
+          timerProgressBar: false,
+        });
+        document.getElementById("close").click();
+        location.reload();
+      } catch (error) {
+        this.$Progress.fail();
+        Toast.fire({
+          icon: "error",
+          title: "No se pudo borrar el usuario",
+        });
+        console.log(error);
       }
     },
   },

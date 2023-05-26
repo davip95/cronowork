@@ -27,6 +27,5 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/admin/alta', 'crearAlta')->middleware(['auth', 'admin'])->name('admin.crearAlta');
     Route::post('/empresas/admin/baja', 'guardarBaja')->middleware(['auth', 'admin'])->name('admin.guardarBaja');
     Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
-    Route::get('/usuarios/{usuario}/borrar', 'borrar')->middleware(['auth', 'usuario'])->name('usuario.borrar');
 });
 Route::resource('usuarios', UserController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'usuario']);

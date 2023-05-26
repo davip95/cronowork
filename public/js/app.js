@@ -8850,6 +8850,149 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8914,7 +9057,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this2.form.put("usuarios/".concat(_this2.user.id));
             case 4:
               Toast.fire({
-                icon: "warning",
+                icon: "success",
                 title: "Datos editados correctamente"
               });
               _this2.$Progress.finish();
@@ -8937,6 +9080,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _context2.stop();
           }
         }, _callee2, null, [[0, 10]]);
+      }))();
+    },
+    deleteUser: function deleteUser() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _this3.$Progress.start();
+              _context3.next = 4;
+              return _this3.form["delete"]("usuarios/".concat(_this3.user.id));
+            case 4:
+              _this3.$Progress.finish();
+              Toast.fire({
+                icon: "success",
+                title: "Cuenta borrada correctamente",
+                timerProgressBar: false
+              });
+              document.getElementById("close").click();
+              location.reload();
+              _context3.next = 15;
+              break;
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](0);
+              _this3.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "No se pudo borrar el usuario"
+              });
+              console.log(_context3.t0);
+            case 15:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 10]]);
       }))();
     }
   }
@@ -37405,7 +37585,7 @@ var render = function () {
             {
               staticClass: "modal fade",
               attrs: {
-                id: "staticBackdrop",
+                id: "deleteModal",
                 "data-bs-backdrop": "static",
                 "data-bs-keyboard": "false",
                 tabindex: "-1",
@@ -37418,6 +37598,166 @@ var render = function () {
                   _c("div", { staticClass: "col-lg-12" }, [
                     _c("div", { staticClass: "card modal-content" }, [
                       _vm._m(8),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _vm._m(9),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            on: {
+                              submit: function ($event) {
+                                $event.preventDefault()
+                                return _vm.deleteUser($event)
+                              },
+                            },
+                          },
+                          [
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(10),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9 text-secondary" },
+                                [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.usuario.name) +
+                                      " " +
+                                      _vm._s(_vm.usuario.apellidos) +
+                                      "\n                        "
+                                  ),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(11),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9 text-secondary" },
+                                [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.usuario.email) +
+                                      "\n                        "
+                                  ),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(12),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9 text-secondary" },
+                                [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.usuario.tipo) +
+                                      "\n                        "
+                                  ),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(13),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9 text-secondary" },
+                                [
+                                  _vm.usuario.telefono &&
+                                  _vm.usuario.telefono.trim().length !== 0
+                                    ? _c("span", [
+                                        _vm._v(_vm._s(_vm.usuario.telefono)),
+                                      ])
+                                    : _c("span", [_vm._v("-")]),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(14),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9 text-secondary" },
+                                [
+                                  _vm.usuario.direccion &&
+                                  _vm.usuario.direccion.trim().length !== 0
+                                    ? _c("span", [
+                                        _vm._v(_vm._s(_vm.usuario.direccion)),
+                                      ])
+                                    : _c("span", [_vm._v("-")]),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row" }, [
+                              _vm._m(15),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9 text-secondary" },
+                                [
+                                  _vm.usuario.codpostal
+                                    ? _c("span", [
+                                        _vm._v(_vm._s(_vm.usuario.codpostal)),
+                                      ])
+                                    : _c("span", [_vm._v("-")]),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _vm._m(16),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "staticBackdrop",
+                "data-bs-backdrop": "static",
+                "data-bs-keyboard": "false",
+                tabindex: "-1",
+                "aria-hidden": "true",
+              },
+            },
+            [
+              _c("div", { staticClass: "container modal-dialog" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-lg-12" }, [
+                    _c("div", { staticClass: "card modal-content" }, [
+                      _vm._m(17),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c("div", { staticClass: "row mb-3" }, [
@@ -37490,7 +37830,7 @@ var render = function () {
                                   staticClass:
                                     "alert alert-danger d-inline-block w-auto mx-auto",
                                 },
-                                [_vm._m(9)]
+                                [_vm._m(18)]
                               )
                             : _vm._e(),
                         ]),
@@ -37508,7 +37848,7 @@ var render = function () {
                               },
                               [
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(10),
+                                  _vm._m(19),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37556,7 +37896,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(11),
+                                  _vm._m(20),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37607,7 +37947,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(12),
+                                  _vm._m(21),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37655,7 +37995,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(13),
+                                  _vm._m(22),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37706,7 +38046,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(14),
+                                  _vm._m(23),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37762,7 +38102,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(15),
+                                  _vm._m(24),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37813,7 +38153,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(16),
+                                  _vm._m(25),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37864,7 +38204,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(17),
+                                  _vm._m(26),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -37914,7 +38254,7 @@ var render = function () {
                                   ),
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(18),
+                                _vm._m(27),
                               ]
                             )
                           : _vm._e(),
@@ -37936,10 +38276,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
+      "button",
       {
         staticClass: "btn btn-danger btn-sm",
-        attrs: { role: "button", href: "#" },
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#deleteModal",
+        },
       },
       [
         _c("i", { staticClass: "bi bi-person-x-fill me-2" }),
@@ -38023,6 +38367,136 @@ var staticRenderFns = [
           ]
         ),
       ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "card-header text-center bg-danger d-flex justify-content-between",
+      },
+      [
+        _vm._v("\n                    Borrar Cuenta\n                    "),
+        _c("button", {
+          staticClass: "btn-close align-self-end",
+          attrs: {
+            type: "button",
+            "data-bs-dismiss": "modal",
+            "aria-label": "Close",
+            id: "close",
+          },
+        }),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-1" }, [
+      _c(
+        "div",
+        { staticClass: "alert alert-danger d-inline-block w-auto mx-auto" },
+        [
+          _c("span", [
+            _c("strong", [_vm._v("¡Cuidado!")]),
+            _vm._v(
+              " Va a eliminar su cuenta,\n                          asegúrese de que quiere hacerlo antes de\n                          confirmar."
+            ),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Nombre")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Correo")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Rol")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Teléfono")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Dirección")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-3" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v("Código Postal")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-3 d-flex justify-content-end" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-sm-9 text-secondary d-flex justify-content-between",
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-danger px-4", attrs: { type: "submit" } },
+            [
+              _vm._v(
+                "\n                            Borrar Cuenta\n                          "
+              ),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary align-self-end",
+              attrs: { type: "button", "data-bs-dismiss": "modal" },
+            },
+            [
+              _vm._v(
+                "\n                            Cancelar\n                          "
+              ),
+            ]
+          ),
+        ]
+      ),
     ])
   },
   function () {
