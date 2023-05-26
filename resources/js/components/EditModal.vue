@@ -417,10 +417,13 @@ export default {
     },
     async editUser() {
       try {
+        this.$Progress.start();
         await this.form.put(`usuarios/${this.user.id}`);
+        this.$Progress.finish();
         this.getUser();
         document.getElementById("close").click();
       } catch (error) {
+        this.$Progress.fail();
         if (error.response && error.response.status === 403) {
           // Recargar la página para mostrar el formulario de inicio de sesión
           location.reload();

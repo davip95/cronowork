@@ -6,6 +6,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+// Vue vform
 window.Vue = require('vue').default;
 import Form from 'vform'
 import {
@@ -16,6 +17,15 @@ import {
 window.Form = Form;
 Vue.component(Button.name, Button)
 Vue.component(HasError.name, HasError)
+
+// Vue progressbar
+import VueProgressBar from 'vue-progressbar'
+
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '2px'
+})
 
 /**
  * The following block of code may be used to automatically register your

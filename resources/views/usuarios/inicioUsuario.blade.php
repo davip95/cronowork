@@ -27,6 +27,7 @@
 
           <div id="app">
             <edit-modal :user="{{ Auth::user() }}"></edit-modal>
+            <vue-progress-bar></vue-progress-bar>
           </div>
 
     </div>
