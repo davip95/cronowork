@@ -3,9 +3,9 @@
     <div class="col-12">
       <div class="row">
         <div class="col-md-4 mb-3">
-          <div class="card user-card">
+          <div class="card base-card">
             <div class="card-header">Usuario</div>
-            <div class="user-card-body">
+            <div class="base-card-body">
               <div class="d-flex flex-column align-items-center text-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +39,9 @@
         </div>
 
         <div class="col-md-8">
-          <div class="card user-card mb-3">
+          <div class="card base-card mb-3">
             <div class="card-header">Datos Personales</div>
-            <div class="user-card-body">
+            <div class="base-card-body">
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Nombre</h6>
@@ -119,7 +119,7 @@
                   >
                     <i class="bi bi-pencil-fill me-2"></i
                     ><span class="fw-bold">Editar Datos /</span>
-                    <i class="bi bi-key-fill"></i>
+                    <i class="bi bi-key-fill me-2"></i>
                     <span class="fw-bold">Cambiar Contraseña</span>
                   </button>
                 </div>
@@ -321,17 +321,6 @@
                             <use xlink:href="#info-fill" />
                           </svg>
                           <span>Los campos vacíos no se modificarán.</span>
-                        </div>
-                      </div>
-                      <div class="row mb-1">
-                        <div
-                          class="alert alert-danger d-inline-block w-auto mx-auto"
-                          v-if="errorGetUser"
-                        >
-                          <span
-                            ><strong>Error</strong> No se pudo obtener los datos
-                            del usuario.</span
-                          >
                         </div>
                       </div>
                       <form
@@ -606,23 +595,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-clip: border-box;
-  border-radius: 0.25rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.46);
-}
-
-@media (max-width: 576px) {
-  .col-sm-3 {
-    justify-content: start !important;
-  }
-}
-</style>

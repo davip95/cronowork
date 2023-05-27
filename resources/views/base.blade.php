@@ -13,13 +13,11 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/base.css') }}">
-        {{-- <link rel="stylesheet" href="{{ asset('css/scroll.css') }}"> --}}
-        <link rel="stylesheet" href="{{ asset('css/usuarios/inicio.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.min.js"></script> --}}
+        
     </head>
     <body class="font-sans antialiased bg-light">
         {{-- SCROLL TOP BUTTON --}}
@@ -36,12 +34,28 @@
                 <div class="sidebar-heading text-center py-4 fs-5 fw-bold text-uppercase border-bottom">
                     <x-application-icon /> <span>Cronowork</span> <i class="bi bi-layout-sidebar-inset-reverse fs-4" id="menu-toggle-sidebar"></i>
                 </div>
-                <div class="list-group list-group-flush my-3">
+                <div class="list-group list-group-flush">
                     <a href="{{ route('home') }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">
                         <i class="bi bi-house-fill me-2"></i>Inicio</a>
                     @if(Auth::user()->tipo != 'usuario')
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold">
-                        <i class="bi bi-calendar3 me-2"></i>Fichajes</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.fichajes') ? 'active' : '' }}">
+                        <i class="bi bi-ui-checks me-2"></i>Mis Fichajes</a>
+                    @endif
+                    @if(Auth::user()->tipo != 'usuario')
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.ausencias') ? 'active' : '' }}">
+                        <i class="bi bi-calendar2-x-fill me-2"></i></i>Mis Ausencias</a>
+                    @endif
+                    <hr>
+                    @if(Auth::user()->tipo == 'admin')
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.empleados') ? 'active' : '' }}">
+                    <i class="bi bi-people-fill me-2"></i></i>Empleados</a>    
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.fichajes') ? 'active' : '' }}">
+                    <i class="bi bi-list-check me-2" style="-webkit-text-stroke: 1px;"></i></i>Fichajes Empresa</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.ausencias') ? 'active' : '' }}">
+                    <i class="bi bi-building-fill-dash me-2"></i>Ausencias Empresa</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.horarios') ? 'active' : '' }}">
+                    <i class="bi bi-calendar3 me-2" style="-webkit-text-stroke: 1px;"></i></i>Horarios Empresa</a>
+                    <hr>
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

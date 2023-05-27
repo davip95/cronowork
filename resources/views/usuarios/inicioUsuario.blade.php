@@ -1,6 +1,6 @@
 @extends('base')
 @section('contenido')
-<div class="container">
+<div class="container-fluid">
     <div class="main-body">
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
@@ -26,11 +26,10 @@
           </div>
 
           <div id="app">
-            <edit-modal :user="{{ Auth::user() }}"></edit-modal>
+            <edit-user :user="{{ Auth::user() }}"></edit-user>
             <vue-progress-bar></vue-progress-bar>
           </div>
 
     </div>
 </div>
-{{-- <script src="{{ mix('js/app.js') }}" type="text/javascript"></script> --}}
 @endsection

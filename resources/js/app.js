@@ -56,7 +56,8 @@ Vue.use(VueProgressBar, {
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('edit-modal', require('./components/EditModal.vue').default);
+Vue.component('edit-user', require('./components/EditUser.vue').default);
+Vue.component('inicio-admin', require('./components/InicioAdmin.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
