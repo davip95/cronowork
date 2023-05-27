@@ -1,29 +1,39 @@
 <template>
   <div class="row">
     <div class="col-12">
+      <edit-admin
+        :show="showEditAdmin"
+        :user="user"
+        @close="showEditAdmin = false"
+        @updateUser="getUser"
+      ></edit-admin>
       <div class="row">
-        <div class="col-lg-8 mb-3">
+        <div class="col-lg-6 mb-3">
           <div class="card base-card">
             <div class="card-header">Accesos Directos</div>
             <div class="base-card-body">
-              <div class="d-flex align-items-center text-center">
-                <button type="button" class="btn btn-primary">
-                  Alta Empleado
+              <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary btn-sm me-2">
+                  <i class="bi bi-pencil-fill me-2"></i
+                  ><span class="d-none d-lg-inline">Dar Alta</span>
                 </button>
-                <button type="button" class="btn btn-primary">
-                  Baja Empleado
+                <button type="button" class="btn btn-primary btn-sm me-2">
+                  <i class="bi bi-pencil-fill me-2"></i
+                  ><span class="d-none d-lg-inline">Dar Baja</span>
                 </button>
-                <button type="button" class="btn btn-primary">
-                  Crear Horario
+                <button type="button" class="btn btn-primary btn-sm me-2">
+                  <i class="bi bi-pencil-fill me-2"></i
+                  ><span class="d-none d-lg-inline">Crear Horario</span>
                 </button>
-                <button type="button" class="btn btn-primary">
-                  Borrar Horario
+                <button type="button" class="btn btn-primary btn-sm">
+                  <i class="bi bi-pencil-fill me-2"></i
+                  ><span class="d-none d-lg-inline">Borrar Horario</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 mb-3">
+        <div class="col-lg-6 mb-3">
           <div class="card base-card">
             <div class="card-header">Jornada</div>
             <div class="base-card-body">
@@ -108,33 +118,11 @@
               </div>
               <hr />
               <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Empresa</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ empresa.nombre }}
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Horario</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  <span v-if="usuario.horarios_id">{{
-                    usuario.horarios_id
-                  }}</span>
-                  <span v-else>-</span>
-                </div>
-              </div>
-              <hr />
-              <div class="row">
                 <div class="col-sm-12 text-center">
                   <button
                     type="button"
-                    class="btn btn-outline-dark bg-warning btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"
+                    class="btn btn-outline-dark bg-warning btn-sm my-2"
+                    @click="showEditAdmin = true"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
                     ><span class="fw-bold">Editar Usuario /</span>
@@ -223,12 +211,14 @@
                 <div class="col-sm-12 text-center">
                   <button
                     type="button"
-                    class="btn btn-outline-dark bg-warning btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"
+                    class="btn btn-outline-dark bg-warning btn-sm my-2"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
                     ><span class="fw-bold">Editar Datos Empresa</span>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm my-2">
+                    <i class="bi bi-building-fill-x me-2"></i
+                    ><span class="fw-bold">Borrar Empresa</span>
                   </button>
                 </div>
               </div>
@@ -244,9 +234,11 @@
 import Form from "vform";
 import axios from "axios";
 export default {
-  props: ["user", "empresa", "horario"],
+  props: ["user"],
   data() {
     return {
+      showEditAdmin: false,
+      empresa: {},
       usuario: {},
       form: new Form({
         name: this.user.name,
@@ -262,6 +254,7 @@ export default {
   },
   mounted() {
     this.getUser();
+    this.getEmpresa();
   },
   methods: {
     async getUser() {
@@ -272,7 +265,6 @@ export default {
         this.usuario = response.data;
       } catch (error) {
         this.$Progress.fail();
-        this.errorGetUser = true;
         console.error(error);
       }
     },
@@ -316,6 +308,19 @@ export default {
           title: "No se pudo borrar el usuario",
         });
         console.log(error);
+      }
+    },
+    async getEmpresa() {
+      try {
+        this.$Progress.start();
+        const response = await axios.get(
+          `/empresas/${this.user.empresas_id}/edit`
+        );
+        this.$Progress.finish();
+        this.empresa = response.data;
+      } catch (error) {
+        this.$Progress.fail();
+        console.error(error);
       }
     },
   },

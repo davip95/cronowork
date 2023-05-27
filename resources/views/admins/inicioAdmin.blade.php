@@ -10,7 +10,7 @@
           </nav>
 
           <div id="app">
-            <inicio-admin :user="{{ Auth::user() }}" :empresa="{{ Auth::user()->empresas }}"></inicio-admin>
+            <inicio-admin :user="{{ Auth::user() }}"></inicio-admin>
             <vue-progress-bar></vue-progress-bar>
           </div>
 

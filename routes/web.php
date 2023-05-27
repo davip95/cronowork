@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,5 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
 });
 Route::resource('usuarios', UserController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'usuario']);
+
+Route::resource('empresas', EmpresaController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
