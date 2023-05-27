@@ -4,6 +4,17 @@
 }
 
 /* FIN BREADCRUMB */
+
+/* SCROLL TOP BUTTON */
+#btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: none;
+}
+
+/* FIN SCROLL TOP BUTTON */
+
 .primary-text {
     color: #00699d;
 }
@@ -21,11 +32,6 @@
     -o-transition: margin 0.25s ease-out;
     transition: margin 0.25s ease-out;
 }
-
-/* .sidebar-heading {
-    padding-top: 1.5em !important;
-    padding-bottom: 1.5em !important;
-} */
 
 #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;

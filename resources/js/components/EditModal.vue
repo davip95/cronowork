@@ -151,7 +151,7 @@
                         class="btn-close align-self-end"
                         data-bs-dismiss="modal"
                         aria-label="Close"
-                        id="close"
+                        id="closeDeleteModal"
                       ></button>
                     </div>
                     <div class="card-body">
@@ -551,9 +551,12 @@ export default {
   methods: {
     async getUser() {
       try {
+        this.$Progress.start();
         const response = await axios.get(`/usuarios/${this.user.id}/edit`);
+        this.$Progress.finish();
         this.usuario = response.data;
       } catch (error) {
+        this.$Progress.fail();
         this.errorGetUser = true;
         console.error(error);
       }
@@ -589,7 +592,7 @@ export default {
           title: "Cuenta borrada correctamente",
           timerProgressBar: false,
         });
-        document.getElementById("close").click();
+        document.getElementById("closeDeleteModal").click();
         location.reload();
       } catch (error) {
         this.$Progress.fail();

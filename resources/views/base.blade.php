@@ -22,6 +22,14 @@
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.min.js"></script> --}}
     </head>
     <body class="font-sans antialiased bg-light">
+        {{-- SCROLL TOP BUTTON --}}
+        <button
+        type="button"
+        class="btn btn-primary"
+        id="btn-back-to-top"
+        >
+        <i class="bi bi-arrow-up"></i>
+        </button>
         <div class="d-flex" id="wrapper">
             {{-- SIDEBAR MENU --}}
             <div class="bg-light" id="sidebar-wrapper">
@@ -101,6 +109,7 @@
         </div>
 
         <script>
+            // Toggle sidebar menu
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
             var toggleButtonSidebar = document.getElementById("menu-toggle-sidebar");
@@ -111,6 +120,31 @@
             toggleButtonSidebar.onclick = function () {
                 el.classList.toggle("toggled");
             };
+
+            // Scroll top button
+            let mybutton = document.getElementById("btn-back-to-top");
+
+            window.onscroll = function () {
+            scrollFunction();
+            };
+
+            function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+            }
+
+            mybutton.addEventListener("click", backToTop);
+
+            function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            }
         </script>
     </body>
 </html>

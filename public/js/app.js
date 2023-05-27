@@ -9026,23 +9026,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              _context.next = 3;
+              _this.$Progress.start();
+              _context.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/usuarios/".concat(_this.user.id, "/edit"));
-            case 3:
+            case 4:
               response = _context.sent;
+              _this.$Progress.finish();
               _this.usuario = response.data;
-              _context.next = 11;
+              _context.next = 14;
               break;
-            case 7:
-              _context.prev = 7;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context["catch"](0);
+              _this.$Progress.fail();
               _this.errorGetUser = true;
               console.error(_context.t0);
-            case 11:
+            case 14:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[0, 9]]);
       }))();
     },
     editUser: function editUser() {
@@ -9099,7 +9102,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 title: "Cuenta borrada correctamente",
                 timerProgressBar: false
               });
-              document.getElementById("close").click();
+              document.getElementById("closeDeleteModal").click();
               location.reload();
               _context3.next = 15;
               break;
@@ -9149,10 +9152,10 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default());
 var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
   toast: true,
-  position: 'bottom-end',
+  position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
-  timerProgressBar: true,
+  // timerProgressBar: true,
   didOpen: function didOpen(toast) {
     toast.addEventListener('mouseenter', (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().stopTimer));
     toast.addEventListener('mouseleave', (sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().resumeTimer));
@@ -9173,7 +9176,7 @@ Vue.component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_3__.HasEr
 Vue.use((vue_progressbar__WEBPACK_IMPORTED_MODULE_4___default()), {
   color: 'rgb(143, 255, 199)',
   failedColor: 'red',
-  height: '2px'
+  height: '8px'
 });
 
 /**
@@ -38387,7 +38390,7 @@ var staticRenderFns = [
             type: "button",
             "data-bs-dismiss": "modal",
             "aria-label": "Close",
-            id: "close",
+            id: "closeDeleteModal",
           },
         }),
       ]
