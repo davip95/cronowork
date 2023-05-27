@@ -61,6 +61,7 @@ class UserController extends Controller
     /**
      * Elimina (soft delete) el usuario sin empresa.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

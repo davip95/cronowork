@@ -7,25 +7,38 @@
         @close="showEditAdmin = false"
         @updateUser="getUser"
       ></edit-admin>
+      <edit-company
+        :show="showEditCompany"
+        :user="user"
+        :empresa="empresa"
+        @close="showEditCompany = false"
+        @updateEmpresa="getEmpresa"
+      ></edit-company>
+      <delete-company
+        :show="showDeleteCompany"
+        :user="user"
+        :empresa="empresa"
+        @close="showDeleteCompany = false"
+      ></delete-company>
       <div class="row">
         <div class="col-lg-6 mb-3">
           <div class="card base-card">
             <div class="card-header">Accesos Directos</div>
             <div class="base-card-body">
-              <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary btn-sm me-2">
+              <div class="d-flex justify-content-center flex-wrap">
+                <button type="button" class="btn btn-primary btn-sm m-1">
                   <i class="bi bi-pencil-fill me-2"></i
                   ><span class="d-none d-lg-inline">Dar Alta</span>
                 </button>
-                <button type="button" class="btn btn-primary btn-sm me-2">
+                <button type="button" class="btn btn-primary btn-sm m-1">
                   <i class="bi bi-pencil-fill me-2"></i
                   ><span class="d-none d-lg-inline">Dar Baja</span>
                 </button>
-                <button type="button" class="btn btn-primary btn-sm me-2">
+                <button type="button" class="btn btn-primary btn-sm m-1">
                   <i class="bi bi-pencil-fill me-2"></i
                   ><span class="d-none d-lg-inline">Crear Horario</span>
                 </button>
-                <button type="button" class="btn btn-primary btn-sm">
+                <button type="button" class="btn btn-primary btn-sm m-1">
                   <i class="bi bi-pencil-fill me-2"></i
                   ><span class="d-none d-lg-inline">Borrar Horario</span>
                 </button>
@@ -212,11 +225,16 @@
                   <button
                     type="button"
                     class="btn btn-outline-dark bg-warning btn-sm my-2"
+                    @click="showEditCompany = true"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
                     ><span class="fw-bold">Editar Datos Empresa</span>
                   </button>
-                  <button type="button" class="btn btn-danger btn-sm my-2">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm my-2"
+                    @click="showDeleteCompany = true"
+                  >
                     <i class="bi bi-building-fill-x me-2"></i
                     ><span class="fw-bold">Borrar Empresa</span>
                   </button>
@@ -238,6 +256,8 @@ export default {
   data() {
     return {
       showEditAdmin: false,
+      showEditCompany: false,
+      showDeleteCompany: false,
       empresa: {},
       usuario: {},
       form: new Form({
@@ -266,48 +286,6 @@ export default {
       } catch (error) {
         this.$Progress.fail();
         console.error(error);
-      }
-    },
-    async editUser() {
-      try {
-        this.$Progress.start();
-        await this.form.put(`usuarios/${this.user.id}`);
-        Toast.fire({
-          icon: "success",
-          title: "Datos editados correctamente",
-        });
-        this.$Progress.finish();
-        this.getUser();
-        document.getElementById("close").click();
-      } catch (error) {
-        this.$Progress.fail();
-        if (error.response && error.response.status === 403) {
-          // Recargar la página para mostrar el formulario de inicio de sesión
-          location.reload();
-        } else {
-          console.log(error);
-        }
-      }
-    },
-    async deleteUser() {
-      try {
-        this.$Progress.start();
-        await this.form.delete(`usuarios/${this.user.id}`);
-        this.$Progress.finish();
-        Toast.fire({
-          icon: "success",
-          title: "Cuenta borrada correctamente",
-          timerProgressBar: false,
-        });
-        document.getElementById("closeDeleteModal").click();
-        location.reload();
-      } catch (error) {
-        this.$Progress.fail();
-        Toast.fire({
-          icon: "error",
-          title: "No se pudo borrar el usuario",
-        });
-        console.log(error);
       }
     },
     async getEmpresa() {

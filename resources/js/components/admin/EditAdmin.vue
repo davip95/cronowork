@@ -41,7 +41,7 @@
                 <span>Los campos vacíos no se modificarán.</span>
               </div>
             </div>
-            <form @submit.prevent="editUser" v-if="errorGetUser == false">
+            <form @submit.prevent="editUser">
               <div class="row mb-3">
                 <div class="col-sm-3 d-flex justify-content-end">
                   <h6 class="mb-0">Nombre</h6>
@@ -212,7 +212,6 @@ export default {
   emits: ["close", "updateUser"],
   data() {
     return {
-      errorGetUser: false,
       form: new Form({
         name: this.user.name,
         email: this.user.email,
@@ -273,7 +272,7 @@ export default {
   width: 80%;
   margin: 0 auto;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   overflow-y: auto;
