@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
@@ -72,6 +73,36 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return ['mensaje' => "borrado"];
+    }
+
+    /**
+     * Actualiza el admin de la empresa. El anterior pasa a ser empleado.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAdmin(Request $request, $id)
+    {
+        $datos = $request->validate([
+            'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+            //'email_confirmation' => ['required','max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+        ]);
+        try {
+            $nuevoAdmin = User::select()->where('empresas_id', $id)->where('email', $datos['email'])->firstOrFail();
+            $nuevoAdmin->tipo = 'admin';
+            $nuevoAdmin->save();
+            $exAdmin = User::find(Auth::user()->id);
+            $exAdmin->tipo = 'empleado';
+            $exAdmin->save();
+            // Cierro sesión
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return ['mensaje' => "Admin cambiado"];
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
+        }
     }
 
     /**

@@ -20,6 +20,11 @@
         :empresa="empresa"
         @close="showDeleteCompany = false"
       ></delete-company>
+      <change-admin
+        :show="showChangeAdmin"
+        :user="user"
+        @close="showChangeAdmin = false"
+      ></change-admin>
       <div class="row">
         <div class="col-lg-6 mb-3">
           <div class="card base-card">
@@ -138,9 +143,15 @@
                     @click="showEditAdmin = true"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
-                    ><span class="fw-bold">Editar Usuario /</span>
-                    <i class="bi bi-key-fill"></i>
-                    <span class="fw-bold">Cambiar Contraseña</span>
+                    ><span class="fw-bold">Editar Usuario / Contraseña</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark bg-primary btn-sm my-2"
+                    @click="showChangeAdmin = true"
+                  >
+                    <i class="bi bi-person-fill-gear me-2"></i
+                    ><span class="fw-bold">Cambiar Admin</span>
                   </button>
                 </div>
               </div>
@@ -232,7 +243,7 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn-danger btn-sm my-2"
+                    class="btn btn-outline-dark bg-danger btn-sm my-2"
                     @click="showDeleteCompany = true"
                   >
                     <i class="bi bi-building-fill-x me-2"></i
@@ -258,6 +269,7 @@ export default {
       showEditAdmin: false,
       showEditCompany: false,
       showDeleteCompany: false,
+      showChangeAdmin: false,
       empresa: {},
       usuario: {},
       form: new Form({

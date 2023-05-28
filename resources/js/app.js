@@ -59,6 +59,7 @@ Vue.use(VueProgressBar, {
 Vue.component('edit-user', require('./components/usuario/EditUser.vue').default);
 Vue.component('inicio-admin', require('./components/admin/InicioAdmin.vue').default);
 Vue.component('edit-admin', require('./components/admin/EditAdmin.vue').default);
+Vue.component('change-admin', require('./components/admin/ChangeAdmin.vue').default);
 Vue.component('edit-company', require('./components/admin/EditCompany.vue').default);
 Vue.component('delete-company', require('./components/admin/DeleteCompany.vue').default);
 

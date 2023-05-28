@@ -184,7 +184,7 @@
                 <div
                   class="col-sm-9 text-secondary d-flex justify-content-between"
                 >
-                  <button type="submit" class="btn btn-dark px-4">
+                  <button type="submit" class="btn btn-warning px-4">
                     Editar
                   </button>
                   <button

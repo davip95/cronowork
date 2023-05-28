@@ -21,6 +21,7 @@ Route::get('/', [AuthenticatedSessionController::class, 'redireccionaInicio'])->
 require __DIR__ . '/auth.php';
 
 Route::controller(UserController::class)->group(function () {
+    Route::put('/empresas/{empresa}/admin', 'updateAdmin')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarAdmin');
     Route::get('/empresas/{empresa}/empleados/admin/listar', 'listarEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.listarEmpleados');
     Route::post('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'asignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.asignarHorario');
     Route::get('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
