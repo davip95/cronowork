@@ -25,33 +25,44 @@
         :user="user"
         @close="showChangeAdmin = false"
       ></change-admin>
+      <alta-empleado
+        :show="showAltaEmpleado"
+        @close="showAltaEmpleado = false"
+      ></alta-empleado>
       <div class="row">
-        <div class="col-lg-6 mb-3">
+        <div class="col-lg-3 mb-3">
           <div class="card base-card">
-            <div class="card-header">Accesos Directos</div>
+            <div class="card-header">Acciones Empleados</div>
             <div class="base-card-body">
-              <div class="d-flex justify-content-center flex-wrap">
-                <button type="button" class="btn btn-primary btn-sm m-1">
-                  <i class="bi bi-pencil-fill me-2"></i
-                  ><span class="d-none d-lg-inline">Dar Alta</span>
+              <div class="d-flex justify-content-center flex-column">
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-success btn-sm m-1"
+                  @click="showAltaEmpleado = true"
+                >
+                  <i class="bi bi-person-fill-up me-2"></i><span>Dar Alta</span>
                 </button>
-                <button type="button" class="btn btn-primary btn-sm m-1">
-                  <i class="bi bi-pencil-fill me-2"></i
-                  ><span class="d-none d-lg-inline">Dar Baja</span>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-danger btn-sm m-1"
+                  @click="showBajaEmpleado = true"
+                >
+                  <i class="bi bi-person-fill-down me-2"></i
+                  ><span>Dar Baja</span>
                 </button>
-                <button type="button" class="btn btn-primary btn-sm m-1">
-                  <i class="bi bi-pencil-fill me-2"></i
-                  ><span class="d-none d-lg-inline">Crear Horario</span>
-                </button>
-                <button type="button" class="btn btn-primary btn-sm m-1">
-                  <i class="bi bi-pencil-fill me-2"></i
-                  ><span class="d-none d-lg-inline">Borrar Horario</span>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-warning btn-sm m-1"
+                  @click="showCambiarHorario = true"
+                >
+                  <i class="bi bi-calendar-heart me-2"></i
+                  ><span>Cambiar Horario</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-6 mb-3">
+        <div class="col-lg-9 mb-3">
           <div class="card base-card">
             <div class="card-header">Jornada</div>
             <div class="base-card-body">
@@ -270,6 +281,9 @@ export default {
       showEditCompany: false,
       showDeleteCompany: false,
       showChangeAdmin: false,
+      showAltaEmpleado: false,
+      showBajaEmpleado: false,
+      showCambiarHorario: false,
       empresa: {},
       usuario: {},
       form: new Form({

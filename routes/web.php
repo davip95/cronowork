@@ -20,6 +20,9 @@ Route::get('/', [AuthenticatedSessionController::class, 'redireccionaInicio'])->
 
 require __DIR__ . '/auth.php';
 
+
+// USER CONTROLLER
+
 Route::controller(UserController::class)->group(function () {
     Route::put('/empresas/{empresa}/admin', 'updateAdmin')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarAdmin');
     Route::get('/empresas/{empresa}/empleados/admin/listar', 'listarEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.listarEmpleados');
@@ -31,5 +34,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
 });
 Route::resource('usuarios', UserController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'usuario']);
+
+// EMPRESA CONTROLLER
 
 Route::resource('empresas', EmpresaController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);

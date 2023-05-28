@@ -42,7 +42,7 @@ import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
-    height: '8px'
+    thickness: '8px',
 })
 
 /**
@@ -62,6 +62,9 @@ Vue.component('edit-admin', require('./components/admin/EditAdmin.vue').default)
 Vue.component('change-admin', require('./components/admin/ChangeAdmin.vue').default);
 Vue.component('edit-company', require('./components/admin/EditCompany.vue').default);
 Vue.component('delete-company', require('./components/admin/DeleteCompany.vue').default);
+Vue.component('alta-empleado', require('./components/admin/AltaEmpleado.vue').default);
+Vue.component('baja-empleado', require('./components/admin/BajaEmpleado.vue').default);
+Vue.component('cambiar-horario', require('./components/admin/CambiarHorario.vue').default);
 
 
 /**

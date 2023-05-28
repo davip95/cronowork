@@ -23,7 +23,7 @@
         {{-- SCROLL TOP BUTTON --}}
         <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-dark btn-sm"
         id="btn-back-to-top"
         >
         <i class="bi bi-arrow-up"></i>
@@ -101,13 +101,14 @@
                         <li><h6 class="dropdown-header text-center d-md-none">{{ strtoupper(Auth::user()->name) }}</h6></li>
                         <li><hr class="dropdown-divider"></li>
                         @if(Auth::user()->tipo != 'usuario')
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a href="{{ route('home') }}" class="dropdown-item fw-bold text-center">
+                            <i class="bi bi-house-fill me-3"></i>Inicio</a></li>
                         @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold">
-                                    <i class="bi bi-power me-2" style="-webkit-text-stroke: 1px;"></i>Salir
+                                <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold text-center">
+                                    <i class="bi bi-power me-3" style="-webkit-text-stroke: 1px;"></i>Salir
                                 </a>
                             </form>
                         </li>

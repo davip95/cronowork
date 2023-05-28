@@ -82,24 +82,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateAdmin(Request $request, $id)
+    public function updateEmpleado(Request $request, $id)
     {
         $datos = $request->validate([
             'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
             //'email_confirmation' => ['required','max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
         ]);
         try {
-            $nuevoAdmin = User::select()->where('empresas_id', $id)->where('email', $datos['email'])->firstOrFail();
-            $nuevoAdmin->tipo = 'admin';
-            $nuevoAdmin->save();
-            $exAdmin = User::find(Auth::user()->id);
-            $exAdmin->tipo = 'empleado';
-            $exAdmin->save();
+            $nuevoEmpleado = User::select()->where('empresas_id', $id)->where('email', $datos['email'])->firstOrFail();
+            $nuevoEmpleado->tipo = 'admin';
+            $nuevoEmpleado->save();
+            $exEmpleado = User::find(Auth::user()->id);
+            $exEmpleado->tipo = 'empleado';
+            $exEmpleado->save();
             // Cierro sesión
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return ['mensaje' => "Admin cambiado"];
+            return ['mensaje' => "Empleado cambiado"];
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Empleado no encontrado'], 404);
         }
@@ -110,10 +110,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function crearAlta()
-    {
-        //
-    }
+    // public function crearAlta()
+    // {
+    //     //
+    // }
 
     /**
      * Almacena el alta de un usuario en la empresa asignándole el id de la empresa.
@@ -123,7 +123,24 @@ class UserController extends Controller
      */
     public function guardarAlta(Request $request)
     {
-        //
+        $empresaId = User::find(Auth::user()->id)->empresas_id;
+        $datos = $request->validate([
+            'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+            //'email_confirmation' => ['required','max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+        ]);
+        try {
+            $usuario = User::select()->where('email', $datos['email'])->firstOrFail();
+            if (!empty($usuario->empresas_id)) {
+                return response()->json(['error' => 'Empleado ya dado de alta'], 422);
+            } else {
+                $usuario->empresas_id = $empresaId;
+                $usuario->tipo = 'empleado';
+                $usuario->save();
+                return ['mensaje' => "Empleado dado de alta"];
+            }
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
+        }
     }
 
     /**
