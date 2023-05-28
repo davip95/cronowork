@@ -14,10 +14,11 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        
+        <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/r-2.4.1/rr-1.3.3/datatables.min.css" rel="stylesheet"/>
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-        
+        <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/r-2.4.1/rr-1.3.3/datatables.min.js"></script>
     </head>
     <body class="font-sans antialiased bg-light">
         {{-- SCROLL TOP BUTTON --}}
@@ -47,7 +48,7 @@
                     @endif
                     <hr>
                     @if(Auth::user()->tipo == 'admin')
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.empleados') ? 'active' : '' }}">
+                    <a href="{{ route('admin.verEmpleados', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verEmpleados') ? 'active' : '' }}">
                     <i class="bi bi-people-fill me-2"></i></i>Empleados</a>    
                     <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.fichajes') ? 'active' : '' }}">
                     <i class="bi bi-list-check me-2" style="-webkit-text-stroke: 1px;"></i></i>Fichajes Empresa</a>

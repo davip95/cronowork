@@ -212,6 +212,32 @@ class UserController extends Controller
      */
     public function listarEmpleados($id)
     {
-        //
+        $empleados = User::select('name', 'apellidos', 'email', 'fecha_alta', 'codpostal')
+            ->where('empresas_id', $id)
+            ->get();
+
+        $empleadosData = $empleados->map(function ($empleado) {
+            return [
+                'name' => $empleado->name,
+                'apellidos' => $empleado->apellidos,
+                'email' => $empleado->email,
+                'fecha_alta' => $empleado->fecha_alta,
+                'codpostal' => $empleado->codpostal,
+            ];
+        });
+
+        return response()->json([
+            'data' => $empleadosData
+        ]);
+    }
+
+    /**
+     * Devuelve la vista de empleados de la empresa.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verEmpleados()
+    {
+        return view('admins.empleados');
     }
 }

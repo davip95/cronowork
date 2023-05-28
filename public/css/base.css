@@ -135,3 +135,12 @@
         margin-left: 0;
     }
 }
+
+/* ESTILOS DATATABLE MOBILE */
+
+@media (max-width: 768px) {
+    div.dataTables_wrapper div.dataTables_filter input {
+        width: 65% !important;
+        margin-top: 1em !important;
+    }
+}
