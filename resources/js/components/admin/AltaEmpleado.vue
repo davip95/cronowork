@@ -103,6 +103,8 @@ export default {
           icon: "success",
           title: "Empleado dado de alta",
         });
+        this.form.email = null;
+        this.form.email_confirmation = null;
         document.getElementById("close").click();
       } catch (error) {
         this.$Progress.fail();

@@ -86,7 +86,6 @@ class UserController extends Controller
     {
         $datos = $request->validate([
             'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
-            //'email_confirmation' => ['required','max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
         ]);
         try {
             $nuevoEmpleado = User::select()->where('empresas_id', $id)->where('email', $datos['email'])->firstOrFail();
@@ -126,7 +125,6 @@ class UserController extends Controller
         $empresaId = User::find(Auth::user()->id)->empresas_id;
         $datos = $request->validate([
             'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
-            //'email_confirmation' => ['required','max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
         ]);
         try {
             $usuario = User::select()->where('email', $datos['email'])->firstOrFail();
@@ -149,21 +147,38 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function crearBaja($id)
-    {
-        //
-    }
+    // public function crearBaja($id)
+    // {
+    //     //
+    // }
 
     /**
      * Almacena la baja de un empleado desasignándole el id de la empresa.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function guardarBaja(Request $request, $id)
+    public function guardarBaja(Request $request)
     {
-        //
+        $empresaId = User::find(Auth::user()->id)->empresas_id;
+        $datos = $request->validate([
+            'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+        ]);
+        try {
+            $usuario = User::select()->where('email', $datos['email'])->firstOrFail();
+            if (empty($usuario->empresas_id)) {
+                return response()->json(['error' => 'Empleado ya dado de baja'], 422);
+            } else if ($usuario->empresas_id == $empresaId) {
+                $usuario->empresas_id = null;
+                $usuario->tipo = 'usuario';
+                $usuario->save();
+                return ['mensaje' => "Empleado dado de baja"];
+            } else {
+                return response()->json(['error' => 'Empleado no encontrado'], 404);
+            }
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
+        }
     }
 
     /**

@@ -29,6 +29,10 @@
         :show="showAltaEmpleado"
         @close="showAltaEmpleado = false"
       ></alta-empleado>
+      <baja-empleado
+        :show="showBajaEmpleado"
+        @close="showBajaEmpleado = false"
+      ></baja-empleado>
       <div class="row">
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
@@ -286,16 +290,16 @@ export default {
       showCambiarHorario: false,
       empresa: {},
       usuario: {},
-      form: new Form({
-        name: this.user.name,
-        email: this.user.email,
-        password: null,
-        password_confirmation: null,
-        apellidos: this.user.apellidos,
-        telefono: this.user.telefono,
-        direccion: this.user.direccion,
-        codpostal: this.user.codpostal,
-      }),
+      // form: new Form({
+      //   name: this.user.name,
+      //   email: this.user.email,
+      //   password: null,
+      //   password_confirmation: null,
+      //   apellidos: this.user.apellidos,
+      //   telefono: this.user.telefono,
+      //   direccion: this.user.direccion,
+      //   codpostal: this.user.codpostal,
+      // }),
     };
   },
   mounted() {
