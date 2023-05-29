@@ -1,6 +1,12 @@
 <template>
   <div class="row">
     <div class="col-12 mb-3">
+      <baja-datatable
+        :show="showBajaEmpleado"
+        :empleado="empleado"
+        @empleadoDadoBaja="actualizarDatatable"
+        @close="showBajaEmpleado = false"
+      ></baja-datatable>
       <div class="card base-card">
         <div class="card-header text-center d-flex justify-content-between">
           <h3 class="mb-0">Empleados {{ empresa }}</h3>
@@ -42,8 +48,15 @@ export default {
   data() {
     return {
       showAltaEmpleado: false,
+      showBajaEmpleado: false,
+      empleado: {},
     };
   },
+  // watch: {
+  //   empleado(newValue) {
+  //     this.empleado = newValue;
+  //   },
+  // },
   mounted() {
     $.fn.dataTable.ext.errMode = "none";
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -110,12 +123,27 @@ export default {
       const employeeData = dataTableEmpleados
         .row($(event.target).closest("tr"))
         .data();
-      this.abrirModal(employeeData);
+      this.abrirModalHorario(employeeData);
+    });
+    $("#tablaEmpleados").on("click", ".btn-danger", (event) => {
+      const employeeId = $(event.target).data("id");
+      const employeeData = dataTableEmpleados
+        .row($(event.target).closest("tr"))
+        .data();
+      this.abrirModalBaja(employeeData);
     });
   },
   methods: {
-    abrirModal(datos) {
+    abrirModalHorario(datos) {
       console.log(datos);
+    },
+    abrirModalBaja(datos) {
+      this.showBajaEmpleado = true;
+      this.empleado = datos;
+    },
+    actualizarDatatable() {
+      // Volver a cargar los datos de la datatable
+      $("#tablaEmpleados").DataTable().ajax.reload();
     },
   },
 };

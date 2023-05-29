@@ -36,7 +36,7 @@
       <div class="row">
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
-            <div class="card-header">Acciones Empleados</div>
+            <div class="card-header">Atajos Laborales</div>
             <div class="base-card-body">
               <div class="d-flex justify-content-center flex-column">
                 <button
@@ -275,7 +275,6 @@
 </template>
 
 <script>
-import Form from "vform";
 import axios from "axios";
 export default {
   props: ["user"],
@@ -290,16 +289,6 @@ export default {
       showCambiarHorario: false,
       empresa: {},
       usuario: {},
-      // form: new Form({
-      //   name: this.user.name,
-      //   email: this.user.email,
-      //   password: null,
-      //   password_confirmation: null,
-      //   apellidos: this.user.apellidos,
-      //   telefono: this.user.telefono,
-      //   direccion: this.user.direccion,
-      //   codpostal: this.user.codpostal,
-      // }),
     };
   },
   mounted() {

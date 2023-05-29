@@ -83,7 +83,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateEmpleado(Request $request, $id)
+    public function updateAdmin(Request $request, $id)
     {
         $datos = $request->validate([
             'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
@@ -182,6 +182,22 @@ class UserController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Empleado no encontrado'], 404);
         }
+    }
+
+    /**
+     * Almacena la baja de un empleado del listado datatable desasignándole el id de la empresa.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function guardarBajaDatatable($id)
+    {
+        $empleado = User::find($id);
+        $empleado->empresas_id = null;
+        $empleado->tipo = 'usuario';
+        $empleado->fecha_alta = null;
+        $empleado->save();
+        return ['mensaje' => "Empleado dado de baja"];
     }
 
     /**
