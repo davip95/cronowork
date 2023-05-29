@@ -9956,7 +9956,7 @@ __webpack_require__.r(__webpack_exports__);
           // Columna adicional de acciones
           targets: -1,
           render: function render(data, type, row, meta) {
-            return '<div class="btn-group">' + '<div class="col col-md-6 mx-1">' + '<button class="btn btn-warning" data-id="' + row.id + '">Editar</button>' + "</div>" + '<div class="col col-md-6 mx-1">' + '<button class="btn btn-danger" data-id="' + row.id + '">Borrar</button>' + "</div>" + "</div>";
+            return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-heart me-1"></i>Horario</button> <button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
           }
         }],
         columnDefs: [{
@@ -9967,15 +9967,15 @@ __webpack_require__.r(__webpack_exports__);
         order: [[4, "asc"]]
       });
     });
-    $("#tablaEmpleados").on("click", ".btn-warning", function (event) {
-      var employeeId = $(event.target).data("id");
-      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
-      _this.abrirModalHorario(employeeData);
-    });
-    $("#tablaEmpleados").on("click", ".btn-danger", function (event) {
+    $("#tablaEmpleados").on("click", ".baja", function (event) {
       var employeeId = $(event.target).data("id");
       var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
       _this.abrirModalBaja(employeeData);
+    });
+    $("#tablaEmpleados").on("click", ".horario", function (event) {
+      var employeeId = $(event.target).data("id");
+      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      _this.abrirModalHorario(employeeData);
     });
   },
   methods: {

@@ -92,16 +92,13 @@ export default {
             targets: -1,
             render: function (data, type, row, meta) {
               return (
-                '<div class="btn-group">' +
-                '<div class="col col-md-6 mx-1">' +
-                '<button class="btn btn-warning" data-id="' +
+                '<div class="btn-group w-100">' +
+                '<div class="col-12">' +
+                '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
                 row.id +
-                '">Editar</button>' +
-                "</div>" +
-                '<div class="col col-md-6 mx-1">' +
-                '<button class="btn btn-danger" data-id="' +
+                '"><i class="bi bi-calendar-heart me-1"></i>Horario</button> <button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
                 row.id +
-                '">Borrar</button>' +
+                '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' +
                 "</div>" +
                 "</div>"
               );
@@ -118,19 +115,19 @@ export default {
         order: [[4, "asc"]],
       });
     });
-    $("#tablaEmpleados").on("click", ".btn-warning", (event) => {
-      const employeeId = $(event.target).data("id");
-      const employeeData = dataTableEmpleados
-        .row($(event.target).closest("tr"))
-        .data();
-      this.abrirModalHorario(employeeData);
-    });
-    $("#tablaEmpleados").on("click", ".btn-danger", (event) => {
+    $("#tablaEmpleados").on("click", ".baja", (event) => {
       const employeeId = $(event.target).data("id");
       const employeeData = dataTableEmpleados
         .row($(event.target).closest("tr"))
         .data();
       this.abrirModalBaja(employeeData);
+    });
+    $("#tablaEmpleados").on("click", ".horario", (event) => {
+      const employeeId = $(event.target).data("id");
+      const employeeData = dataTableEmpleados
+        .row($(event.target).closest("tr"))
+        .data();
+      this.abrirModalHorario(employeeData);
     });
   },
   methods: {
