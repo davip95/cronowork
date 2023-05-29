@@ -10944,6 +10944,7 @@ Vue.component('alta-empleado', (__webpack_require__(/*! ./components/admin/AltaE
 Vue.component('baja-empleado', (__webpack_require__(/*! ./components/admin/BajaEmpleado.vue */ "./resources/js/components/admin/BajaEmpleado.vue")["default"]));
 Vue.component('cambiar-horario', (__webpack_require__(/*! ./components/admin/CambiarHorario.vue */ "./resources/js/components/admin/CambiarHorario.vue")["default"]));
 Vue.component('empleados-empresa', (__webpack_require__(/*! ./components/admin/Empleados.vue */ "./resources/js/components/admin/Empleados.vue")["default"]));
+Vue.component('baja-datatable', (__webpack_require__(/*! ./components/admin/BajaDatatable.vue */ "./resources/js/components/admin/BajaDatatable.vue")["default"]));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -38984,6 +38985,40 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/admin/AltaEmpleado.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/BajaDatatable.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/admin/BajaDatatable.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/admin/BajaDatatable.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
