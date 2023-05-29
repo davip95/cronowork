@@ -20,7 +20,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$3nvpv.UyYozWKza6f8nID./eKykbl4NR9GV.Ig2O3r.oGb26H4UOu', // password de david: david1234
             'remember_token' => null,
             'created_at' => null,
             'updated_at' => null,
@@ -29,12 +29,9 @@ class UserFactory extends Factory
             'apellidos' => $this->faker->lastName(),
             'telefono' => $this->faker->phoneNumber(),
             'direccion' => $this->faker->streetName() . ' ' . $this->faker->buildingNumber() . ', ' . $this->faker->city(),
-            'empresas_id' => function () {
-                return Empresa::factory()->create()->id;
-            },
-            'horarios_id' => function (array $user) {
-                return Horario::factory()->create(['empresas_id' => $user['empresas_id']])->id;
-            }
+            'codpostal' => $this->faker->randomNumber(5, true),
+            'empresas_id' => 1,
+            'horarios_id' => null
         ];
     }
 

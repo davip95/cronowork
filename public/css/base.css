@@ -143,4 +143,10 @@
         width: 65% !important;
         margin-top: 1em !important;
     }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+
 }

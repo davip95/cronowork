@@ -3,7 +3,7 @@
     <div class="col-12 mb-3">
       <div class="card base-card">
         <div class="card-header text-center d-flex justify-content-between">
-          Empleados {{ empresa }}
+          <h3 class="mb-0">Empleados {{ empresa }}</h3>
           <button
             type="button"
             class="btn btn-outline-dark bg-success btn-sm align-self-end"
@@ -19,6 +19,7 @@
           >
             <thead>
               <tr>
+                <th hidden>ID</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>Correo</th>
@@ -41,12 +42,17 @@ export default {
   data() {
     return {
       showAltaEmpleado: false,
-      dataTableEmpleados: null,
     };
   },
   mounted() {
+    $.fn.dataTable.ext.errMode = "none";
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+    var dataTableEmpleados;
     $(document).ready(function () {
-      $("#tablaEmpleados").DataTable({
+      dataTableEmpleados = $("#tablaEmpleados").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
+        },
         rowReorder: {
           selector: "td:nth-child(2)",
         },
@@ -62,11 +68,12 @@ export default {
           dataSrc: "data",
         },
         columns: [
+          { data: "id", visible: false },
           { data: "name" },
           { data: "apellidos" },
           { data: "email" },
           { data: "fecha_alta" },
-          { data: "codpostal" },
+          { data: "codpostal", defaultContent: "-" },
           {
             // Columna adicional de acciones
             targets: -1,
@@ -76,16 +83,12 @@ export default {
                 '<div class="col col-md-6 mx-1">' +
                 '<button class="btn btn-warning" data-id="' +
                 row.id +
-                '" v-on:click="abrirModal(' +
-                row.id +
-                ')">Editar</button>' +
+                '">Editar</button>' +
                 "</div>" +
                 '<div class="col col-md-6 mx-1">' +
                 '<button class="btn btn-danger" data-id="' +
                 row.id +
-                '" v-on:click="abrirModal(' +
-                row.id +
-                ')">Borrar</button>' +
+                '">Borrar</button>' +
                 "</div>" +
                 "</div>"
               );
@@ -99,8 +102,21 @@ export default {
             orderable: false,
           },
         ],
+        order: [[4, "asc"]],
       });
     });
+    $("#tablaEmpleados").on("click", ".btn-warning", (event) => {
+      const employeeId = $(event.target).data("id");
+      const employeeData = dataTableEmpleados
+        .row($(event.target).closest("tr"))
+        .data();
+      this.abrirModal(employeeData);
+    });
+  },
+  methods: {
+    abrirModal(datos) {
+      console.log(datos);
+    },
   },
 };
 </script>

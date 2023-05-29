@@ -9737,18 +9737,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["user", "empresa"],
   data: function data() {
     return {
-      showAltaEmpleado: false,
-      dataTableEmpleados: null
+      showAltaEmpleado: false
     };
   },
   mounted: function mounted() {
+    var _this = this;
+    $.fn.dataTable.ext.errMode = "none";
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+    var dataTableEmpleados;
     $(document).ready(function () {
-      $("#tablaEmpleados").DataTable({
+      dataTableEmpleados = $("#tablaEmpleados").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
         rowReorder: {
           selector: "td:nth-child(2)"
         },
@@ -9764,6 +9771,9 @@ __webpack_require__.r(__webpack_exports__);
           dataSrc: "data"
         },
         columns: [{
+          data: "id",
+          visible: false
+        }, {
           data: "name"
         }, {
           data: "apellidos"
@@ -9772,21 +9782,33 @@ __webpack_require__.r(__webpack_exports__);
         }, {
           data: "fecha_alta"
         }, {
-          data: "codpostal"
+          data: "codpostal",
+          defaultContent: "-"
         }, {
           // Columna adicional de acciones
           targets: -1,
           render: function render(data, type, row, meta) {
-            return '<div class="btn-group">' + '<div class="col col-md-6 mx-1">' + '<button class="btn btn-warning" data-id="' + row.id + '" v-on:click="abrirModal(' + row.id + ')">Editar</button>' + "</div>" + '<div class="col col-md-6 mx-1">' + '<button class="btn btn-danger" data-id="' + row.id + '" v-on:click="abrirModal(' + row.id + ')">Borrar</button>' + "</div>" + "</div>";
+            return '<div class="btn-group">' + '<div class="col col-md-6 mx-1">' + '<button class="btn btn-warning" data-id="' + row.id + '">Editar</button>' + "</div>" + '<div class="col col-md-6 mx-1">' + '<button class="btn btn-danger" data-id="' + row.id + '">Borrar</button>' + "</div>" + "</div>";
           }
         }],
         columnDefs: [{
           targets: -1,
           searchable: false,
           orderable: false
-        }]
+        }],
+        order: [[4, "asc"]]
       });
     });
+    $("#tablaEmpleados").on("click", ".btn-warning", function (event) {
+      var employeeId = $(event.target).data("id");
+      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      _this.abrirModal(employeeData);
+    });
+  },
+  methods: {
+    abrirModal: function abrirModal(datos) {
+      console.log(datos);
+    }
   }
 });
 
@@ -42110,7 +42132,10 @@ var render = function () {
               "card-header text-center d-flex justify-content-between",
           },
           [
-            _vm._v("\n        Empleados " + _vm._s(_vm.empresa) + "\n        "),
+            _c("h3", { staticClass: "mb-0" }, [
+              _vm._v("Empleados " + _vm._s(_vm.empresa)),
+            ]),
+            _vm._v(" "),
             _c(
               "button",
               {
@@ -42151,6 +42176,8 @@ var staticRenderFns = [
         [
           _c("thead", [
             _c("tr", [
+              _c("th", { attrs: { hidden: "" } }, [_vm._v("ID")]),
+              _vm._v(" "),
               _c("th", [_vm._v("Nombre")]),
               _vm._v(" "),
               _c("th", [_vm._v("Apellidos")]),

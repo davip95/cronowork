@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -133,6 +134,7 @@ class UserController extends Controller
             } else {
                 $usuario->empresas_id = $empresaId;
                 $usuario->tipo = 'empleado';
+                $usuario->fecha_alta = Carbon::now()->toDateString();
                 $usuario->save();
                 return ['mensaje' => "Empleado dado de alta"];
             }
@@ -171,6 +173,7 @@ class UserController extends Controller
             } else if ($usuario->empresas_id == $empresaId) {
                 $usuario->empresas_id = null;
                 $usuario->tipo = 'usuario';
+                $usuario->fecha_alta = null;
                 $usuario->save();
                 return ['mensaje' => "Empleado dado de baja"];
             } else {
@@ -212,16 +215,17 @@ class UserController extends Controller
      */
     public function listarEmpleados($id)
     {
-        $empleados = User::select('name', 'apellidos', 'email', 'fecha_alta', 'codpostal')
+        $empleados = User::select('id', 'name', 'apellidos', 'email', 'fecha_alta', 'codpostal')
             ->where('empresas_id', $id)
             ->get();
 
         $empleadosData = $empleados->map(function ($empleado) {
             return [
+                'id' => $empleado->id,
                 'name' => $empleado->name,
                 'apellidos' => $empleado->apellidos,
                 'email' => $empleado->email,
-                'fecha_alta' => $empleado->fecha_alta,
+                'fecha_alta' => Carbon::parse($empleado->fecha_alta)->format('d/m/Y'),
                 'codpostal' => $empleado->codpostal,
             ];
         });
