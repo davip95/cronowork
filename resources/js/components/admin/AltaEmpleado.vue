@@ -83,8 +83,16 @@
 import Form from "vform";
 
 export default {
-  props: ["show"],
-  emits: ["close"],
+  props: {
+    show: {
+      type: Boolean,
+    },
+    dataTable: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ["close", "altaDatatable"],
   data() {
     return {
       form: new Form({
@@ -97,7 +105,12 @@ export default {
     async altaEmpleado() {
       try {
         this.$Progress.start();
-        await this.form.post(`empresas/admin/alta`);
+        await this.form.post(`empresas/admin/alta`, {
+          baseURL: "http://127.0.0.1:8000/",
+        });
+        if (this.dataTable) {
+          this.$emit("altaDatatable");
+        }
         this.$Progress.finish();
         Toast.fire({
           icon: "success",

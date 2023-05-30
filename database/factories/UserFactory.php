@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'telefono' => $this->faker->phoneNumber(),
             'direccion' => $this->faker->streetName() . ' ' . $this->faker->buildingNumber() . ', ' . $this->faker->city(),
             'codpostal' => $this->faker->randomNumber(5, true),
+            'fecha_alta' => $this->faker->dateTimeThisYear()->format('Y-m-d'),
             'empresas_id' => 1,
             'horarios_id' => null
         ];

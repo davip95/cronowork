@@ -8549,8 +8549,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["show"],
-  emits: ["close"],
+  props: {
+    show: {
+      type: Boolean
+    },
+    dataTable: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  emits: ["close", "altaDatatable"],
   data: function data() {
     return {
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -8569,8 +8577,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return _this.form.post("empresas/admin/alta");
+              return _this.form.post("empresas/admin/alta", {
+                baseURL: "http://127.0.0.1:8000/"
+              });
             case 4:
+              if (_this.dataTable) {
+                _this.$emit("altaDatatable");
+              }
               _this.$Progress.finish();
               Toast.fire({
                 icon: "success",
@@ -8579,10 +8592,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this.form.email = null;
               _this.form.email_confirmation = null;
               document.getElementById("close").click();
-              _context.next = 16;
+              _context.next = 17;
               break;
-            case 11:
-              _context.prev = 11;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](0);
               _this.$Progress.fail();
               Toast.fire({
@@ -8600,11 +8613,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context.t0.response);
               }
-            case 16:
+            case 17:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 11]]);
+        }, _callee, null, [[0, 12]]);
       }))();
     }
   }
@@ -9899,6 +9912,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["user", "empresa"],
@@ -9909,11 +9952,6 @@ __webpack_require__.r(__webpack_exports__);
       empleado: {}
     };
   },
-  // watch: {
-  //   empleado(newValue) {
-  //     this.empleado = newValue;
-  //   },
-  // },
   mounted: function mounted() {
     var _this = this;
     $.fn.dataTable.ext.errMode = "none";
@@ -9956,7 +9994,7 @@ __webpack_require__.r(__webpack_exports__);
           // Columna adicional de acciones
           targets: -1,
           render: function render(data, type, row, meta) {
-            return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-heart me-1"></i>Horario</button> <button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
+            return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-heart me-1"></i>Horario</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
           }
         }],
         columnDefs: [{
@@ -42628,6 +42666,70 @@ var render = function () {
           },
         }),
         _vm._v(" "),
+        _c("alta-empleado", {
+          attrs: { show: _vm.showAltaEmpleado, dataTable: true },
+          on: {
+            close: function ($event) {
+              _vm.showAltaEmpleado = false
+            },
+            altaDatatable: _vm.actualizarDatatable,
+          },
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "row mb-3" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "alert alert-secondary d-inline-block w-auto mx-auto",
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticStyle: { display: "none" },
+                  attrs: { xmlns: "http://www.w3.org/2000/svg" },
+                },
+                [
+                  _c(
+                    "symbol",
+                    {
+                      attrs: {
+                        id: "info-fill",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16",
+                      },
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z",
+                        },
+                      }),
+                    ]
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "svg",
+                {
+                  staticClass: "bi flex-shrink-0 me-2",
+                  attrs: {
+                    width: "24",
+                    height: "24",
+                    role: "img",
+                    "aria-label": "Info:",
+                  },
+                },
+                [_c("use", { attrs: { "xlink:href": "#info-fill" } })]
+              ),
+              _vm._v(" "),
+              _vm._m(0),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "card base-card" }, [
           _c(
             "div",
@@ -42660,7 +42762,7 @@ var render = function () {
             ]
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _vm._m(1),
         ]),
       ],
       1
@@ -42668,6 +42770,17 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("strong", [_vm._v("Recuerde:")]),
+      _vm._v(
+        " usted, al ser administrador de la\n          empresa, no aparece en el siguiente listado."
+      ),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

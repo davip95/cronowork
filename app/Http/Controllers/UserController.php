@@ -233,6 +233,7 @@ class UserController extends Controller
     {
         $empleados = User::select('id', 'name', 'apellidos', 'email', 'fecha_alta', 'codpostal')
             ->where('empresas_id', $id)
+            ->where('tipo', 'empleado')
             ->get();
 
         $empleadosData = $empleados->map(function ($empleado) {
