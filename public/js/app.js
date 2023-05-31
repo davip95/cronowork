@@ -8602,7 +8602,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: "error",
                 title: "No se pudo dar de alta"
               });
-              if (_context.t0.response && _context.t0.response.status === 404) {
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else if (_context.t0.response && _context.t0.response.status === 404) {
                 _this.form.errors.set({
                   email: "No existe ningún empleado con ese email"
                 });
@@ -8767,7 +8770,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: "error",
                 title: "No se pudo dar de baja"
               });
-              console.log(_context.t0.response);
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context.t0);
+              }
             case 15:
             case "end":
               return _context.stop();
@@ -8920,7 +8928,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: "error",
                 title: "No se pudo dar de baja"
               });
-              if (_context.t0.response && (_context.t0.response.status === 404 || _context.t0.response.data.error === "Empleado ya dado de baja")) {
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else if (_context.t0.response && (_context.t0.response.status === 404 || _context.t0.response.data.error === "Empleado ya dado de baja")) {
                 _this.form.errors.set({
                   email: "No existe ningún empleado con ese email"
                 });
@@ -9087,7 +9098,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: "error",
                 title: "No se pudo cambiar el admin"
               });
-              if (_context.t0.response && _context.t0.response.status === 404) {
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else if (_context.t0.response && _context.t0.response.status === 404) {
                 _this.form.errors.set({
                   email: "No existe ningún empleado con ese email"
                 });
@@ -9303,7 +9317,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: "error",
                 title: "No se pudo borrar la empresa"
               });
-              console.log(_context.t0);
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context.t0);
+              }
             case 15:
             case "end":
               return _context.stop();
@@ -9942,6 +9961,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["user", "empresa"],
@@ -9972,7 +9994,12 @@ __webpack_require__.r(__webpack_exports__);
           method: "GET",
           dataType: "json",
           error: function error(xhr, _error) {
-            console.error("Error en la solicitud:", _error);
+            if (_error.response && _error.response.status === 403) {
+              // Recargar la página para mostrar el formulario de inicio de sesión
+              location.reload();
+            } else {
+              console.log(_error);
+            }
           },
           dataSrc: "data"
         },
@@ -10369,6 +10396,76 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -10383,12 +10480,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       showBajaEmpleado: false,
       showCambiarHorario: false,
       empresa: {},
-      usuario: {}
+      usuario: {},
+      horario: {},
+      jornada: {}
     };
   },
   mounted: function mounted() {
     this.getUser();
     this.getEmpresa();
+    this.getHorario();
+    this.getJornada();
   },
   methods: {
     getUser: function getUser() {
@@ -10401,7 +10502,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/usuarios/".concat(_this.user.id, "/edit"));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/usuarios/".concat(_this.user.id));
             case 4:
               response = _context.sent;
               _this.$Progress.finish();
@@ -10412,7 +10513,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 9;
               _context.t0 = _context["catch"](0);
               _this.$Progress.fail();
-              console.error(_context.t0);
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context.t0);
+              }
             case 13:
             case "end":
               return _context.stop();
@@ -10430,7 +10536,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context2.prev = 0;
               _this2.$Progress.start();
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this2.user.empresas_id, "/edit"));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this2.user.empresas_id));
             case 4:
               response = _context2.sent;
               _this2.$Progress.finish();
@@ -10441,13 +10547,99 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
               _this2.$Progress.fail();
-              console.error(_context2.t0);
+              if (_context2.t0.response && _context2.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context2.t0);
+              }
             case 13:
             case "end":
               return _context2.stop();
           }
         }, _callee2, null, [[0, 9]]);
       }))();
+    },
+    getHorario: function getHorario() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _this3.$Progress.start();
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this3.user.empresas_id, "/horarios/").concat(_this3.user.horarios_id));
+            case 4:
+              response = _context3.sent;
+              _this3.$Progress.finish();
+              _this3.horario = response.data;
+              _context3.next = 13;
+              break;
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](0);
+              _this3.$Progress.fail();
+              if (_context3.t0.response && _context3.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context3.t0);
+              }
+            case 13:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 9]]);
+      }))();
+    },
+    getJornada: function getJornada() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _this4.$Progress.start();
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this4.user.empresas_id, "/horarios/").concat(_this4.user.horarios_id, "/jornada"));
+            case 4:
+              response = _context4.sent;
+              _this4.$Progress.finish();
+              _this4.jornada = response.data;
+              _context4.next = 13;
+              break;
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](0);
+              _this4.$Progress.fail();
+              if (_context4.t0.response && _context4.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context4.t0);
+              }
+            case 13:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, null, [[0, 9]]);
+      }))();
+    },
+    isIntensivo: function isIntensivo() {
+      var fechaActual = new Date();
+      var fechaInicioIntensivo = this.horario.fecha_inicio_intensivo ? new Date(this.horario.fecha_inicio_intensivo) : null;
+      var fechaFinIntensivo = this.horario.fecha_fin_intensivo ? new Date(this.horario.fecha_fin_intensivo) : null;
+      var inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
+      var finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
+      var actualSinAnio = this.getFechaSinAnio(fechaActual);
+      return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
+    },
+    getFechaSinAnio: function getFechaSinAnio(fecha) {
+      if (!fecha) return null;
+      return new Date(2000, fecha.getMonth(), fecha.getDate());
     }
   }
 });
@@ -10472,6 +10664,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+//
+//
 //
 //
 //
@@ -11022,7 +11216,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/usuarios/".concat(_this.user.id, "/edit"));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/usuarios/".concat(_this.user.id));
             case 4:
               response = _context.sent;
               _this.$Progress.finish();
@@ -11034,7 +11228,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.t0 = _context["catch"](0);
               _this.$Progress.fail();
               _this.errorGetUser = true;
-              console.error(_context.t0);
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context.t0);
+              }
             case 14:
             case "end":
               return _context.stop();
@@ -11108,7 +11307,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: "error",
                 title: "No se pudo borrar el usuario"
               });
-              console.log(_context3.t0);
+              if (_context3.t0.response && _context3.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context3.t0);
+              }
             case 15:
             case "end":
               return _context3.stop();
@@ -42847,11 +43051,11 @@ var render = function () {
             "div",
             {
               staticClass:
-                "card-header text-center d-flex justify-content-between",
+                "card-header bg-white text-center d-flex justify-content-between",
             },
             [
-              _c("h3", { staticClass: "mb-0" }, [
-                _vm._v("Empleados " + _vm._s(_vm.empresa)),
+              _c("h4", { staticClass: "mb-0" }, [
+                _c("strong", [_vm._v("Empleados " + _vm._s(_vm.empresa))]),
               ]),
               _vm._v(" "),
               _c(
@@ -43021,9 +43225,7 @@ var render = function () {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-3 mb-3" }, [
             _c("div", { staticClass: "card base-card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _vm._v("Atajos Laborales"),
-              ]),
+              _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "base-card-body" }, [
                 _c(
@@ -43033,8 +43235,7 @@ var render = function () {
                     _c(
                       "button",
                       {
-                        staticClass:
-                          "btn btn-outline-dark bg-success btn-sm m-1",
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
                         attrs: { type: "button" },
                         on: {
                           click: function ($event) {
@@ -43051,8 +43252,7 @@ var render = function () {
                     _c(
                       "button",
                       {
-                        staticClass:
-                          "btn btn-outline-dark bg-danger btn-sm m-1",
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
                         attrs: { type: "button" },
                         on: {
                           click: function ($event) {
@@ -43069,8 +43269,7 @@ var render = function () {
                     _c(
                       "button",
                       {
-                        staticClass:
-                          "btn btn-outline-dark bg-warning btn-sm m-1",
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
                         attrs: { type: "button" },
                         on: {
                           click: function ($event) {
@@ -43090,7 +43289,89 @@ var render = function () {
           ]),
           _vm._v(" "),
           _vm.user.horarios_id
-            ? _c("div", { staticClass: "col-lg-9 mb-3" }, [_vm._m(0)])
+            ? _c("div", { staticClass: "col-lg-9 mb-3" }, [
+                _c("div", { staticClass: "card base-card" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "base-card-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "d-block align-items-center text-center" },
+                      [
+                        _c("h5", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.isIntensivo()
+                                ? "Horario Intensivo"
+                                : "Horario"
+                            )
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.horario.descripcion))]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "container" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-lg" }, [
+                              _c("h6", { staticClass: "mb-3" }, [
+                                _vm._v("Hora Inicio"),
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(
+                                      _vm.isIntensivo()
+                                        ? _vm.jornada.hora_inicio_intensiva
+                                        : _vm.jornada.hora_inicio
+                                    ) +
+                                    "\n                    "
+                                ),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-lg" }, [
+                              _c("h6", { staticClass: "mb-3" }, [
+                                _vm._v("Hora Fin"),
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(
+                                      _vm.isIntensivo()
+                                        ? _vm.jornada.hora_fin_intensiva
+                                        : _vm.jornada.hora_fin
+                                    ) +
+                                    "\n                    "
+                                ),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-lg" }, [
+                              _c("h6", { staticClass: "mb-3" }, [
+                                _vm._v("Descanso"),
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(
+                                      _vm.isIntensivo()
+                                        ? _vm.jornada.minutos_descanso_intensiva
+                                        : _vm.jornada.minutos_descanso
+                                    ) +
+                                    "\n                    "
+                                ),
+                              ]),
+                            ]),
+                          ]),
+                        ]),
+                      ]
+                    ),
+                  ]),
+                ]),
+              ])
             : _c("div", { staticClass: "col-lg-9 mb-3" }, [
                 _c(
                   "div",
@@ -43157,7 +43438,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _vm._m(2),
                   ]
                 ),
               ]),
@@ -43166,13 +43447,11 @@ var render = function () {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-6 mb-3" }, [
             _c("div", { staticClass: "card base-card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _vm._v("Datos Administrador"),
-              ]),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "base-card-body" }, [
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(2),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm._v(
@@ -43188,7 +43467,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(3),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm._v(
@@ -43202,7 +43481,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(4),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm._v(
@@ -43216,7 +43495,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(5),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm.usuario.telefono &&
@@ -43229,7 +43508,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(6),
+                  _vm._m(8),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm.usuario.direccion &&
@@ -43242,7 +43521,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(7),
+                  _vm._m(9),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm.usuario.codpostal
@@ -43302,13 +43581,11 @@ var render = function () {
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-6 mb-3" }, [
             _c("div", { staticClass: "card base-card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _vm._v("Datos Empresa"),
-              ]),
+              _vm._m(10),
               _vm._v(" "),
               _c("div", { staticClass: "base-card-body" }, [
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(8),
+                  _vm._m(11),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm._v(
@@ -43322,7 +43599,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(9),
+                  _vm._m(12),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm._v(
@@ -43336,7 +43613,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(10),
+                  _vm._m(13),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm._v(
@@ -43350,7 +43627,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(11),
+                  _vm._m(14),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm.empresa.telefono &&
@@ -43363,7 +43640,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(12),
+                  _vm._m(15),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm.empresa.direccion &&
@@ -43376,7 +43653,7 @@ var render = function () {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(13),
+                  _vm._m(16),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                     _vm.empresa.codigo_postal
@@ -43444,20 +43721,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card base-card" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Jornada de Hoy")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "base-card-body" }, [
-        _c("div", { staticClass: "d-flex align-items-center text-center" }, [
-          _vm._v("\n              Info\n              "),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "button" } },
-            [_vm._v("Fichar")]
-          ),
-        ]),
-      ]),
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Atajos Laborales")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Jornada de Hoy")]),
     ])
   },
   function () {
@@ -43476,6 +43749,14 @@ var staticRenderFns = [
           _vm._v("\n              Crear Horario\n            "),
         ]
       ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Datos Administrador")]),
     ])
   },
   function () {
@@ -43524,6 +43805,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-sm-3" }, [
       _c("h6", { staticClass: "mb-0" }, [_vm._v("Código Postal")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Datos Empresa")]),
     ])
   },
   function () {
@@ -43602,7 +43891,7 @@ var render = function () {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-4 mb-3" }, [
           _c("div", { staticClass: "card base-card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Usuario")]),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "base-card-body" }, [
               _c(
@@ -43643,7 +43932,7 @@ var render = function () {
                       _vm._v(_vm._s(_vm.usuario.name)),
                     ]),
                     _vm._v(" "),
-                    _vm._m(0),
+                    _vm._m(1),
                   ]),
                 ]
               ),
@@ -43653,13 +43942,11 @@ var render = function () {
         _vm._v(" "),
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "card base-card mb-3" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Datos Personales"),
-            ]),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "base-card-body" }, [
               _c("div", { staticClass: "row" }, [
-                _vm._m(1),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                   _vm._v(
@@ -43675,7 +43962,7 @@ var render = function () {
               _c("hr"),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _vm._m(2),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                   _vm._v(
@@ -43689,7 +43976,7 @@ var render = function () {
               _c("hr"),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                   _vm._v(
@@ -43703,7 +43990,7 @@ var render = function () {
               _c("hr"),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _vm._m(4),
+                _vm._m(6),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                   _vm.usuario.telefono &&
@@ -43716,7 +44003,7 @@ var render = function () {
               _c("hr"),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _vm._m(5),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                   _vm.usuario.direccion &&
@@ -43729,7 +44016,7 @@ var render = function () {
               _c("hr"),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
-                _vm._m(6),
+                _vm._m(8),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 text-secondary" }, [
                   _vm.usuario.codpostal
@@ -43740,7 +44027,7 @@ var render = function () {
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _vm._m(7),
+              _vm._m(9),
             ]),
           ]),
         ]),
@@ -43765,10 +44052,10 @@ var render = function () {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-lg-12" }, [
                     _c("div", { staticClass: "card modal-content" }, [
-                      _vm._m(8),
+                      _vm._m(10),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _vm._m(9),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c(
                           "form",
@@ -43782,7 +44069,7 @@ var render = function () {
                           },
                           [
                             _c("div", { staticClass: "row" }, [
-                              _vm._m(10),
+                              _vm._m(12),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -43802,7 +44089,7 @@ var render = function () {
                             _c("hr"),
                             _vm._v(" "),
                             _c("div", { staticClass: "row" }, [
-                              _vm._m(11),
+                              _vm._m(13),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -43820,7 +44107,7 @@ var render = function () {
                             _c("hr"),
                             _vm._v(" "),
                             _c("div", { staticClass: "row" }, [
-                              _vm._m(12),
+                              _vm._m(14),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -43838,7 +44125,7 @@ var render = function () {
                             _c("hr"),
                             _vm._v(" "),
                             _c("div", { staticClass: "row" }, [
-                              _vm._m(13),
+                              _vm._m(15),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -43857,7 +44144,7 @@ var render = function () {
                             _c("hr"),
                             _vm._v(" "),
                             _c("div", { staticClass: "row" }, [
-                              _vm._m(14),
+                              _vm._m(16),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -43876,7 +44163,7 @@ var render = function () {
                             _c("hr"),
                             _vm._v(" "),
                             _c("div", { staticClass: "row" }, [
-                              _vm._m(15),
+                              _vm._m(17),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -43893,7 +44180,7 @@ var render = function () {
                             _vm._v(" "),
                             _c("hr"),
                             _vm._v(" "),
-                            _vm._m(16),
+                            _vm._m(18),
                           ]
                         ),
                       ]),
@@ -43925,7 +44212,7 @@ var render = function () {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-lg-12" }, [
                     _c("div", { staticClass: "card modal-content" }, [
-                      _vm._m(17),
+                      _vm._m(19),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c("div", { staticClass: "row mb-3" }, [
@@ -44003,7 +44290,7 @@ var render = function () {
                               },
                               [
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(18),
+                                  _vm._m(20),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44051,7 +44338,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(19),
+                                  _vm._m(21),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44102,7 +44389,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(20),
+                                  _vm._m(22),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44150,7 +44437,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(21),
+                                  _vm._m(23),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44201,7 +44488,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(22),
+                                  _vm._m(24),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44257,7 +44544,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(23),
+                                  _vm._m(25),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44308,7 +44595,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(24),
+                                  _vm._m(26),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44359,7 +44646,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mb-3" }, [
-                                  _vm._m(25),
+                                  _vm._m(27),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44409,7 +44696,7 @@ var render = function () {
                                   ),
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(26),
+                                _vm._m(28),
                               ]
                             )
                           : _vm._e(),
@@ -44430,6 +44717,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Usuario")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "button",
       {
@@ -44445,6 +44740,14 @@ var staticRenderFns = [
         _c("span", { staticClass: "fw-bold" }, [_vm._v("Borrar Cuenta")]),
       ]
     )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Datos Personales")]),
+    ])
   },
   function () {
     var _vm = this

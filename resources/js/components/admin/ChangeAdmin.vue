@@ -120,7 +120,10 @@ export default {
           icon: "error",
           title: "No se pudo cambiar el admin",
         });
-        if (error.response && error.response.status === 404) {
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else if (error.response && error.response.status === 404) {
           this.form.errors.set({
             email: "No existe ningún empleado con ese email",
           });

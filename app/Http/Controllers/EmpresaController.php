@@ -15,12 +15,12 @@ use Illuminate\Validation\Rule;
 class EmpresaController extends Controller
 {
     /**
-     * Muestra formulario para editar datos de la empresa.
+     * Muestra los datos de la empresa.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show($id)
     {
         $empresa = Empresa::find($id);
         return response()->json($empresa);

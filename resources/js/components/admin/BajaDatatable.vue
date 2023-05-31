@@ -112,7 +112,12 @@ export default {
           icon: "error",
           title: "No se pudo dar de baja",
         });
-        console.log(error.response);
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
       }
     },
   },

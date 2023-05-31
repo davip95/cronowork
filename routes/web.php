@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\JornadaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,8 +37,21 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/empresas/admin/baja', 'guardarBaja')->middleware(['auth', 'admin'])->name('admin.guardarBaja');
     Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
 });
-Route::resource('usuarios', UserController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'usuario']);
+Route::resource('usuarios', UserController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'usuario']);
 
 // EMPRESA CONTROLLER
 
-Route::resource('empresas', EmpresaController::class)->only(['edit', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
+Route::resource('empresas', EmpresaController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
+
+// HORARIO CONTROLLER
+
+Route::controller(HorarioController::class)->group(function () {
+    Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}/jornada', 'verJornadaPropia')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verJornadaPropia');
+    Route::get('empresas/{empresa}/horarios/{horario}/jornada', 'verJornada')->middleware(['auth', 'admin', 'empresa'])->name('admin.verJornada');
+    Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}', 'verHorario')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verHorario');
+});
+Route::resource('empresas.horarios', HorarioController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
+
+// JORNADA CONTROLLER
+
+Route::resource('empresas.horarios.jornadas', HorarioController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);

@@ -169,7 +169,12 @@ export default {
           icon: "error",
           title: "No se pudo borrar la empresa",
         });
-        console.log(error);
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
       }
     },
   },

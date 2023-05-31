@@ -36,19 +36,21 @@
       <div class="row">
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
-            <div class="card-header">Atajos Laborales</div>
+            <div class="card-header bg-white">
+              <strong>Atajos Laborales</strong>
+            </div>
             <div class="base-card-body">
               <div class="d-flex justify-content-center flex-column">
                 <button
                   type="button"
-                  class="btn btn-outline-dark bg-success btn-sm m-1"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
                   @click="showAltaEmpleado = true"
                 >
                   <i class="bi bi-person-fill-up me-2"></i><span>Dar Alta</span>
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-dark bg-danger btn-sm m-1"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
                   @click="showBajaEmpleado = true"
                 >
                   <i class="bi bi-person-fill-down me-2"></i
@@ -56,7 +58,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-dark bg-warning btn-sm m-1"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
                   @click="showCambiarHorario = true"
                 >
                   <i class="bi bi-calendar-heart me-2"></i
@@ -68,12 +70,76 @@
         </div>
         <div class="col-lg-9 mb-3" v-if="user.horarios_id">
           <div class="card base-card">
-            <div class="card-header">Jornada de Hoy</div>
+            <div class="card-header bg-white">
+              <strong>Jornada de Hoy</strong>
+            </div>
             <div class="base-card-body">
-              <div class="d-flex align-items-center text-center">
-                Info
-                <!-- AQUI PONER DESCRIPCION HORARIO; HORA INICIO; HORA FIN; MINS DESCANSO; SI ES HORARIO INTENSIVO PONERLO, SINO NO -->
-                <button type="button" class="btn btn-primary">Fichar</button>
+              <div class="d-block align-items-center text-center">
+                <h5>{{ isIntensivo() ? "Horario Intensivo" : "Horario" }}</h5>
+                <p>{{ horario.descripcion }}</p>
+                <!-- <div class="row">
+                  <div class="col-4">Hora Inicio</div>
+                  <div class="col-4">Hora Fin</div>
+                  <div class="col-4">Descanso</div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    {{
+                      isIntensivo()
+                        ? jornada.hora_inicio_intensiva
+                        : jornada.hora_inicio
+                    }}
+                  </div>
+                  <div class="col-4">
+                    {{
+                      isIntensivo()
+                        ? jornada.hora_fin_intensiva
+                        : jornada.hora_fin
+                    }}
+                  </div>
+                  <div class="col-4">
+                    {{
+                      isIntensivo()
+                        ? jornada.minutos_descanso_intensiva
+                        : jornada.minutos_descanso
+                    }}
+                  </div>
+                </div> -->
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg">
+                      <h6 class="mb-3">Hora Inicio</h6>
+                      <p>
+                        {{
+                          isIntensivo()
+                            ? jornada.hora_inicio_intensiva
+                            : jornada.hora_inicio
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg">
+                      <h6 class="mb-3">Hora Fin</h6>
+                      <p>
+                        {{
+                          isIntensivo()
+                            ? jornada.hora_fin_intensiva
+                            : jornada.hora_fin
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg">
+                      <h6 class="mb-3">Descanso</h6>
+                      <p>
+                        {{
+                          isIntensivo()
+                            ? jornada.minutos_descanso_intensiva
+                            : jornada.minutos_descanso
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- <button type="button" class="btn btn-primary">Fichar</button> -->
               </div>
             </div>
           </div>
@@ -124,7 +190,9 @@
       <div class="row">
         <div class="col-lg-6 mb-3">
           <div class="card base-card">
-            <div class="card-header">Datos Administrador</div>
+            <div class="card-header bg-white">
+              <strong>Datos Administrador</strong>
+            </div>
             <div class="base-card-body">
               <div class="row">
                 <div class="col-sm-3">
@@ -218,7 +286,9 @@
         </div>
         <div class="col-lg-6 mb-3">
           <div class="card base-card">
-            <div class="card-header">Datos Empresa</div>
+            <div class="card-header bg-white">
+              <strong>Datos Empresa</strong>
+            </div>
             <div class="base-card-body">
               <div class="row">
                 <div class="col-sm-3">
@@ -332,36 +402,102 @@ export default {
       showCambiarHorario: false,
       empresa: {},
       usuario: {},
+      horario: {},
+      jornada: {},
     };
   },
   mounted() {
     this.getUser();
     this.getEmpresa();
+    this.getHorario();
+    this.getJornada();
   },
   methods: {
     async getUser() {
       try {
         this.$Progress.start();
-        const response = await axios.get(`/usuarios/${this.user.id}/edit`);
+        const response = await axios.get(`/usuarios/${this.user.id}`);
         this.$Progress.finish();
         this.usuario = response.data;
       } catch (error) {
         this.$Progress.fail();
-        console.error(error);
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
       }
     },
     async getEmpresa() {
       try {
         this.$Progress.start();
-        const response = await axios.get(
-          `/empresas/${this.user.empresas_id}/edit`
-        );
+        const response = await axios.get(`/empresas/${this.user.empresas_id}`);
         this.$Progress.finish();
         this.empresa = response.data;
       } catch (error) {
         this.$Progress.fail();
-        console.error(error);
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
       }
+    },
+    async getHorario() {
+      try {
+        this.$Progress.start();
+        const response = await axios.get(
+          `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}`
+        );
+        this.$Progress.finish();
+        this.horario = response.data;
+      } catch (error) {
+        this.$Progress.fail();
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
+      }
+    },
+    async getJornada() {
+      try {
+        this.$Progress.start();
+        const response = await axios.get(
+          `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}/jornada`
+        );
+        this.$Progress.finish();
+        this.jornada = response.data;
+      } catch (error) {
+        this.$Progress.fail();
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
+      }
+    },
+    isIntensivo() {
+      const fechaActual = new Date();
+      const fechaInicioIntensivo = this.horario.fecha_inicio_intensivo
+        ? new Date(this.horario.fecha_inicio_intensivo)
+        : null;
+      const fechaFinIntensivo = this.horario.fecha_fin_intensivo
+        ? new Date(this.horario.fecha_fin_intensivo)
+        : null;
+      const inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
+      const finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
+      const actualSinAnio = this.getFechaSinAnio(fechaActual);
+
+      return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
+    },
+    getFechaSinAnio(fecha) {
+      if (!fecha) return null;
+      return new Date(2000, fecha.getMonth(), fecha.getDate());
     },
   },
 };

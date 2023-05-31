@@ -15,7 +15,7 @@ class CreateJornadasTable extends Migration
     {
         Schema::create('jornadas', function (Blueprint $table) {
             $table->id();
-            $table->string('dia', 1);
+            $table->integer('dia');
             $table->integer('minutos_descanso');
             $table->integer('minutos_descanso_intensiva')->nullable();
             $table->time('hora_inicio');

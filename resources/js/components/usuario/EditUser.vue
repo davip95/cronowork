@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <div class="card base-card">
-            <div class="card-header">Usuario</div>
+            <div class="card-header bg-white"><strong>Usuario</strong></div>
             <div class="base-card-body">
               <div class="d-flex flex-column align-items-center text-center">
                 <svg
@@ -40,7 +40,9 @@
 
         <div class="col-md-8">
           <div class="card base-card mb-3">
-            <div class="card-header">Datos Personales</div>
+            <div class="card-header bg-white">
+              <strong>Datos Personales</strong>
+            </div>
             <div class="base-card-body">
               <div class="row">
                 <div class="col-sm-3">
@@ -541,13 +543,18 @@ export default {
     async getUser() {
       try {
         this.$Progress.start();
-        const response = await axios.get(`/usuarios/${this.user.id}/edit`);
+        const response = await axios.get(`/usuarios/${this.user.id}`);
         this.$Progress.finish();
         this.usuario = response.data;
       } catch (error) {
         this.$Progress.fail();
         this.errorGetUser = true;
-        console.error(error);
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
       }
     },
     async editUser() {
@@ -589,7 +596,12 @@ export default {
           icon: "error",
           title: "No se pudo borrar el usuario",
         });
-        console.log(error);
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
       }
     },
   },

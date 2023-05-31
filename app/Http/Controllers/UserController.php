@@ -15,12 +15,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class UserController extends Controller
 {
     /**
-     * Muestra formulario para editar datos personales del usuario.
+     * Muestra los datos personales del usuario.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show($id)
     {
         $user = User::find($id);
         return response()->json($user);

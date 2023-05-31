@@ -38,8 +38,12 @@
         </div>
       </div>
       <div class="card base-card">
-        <div class="card-header text-center d-flex justify-content-between">
-          <h3 class="mb-0">Empleados {{ empresa }}</h3>
+        <div
+          class="card-header bg-white text-center d-flex justify-content-between"
+        >
+          <h4 class="mb-0">
+            <strong>Empleados {{ empresa }}</strong>
+          </h4>
           <button
             type="button"
             class="btn btn-outline-dark bg-success btn-sm align-self-end"
@@ -64,7 +68,6 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <!-- <tbody></tbody> -->
           </table>
         </div>
       </div>
@@ -101,7 +104,12 @@ export default {
           method: "GET",
           dataType: "json",
           error: function (xhr, error) {
-            console.error("Error en la solicitud:", error);
+            if (error.response && error.response.status === 403) {
+              // Recargar la página para mostrar el formulario de inicio de sesión
+              location.reload();
+            } else {
+              console.log(error);
+            }
           },
           dataSrc: "data",
         },
