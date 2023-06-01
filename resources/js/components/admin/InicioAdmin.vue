@@ -414,8 +414,8 @@ export default {
       try {
         this.$Progress.start();
         const response = await axios.get(`/usuarios/${this.user.id}`);
-        this.$Progress.finish();
         this.usuario = response.data;
+        this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();
         if (error.response && error.response.status === 403) {
@@ -430,8 +430,8 @@ export default {
       try {
         this.$Progress.start();
         const response = await axios.get(`/empresas/${this.user.empresas_id}`);
-        this.$Progress.finish();
         this.empresa = response.data;
+        this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();
         if (error.response && error.response.status === 403) {
@@ -449,9 +449,9 @@ export default {
         const response = await axios.get(
           `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}`
         );
-        this.$Progress.finish();
         this.horario = response.data.horario;
         this.isIntensivo = response.data.intensivo;
+        this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();
         if (error.response && error.response.status === 403) {
@@ -468,9 +468,9 @@ export default {
         const response = await axios.get(
           `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}/jornada`
         );
-        this.$Progress.finish();
         this.jornada = response.data;
         this.isDataLoaded = true;
+        this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();
         if (error.response && error.response.status === 403) {
@@ -481,24 +481,6 @@ export default {
         }
       }
     },
-    // isIntensivo {
-    //   const fechaActual = new Date();
-    //   const fechaInicioIntensivo = this.horario.fecha_inicio_intensivo
-    //     ? new Date(this.horario.fecha_inicio_intensivo)
-    //     : null;
-    //   const fechaFinIntensivo = this.horario.fecha_fin_intensivo
-    //     ? new Date(this.horario.fecha_fin_intensivo)
-    //     : null;
-    //   const inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
-    //   const finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
-    //   const actualSinAnio = this.getFechaSinAnio(fechaActual);
-
-    //   return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
-    // },
-    // getFechaSinAnio(fecha) {
-    //   if (!fecha) return null;
-    //   return new Date(2000, fecha.getMonth(), fecha.getDate());
-    // },
   },
 };
 </script>

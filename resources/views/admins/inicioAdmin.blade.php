@@ -2,12 +2,12 @@
 @section('contenido')
 <div class="container-fluid">
     <div class="main-body">
-        <nav aria-label="breadcrumb" class="main-breadcrumb">
+        {{-- <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
               <li class="breadcrumb-item active" aria-current="page">Inicio Admin</li>
             </ol>
-          </nav>
+          </nav> --}}
 
           <div id="app">
             <inicio-admin :user="{{ Auth::user() }}"></inicio-admin>

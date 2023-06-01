@@ -43,12 +43,12 @@
             <div class="card-header bg-white">
               <strong>Datos Personales</strong>
             </div>
-            <div class="base-card-body">
+            <div class="base-card-body" v-if="isDataLoaded">
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Nombre</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ usuario.name }} {{ usuario.apellidos }}
                 </div>
               </div>
@@ -57,7 +57,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Correo</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ usuario.email }}
                 </div>
               </div>
@@ -66,7 +66,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Rol</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ usuario.tipo }}
                 </div>
               </div>
@@ -75,7 +75,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Teléfono</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       usuario.telefono && usuario.telefono.trim().length !== 0
@@ -90,7 +90,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Dirección</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       usuario.direccion && usuario.direccion.trim().length !== 0
@@ -105,7 +105,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Código Postal</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span v-if="usuario.codpostal">{{ usuario.codpostal }}</span>
                   <span v-else>-</span>
                 </div>
@@ -126,6 +126,9 @@
                   </button>
                 </div>
               </div>
+            </div>
+            <div class="base-card-body" v-else>
+              <p>Cargando...</p>
             </div>
           </div>
         </div>
@@ -173,7 +176,7 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Nombre</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             {{ usuario.name }} {{ usuario.apellidos }}
                           </div>
                         </div>
@@ -182,7 +185,7 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Correo</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             {{ usuario.email }}
                           </div>
                         </div>
@@ -191,7 +194,7 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Rol</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             {{ usuario.tipo }}
                           </div>
                         </div>
@@ -200,7 +203,7 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Teléfono</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <span
                               v-if="
                                 usuario.telefono &&
@@ -216,7 +219,7 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Dirección</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <span
                               v-if="
                                 usuario.direccion &&
@@ -232,7 +235,7 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Código Postal</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <span v-if="usuario.codpostal">{{
                               usuario.codpostal
                             }}</span>
@@ -245,7 +248,7 @@
                             class="col-sm-3 d-flex justify-content-end"
                           ></div>
                           <div
-                            class="col-sm-9 text-secondary d-flex justify-content-between"
+                            class="col-sm-9 text-secondary fw-bold d-flex justify-content-between"
                           >
                             <button type="submit" class="btn btn-danger px-4">
                               Borrar Cuenta
@@ -333,7 +336,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Nombre</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.name"
                               type="text"
@@ -348,7 +351,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Apellidos</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.apellidos"
                               type="text"
@@ -368,7 +371,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Correo</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.email"
                               type="email"
@@ -385,7 +388,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Contraseña</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.password"
                               type="password"
@@ -405,7 +408,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Repita Contraseña</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.password_confirmation"
                               type="password"
@@ -427,7 +430,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Teléfono</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.telefono"
                               type="text"
@@ -447,7 +450,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Dirección</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.direccion"
                               type="text"
@@ -467,7 +470,7 @@
                           <div class="col-sm-3 d-flex justify-content-end">
                             <h6 class="mb-0">Código Postal</h6>
                           </div>
-                          <div class="col-sm-9 text-secondary">
+                          <div class="col-sm-9 text-secondary fw-bold">
                             <input
                               v-model="form.codpostal"
                               type="text"
@@ -488,7 +491,7 @@
                             class="col-sm-3 d-flex justify-content-end"
                           ></div>
                           <div
-                            class="col-sm-9 text-secondary d-flex justify-content-between"
+                            class="col-sm-9 text-secondary fw-bold d-flex justify-content-between"
                           >
                             <button type="submit" class="btn btn-warning px-4">
                               Editar
@@ -522,6 +525,7 @@ export default {
   props: ["user"],
   data() {
     return {
+      isDataLoaded: false,
       errorGetUser: false,
       usuario: {},
       form: new Form({
@@ -542,10 +546,12 @@ export default {
   methods: {
     async getUser() {
       try {
+        this.isDataLoaded = false;
         this.$Progress.start();
         const response = await axios.get(`/usuarios/${this.user.id}`);
-        this.$Progress.finish();
         this.usuario = response.data;
+        this.$Progress.finish();
+        this.isDataLoaded = true;
       } catch (error) {
         this.$Progress.fail();
         this.errorGetUser = true;

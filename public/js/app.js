@@ -10502,8 +10502,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/usuarios/".concat(_this.user.id));
             case 4:
               response = _context.sent;
-              _this.$Progress.finish();
               _this.usuario = response.data;
+              _this.$Progress.finish();
               _context.next = 13;
               break;
             case 9:
@@ -10536,8 +10536,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this2.user.empresas_id));
             case 4:
               response = _context2.sent;
-              _this2.$Progress.finish();
               _this2.empresa = response.data;
+              _this2.$Progress.finish();
               _context2.next = 13;
               break;
             case 9:
@@ -10571,9 +10571,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this3.user.empresas_id, "/horarios/").concat(_this3.user.horarios_id));
             case 5:
               response = _context3.sent;
-              _this3.$Progress.finish();
               _this3.horario = response.data.horario;
               _this3.isIntensivo = response.data.intensivo;
+              _this3.$Progress.finish();
               _context3.next = 15;
               break;
             case 11:
@@ -10606,9 +10606,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this4.user.empresas_id, "/horarios/").concat(_this4.user.horarios_id, "/jornada"));
             case 4:
               response = _context4.sent;
-              _this4.$Progress.finish();
               _this4.jornada = response.data;
               _this4.isDataLoaded = true;
+              _this4.$Progress.finish();
               _context4.next = 14;
               break;
             case 10:
@@ -10627,23 +10627,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee4, null, [[0, 10]]);
       }))();
-    } // isIntensivo {
-    //   const fechaActual = new Date();
-    //   const fechaInicioIntensivo = this.horario.fecha_inicio_intensivo
-    //     ? new Date(this.horario.fecha_inicio_intensivo)
-    //     : null;
-    //   const fechaFinIntensivo = this.horario.fecha_fin_intensivo
-    //     ? new Date(this.horario.fecha_fin_intensivo)
-    //     : null;
-    //   const inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
-    //   const finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
-    //   const actualSinAnio = this.getFechaSinAnio(fechaActual);
-    //   return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
-    // },
-    // getFechaSinAnio(fecha) {
-    //   if (!fecha) return null;
-    //   return new Date(2000, fecha.getMonth(), fecha.getDate());
-    // },
+    }
   }
 });
 
@@ -11184,6 +11168,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -11191,6 +11178,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ["user"],
   data: function data() {
     return {
+      isDataLoaded: false,
       errorGetUser: false,
       usuario: {},
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -11217,17 +11205,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
+              _this.isDataLoaded = false;
               _this.$Progress.start();
-              _context.next = 4;
+              _context.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/usuarios/".concat(_this.user.id));
-            case 4:
+            case 5:
               response = _context.sent;
-              _this.$Progress.finish();
               _this.usuario = response.data;
-              _context.next = 14;
+              _this.$Progress.finish();
+              _this.isDataLoaded = true;
+              _context.next = 16;
               break;
-            case 9:
-              _context.prev = 9;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](0);
               _this.$Progress.fail();
               _this.errorGetUser = true;
@@ -11237,11 +11227,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context.t0);
               }
-            case 14:
+            case 16:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 11]]);
       }))();
     },
     editUser: function editUser() {
@@ -41068,13 +41058,17 @@ var render = function () {
                     _c("h6", { staticClass: "mb-0" }, [_vm._v("Nombre")]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(_vm.empleado.name) +
-                        "\n            "
-                    ),
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-9 text-secondary fw-bold" },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.empleado.name) +
+                          "\n            "
+                      ),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("hr"),
@@ -41084,13 +41078,17 @@ var render = function () {
                     _c("h6", { staticClass: "mb-0" }, [_vm._v("Apellidos")]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(_vm.empleado.apellidos) +
-                        "\n            "
-                    ),
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-9 text-secondary fw-bold" },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.empleado.apellidos) +
+                          "\n            "
+                      ),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("hr"),
@@ -41100,13 +41098,17 @@ var render = function () {
                     _c("h6", { staticClass: "mb-0" }, [_vm._v("Correo")]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(_vm.empleado.email) +
-                        "\n            "
-                    ),
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-9 text-secondary fw-bold" },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.empleado.email) +
+                          "\n            "
+                      ),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("hr"),
@@ -41116,13 +41118,17 @@ var render = function () {
                     _c("h6", { staticClass: "mb-0" }, [_vm._v("Fecha Alta")]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(_vm.empleado.fecha_alta) +
-                        "\n            "
-                    ),
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-9 text-secondary fw-bold" },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.empleado.fecha_alta) +
+                          "\n            "
+                      ),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("hr"),
@@ -41134,13 +41140,17 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(_vm.empleado.codpostal) +
-                        "\n            "
-                    ),
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-9 text-secondary fw-bold" },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.empleado.codpostal) +
+                          "\n            "
+                      ),
+                    ]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("hr"),
@@ -41154,7 +41164,7 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "col-sm-9 text-secondary d-flex justify-content-between",
+                        "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
                     },
                     [
                       _c(
@@ -41747,13 +41757,17 @@ var render = function () {
                         _c("h6", { staticClass: "mb-0" }, [_vm._v("Nombre")]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.empresa.nombre) +
-                            "\n              "
-                        ),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empresa.nombre) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
                     ]),
                     _vm._v(" "),
                     _c("hr"),
@@ -41763,13 +41777,17 @@ var render = function () {
                         _c("h6", { staticClass: "mb-0" }, [_vm._v("Correo")]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.empresa.correo) +
-                            "\n              "
-                        ),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empresa.correo) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
                     ]),
                     _vm._v(" "),
                     _c("hr"),
@@ -41779,13 +41797,17 @@ var render = function () {
                         _c("h6", { staticClass: "mb-0" }, [_vm._v("CIF")]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.empresa.cif) +
-                            "\n              "
-                        ),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empresa.cif) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
                     ]),
                     _vm._v(" "),
                     _c("hr"),
@@ -41795,12 +41817,16 @@ var render = function () {
                         _c("h6", { staticClass: "mb-0" }, [_vm._v("Teléfono")]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                        _vm.empresa.telefono &&
-                        _vm.empresa.telefono.trim().length !== 0
-                          ? _c("span", [_vm._v(_vm._s(_vm.empresa.telefono))])
-                          : _c("span", [_vm._v("-")]),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.empresa.telefono &&
+                          _vm.empresa.telefono.trim().length !== 0
+                            ? _c("span", [_vm._v(_vm._s(_vm.empresa.telefono))])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
                     ]),
                     _vm._v(" "),
                     _c("hr"),
@@ -41812,12 +41838,18 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                        _vm.empresa.direccion &&
-                        _vm.empresa.direccion.trim().length !== 0
-                          ? _c("span", [_vm._v(_vm._s(_vm.empresa.direccion))])
-                          : _c("span", [_vm._v("-")]),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.empresa.direccion &&
+                          _vm.empresa.direccion.trim().length !== 0
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.empresa.direccion)),
+                              ])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
                     ]),
                     _vm._v(" "),
                     _c("hr"),
@@ -41829,13 +41861,17 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                        _vm.empresa.codigo_postal
-                          ? _c("span", [
-                              _vm._v(_vm._s(_vm.empresa.codigo_postal)),
-                            ])
-                          : _c("span", [_vm._v("-")]),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.empresa.codigo_postal
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.empresa.codigo_postal)),
+                              ])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
                     ]),
                     _vm._v(" "),
                     _c("hr"),
@@ -41849,7 +41885,7 @@ var render = function () {
                         "div",
                         {
                           staticClass:
-                            "col-sm-9 text-secondary d-flex justify-content-between",
+                            "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
                         },
                         [
                           _c(
@@ -44069,91 +44105,119 @@ var render = function () {
           _c("div", { staticClass: "card base-card mb-3" }, [
             _vm._m(2),
             _vm._v(" "),
-            _c("div", { staticClass: "base-card-body" }, [
-              _c("div", { staticClass: "row" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.usuario.name) +
-                      " " +
-                      _vm._s(_vm.usuario.apellidos) +
-                      "\n              "
-                  ),
+            _vm.isDataLoaded
+              ? _c("div", { staticClass: "base-card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-9 text-secondary fw-bold" },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.usuario.name) +
+                            " " +
+                            _vm._s(_vm.usuario.apellidos) +
+                            "\n              "
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-9 text-secondary fw-bold" },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.usuario.email) +
+                            "\n              "
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-9 text-secondary fw-bold" },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.usuario.tipo) +
+                            "\n              "
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-9 text-secondary fw-bold" },
+                      [
+                        _vm.usuario.telefono &&
+                        _vm.usuario.telefono.trim().length !== 0
+                          ? _c("span", [_vm._v(_vm._s(_vm.usuario.telefono))])
+                          : _c("span", [_vm._v("-")]),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-9 text-secondary fw-bold" },
+                      [
+                        _vm.usuario.direccion &&
+                        _vm.usuario.direccion.trim().length !== 0
+                          ? _c("span", [_vm._v(_vm._s(_vm.usuario.direccion))])
+                          : _c("span", [_vm._v("-")]),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-9 text-secondary fw-bold" },
+                      [
+                        _vm.usuario.codpostal
+                          ? _c("span", [_vm._v(_vm._s(_vm.usuario.codpostal))])
+                          : _c("span", [_vm._v("-")]),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _vm._m(9),
+                ])
+              : _c("div", { staticClass: "base-card-body" }, [
+                  _c("p", [_vm._v("Cargando...")]),
                 ]),
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(4),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.usuario.email) +
-                      "\n              "
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.usuario.tipo) +
-                      "\n              "
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(6),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                  _vm.usuario.telefono &&
-                  _vm.usuario.telefono.trim().length !== 0
-                    ? _c("span", [_vm._v(_vm._s(_vm.usuario.telefono))])
-                    : _c("span", [_vm._v("-")]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(7),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                  _vm.usuario.direccion &&
-                  _vm.usuario.direccion.trim().length !== 0
-                    ? _c("span", [_vm._v(_vm._s(_vm.usuario.direccion))])
-                    : _c("span", [_vm._v("-")]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _vm._m(8),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                  _vm.usuario.codpostal
-                    ? _c("span", [_vm._v(_vm._s(_vm.usuario.codpostal))])
-                    : _c("span", [_vm._v("-")]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _vm._m(9),
-            ]),
           ]),
         ]),
       ]),
@@ -44198,7 +44262,10 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-sm-9 text-secondary" },
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
                                 [
                                   _vm._v(
                                     "\n                          " +
@@ -44218,7 +44285,10 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-sm-9 text-secondary" },
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
                                 [
                                   _vm._v(
                                     "\n                          " +
@@ -44236,7 +44306,10 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-sm-9 text-secondary" },
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
                                 [
                                   _vm._v(
                                     "\n                          " +
@@ -44254,7 +44327,10 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-sm-9 text-secondary" },
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
                                 [
                                   _vm.usuario.telefono &&
                                   _vm.usuario.telefono.trim().length !== 0
@@ -44273,7 +44349,10 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-sm-9 text-secondary" },
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
                                 [
                                   _vm.usuario.direccion &&
                                   _vm.usuario.direccion.trim().length !== 0
@@ -44292,7 +44371,10 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "col-sm-9 text-secondary" },
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
                                 [
                                   _vm.usuario.codpostal
                                     ? _c("span", [
@@ -44419,7 +44501,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44467,7 +44552,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44518,7 +44606,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44566,7 +44657,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44617,7 +44711,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44673,7 +44770,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44724,7 +44824,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -44775,7 +44878,10 @@ var render = function () {
                                   _vm._v(" "),
                                   _c(
                                     "div",
-                                    { staticClass: "col-sm-9 text-secondary" },
+                                    {
+                                      staticClass:
+                                        "col-sm-9 text-secondary fw-bold",
+                                    },
                                     [
                                       _c("input", {
                                         directives: [
@@ -45053,7 +45159,8 @@ var staticRenderFns = [
       _c(
         "div",
         {
-          staticClass: "col-sm-9 text-secondary d-flex justify-content-between",
+          staticClass:
+            "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
         },
         [
           _c(
@@ -45182,7 +45289,8 @@ var staticRenderFns = [
       _c(
         "div",
         {
-          staticClass: "col-sm-9 text-secondary d-flex justify-content-between",
+          staticClass:
+            "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
         },
         [
           _c(

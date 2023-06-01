@@ -20,7 +20,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Nombre</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary fw-bold">
                 {{ empleado.name }}
               </div>
             </div>
@@ -29,7 +29,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Apellidos</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary fw-bold">
                 {{ empleado.apellidos }}
               </div>
             </div>
@@ -38,7 +38,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Correo</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary fw-bold">
                 {{ empleado.email }}
               </div>
             </div>
@@ -47,7 +47,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Fecha Alta</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary fw-bold">
                 {{ empleado.fecha_alta }}
               </div>
             </div>
@@ -56,7 +56,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Código Postal</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary fw-bold">
                 {{ empleado.codpostal }}
               </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="row">
               <div class="col-sm-3 d-flex justify-content-end"></div>
               <div
-                class="col-sm-9 text-secondary d-flex justify-content-between"
+                class="col-sm-9 text-secondary fw-bold d-flex justify-content-between"
               >
                 <button
                   type="button"

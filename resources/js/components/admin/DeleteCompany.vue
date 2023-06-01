@@ -31,7 +31,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Nombre</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ empresa.nombre }}
                 </div>
               </div>
@@ -40,7 +40,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Correo</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ empresa.correo }}
                 </div>
               </div>
@@ -49,7 +49,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">CIF</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ empresa.cif }}
                 </div>
               </div>
@@ -58,7 +58,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Teléfono</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       empresa.telefono && empresa.telefono.trim().length !== 0
@@ -73,7 +73,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Dirección</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       empresa.direccion && empresa.direccion.trim().length !== 0
@@ -88,7 +88,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Código Postal</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span v-if="empresa.codigo_postal">{{
                     empresa.codigo_postal
                   }}</span>
@@ -99,7 +99,7 @@
               <div class="row">
                 <div class="col-sm-3 d-flex justify-content-end"></div>
                 <div
-                  class="col-sm-9 text-secondary d-flex justify-content-between"
+                  class="col-sm-9 text-secondary fw-bold d-flex justify-content-between"
                 >
                   <button type="submit" class="btn btn-danger px-4">
                     Borrar Empresa
