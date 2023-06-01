@@ -10021,7 +10021,7 @@ __webpack_require__.r(__webpack_exports__);
           // Columna adicional de acciones
           targets: -1,
           render: function render(data, type, row, meta) {
-            return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-heart me-1"></i>Horario</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
+            return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-heart me-1"></i>Reasignar</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
           }
         }],
         columnDefs: [{
@@ -10461,17 +10461,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["user"],
   data: function data() {
     return {
+      isDataLoaded: false,
+      isIntensivo: false,
       showEditAdmin: false,
       showEditCompany: false,
       showDeleteCompany: false,
@@ -10568,17 +10565,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
+              _this3.isDataLoaded = false;
               _this3.$Progress.start();
-              _context3.next = 4;
+              _context3.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this3.user.empresas_id, "/horarios/").concat(_this3.user.horarios_id));
-            case 4:
+            case 5:
               response = _context3.sent;
               _this3.$Progress.finish();
-              _this3.horario = response.data;
-              _context3.next = 13;
+              _this3.horario = response.data.horario;
+              _this3.isIntensivo = response.data.intensivo;
+              _context3.next = 15;
               break;
-            case 9:
-              _context3.prev = 9;
+            case 11:
+              _context3.prev = 11;
               _context3.t0 = _context3["catch"](0);
               _this3.$Progress.fail();
               if (_context3.t0.response && _context3.t0.response.status === 403) {
@@ -10587,11 +10586,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context3.t0);
               }
-            case 13:
+            case 15:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[0, 9]]);
+        }, _callee3, null, [[0, 11]]);
       }))();
     },
     getJornada: function getJornada() {
@@ -10609,10 +10608,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               response = _context4.sent;
               _this4.$Progress.finish();
               _this4.jornada = response.data;
-              _context4.next = 13;
+              _this4.isDataLoaded = true;
+              _context4.next = 14;
               break;
-            case 9:
-              _context4.prev = 9;
+            case 10:
+              _context4.prev = 10;
               _context4.t0 = _context4["catch"](0);
               _this4.$Progress.fail();
               if (_context4.t0.response && _context4.t0.response.status === 403) {
@@ -10621,26 +10621,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context4.t0);
               }
-            case 13:
+            case 14:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[0, 9]]);
+        }, _callee4, null, [[0, 10]]);
       }))();
-    },
-    isIntensivo: function isIntensivo() {
-      var fechaActual = new Date();
-      var fechaInicioIntensivo = this.horario.fecha_inicio_intensivo ? new Date(this.horario.fecha_inicio_intensivo) : null;
-      var fechaFinIntensivo = this.horario.fecha_fin_intensivo ? new Date(this.horario.fecha_fin_intensivo) : null;
-      var inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
-      var finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
-      var actualSinAnio = this.getFechaSinAnio(fechaActual);
-      return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
-    },
-    getFechaSinAnio: function getFechaSinAnio(fecha) {
-      if (!fecha) return null;
-      return new Date(2000, fecha.getMonth(), fecha.getDate());
-    }
+    } // isIntensivo {
+    //   const fechaActual = new Date();
+    //   const fechaInicioIntensivo = this.horario.fecha_inicio_intensivo
+    //     ? new Date(this.horario.fecha_inicio_intensivo)
+    //     : null;
+    //   const fechaFinIntensivo = this.horario.fecha_fin_intensivo
+    //     ? new Date(this.horario.fecha_fin_intensivo)
+    //     : null;
+    //   const inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
+    //   const finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
+    //   const actualSinAnio = this.getFechaSinAnio(fechaActual);
+    //   return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
+    // },
+    // getFechaSinAnio(fecha) {
+    //   if (!fecha) return null;
+    //   return new Date(2000, fecha.getMonth(), fecha.getDate());
+    // },
   }
 });
 
@@ -43279,7 +43282,7 @@ var render = function () {
                       },
                       [
                         _c("i", { staticClass: "bi bi-calendar-heart me-2" }),
-                        _c("span", [_vm._v("Cambiar Horario")]),
+                        _c("span", [_vm._v("Reasignar Horario")]),
                       ]
                     ),
                   ]
@@ -43294,81 +43297,108 @@ var render = function () {
                   _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "base-card-body" }, [
-                    _c(
-                      "div",
-                      { staticClass: "d-block align-items-center text-center" },
-                      [
-                        _c("h5", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.isIntensivo()
-                                ? "Horario Intensivo"
-                                : "Horario"
-                            )
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.horario.descripcion))]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "container" }, [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-lg" }, [
-                              _c("h6", { staticClass: "mb-3" }, [
-                                _vm._v("Hora Inicio"),
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(
-                                      _vm.isIntensivo()
-                                        ? _vm.jornada.hora_inicio_intensiva
-                                        : _vm.jornada.hora_inicio
-                                    ) +
-                                    "\n                    "
-                                ),
-                              ]),
+                    _vm.isDataLoaded
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-block align-items-center text-center",
+                          },
+                          [
+                            _c("h5", [
+                              _c("i", {
+                                staticClass: "bi bi-calendar3-week me-2",
+                              }),
+                              _vm._v(
+                                _vm._s(
+                                  _vm.isIntensivo
+                                    ? "Horario Intensivo"
+                                    : "Horario"
+                                ) + "\n              "
+                              ),
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-lg" }, [
-                              _c("h6", { staticClass: "mb-3" }, [
-                                _vm._v("Hora Fin"),
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(
-                                      _vm.isIntensivo()
-                                        ? _vm.jornada.hora_fin_intensiva
-                                        : _vm.jornada.hora_fin
-                                    ) +
-                                    "\n                    "
-                                ),
-                              ]),
+                            _c("p", { staticClass: "text-dark fw-bold" }, [
+                              _vm._v(_vm._s(_vm.horario.descripcion)),
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-lg" }, [
-                              _c("h6", { staticClass: "mb-3" }, [
-                                _vm._v("Descanso"),
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(
-                                      _vm.isIntensivo()
-                                        ? _vm.jornada.minutos_descanso_intensiva
-                                        : _vm.jornada.minutos_descanso
-                                    ) +
-                                    "\n                    "
-                                ),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "container" }, [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-lg" }, [
+                                  _vm._m(2),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    { staticClass: "text-dark fw-bold" },
+                                    [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(
+                                            _vm.isIntensivo
+                                              ? _vm.jornada
+                                                  .hora_inicio_intensiva
+                                              : _vm.jornada.hora_inicio
+                                          ) +
+                                          "\n                    "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-lg" }, [
+                                  _vm._m(3),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    { staticClass: "text-dark fw-bold" },
+                                    [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(
+                                            _vm.isIntensivo
+                                              ? _vm.jornada.hora_fin_intensiva
+                                              : _vm.jornada.hora_fin
+                                          ) +
+                                          "\n                    "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-lg" }, [
+                                  _vm._m(4),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    { staticClass: "text-dark fw-bold" },
+                                    [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(
+                                            _vm.isIntensivo
+                                              ? _vm.jornada
+                                                  .minutos_descanso_intensiva
+                                              : _vm.jornada.minutos_descanso
+                                          ) +
+                                          "\n                      minutos\n                    "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
                               ]),
                             ]),
-                          ]),
-                        ]),
-                      ]
-                    ),
+                          ]
+                        )
+                      : _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-block align-items-center text-center",
+                          },
+                          [_c("p", [_vm._v("Cargando...")])]
+                        ),
                   ]),
                 ]),
               ])
@@ -43438,7 +43468,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _vm._m(5),
                   ]
                 ),
               ]),
@@ -43447,267 +43477,335 @@ var render = function () {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-6 mb-3" }, [
             _c("div", { staticClass: "card base-card" }, [
-              _vm._m(3),
+              _vm._m(6),
               _vm._v(" "),
-              _c("div", { staticClass: "base-card-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.usuario.name) +
-                        " " +
-                        _vm._s(_vm.usuario.apellidos) +
-                        "\n              "
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.usuario.email) +
-                        "\n              "
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.usuario.tipo) +
-                        "\n              "
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm.usuario.telefono &&
-                    _vm.usuario.telefono.trim().length !== 0
-                      ? _c("span", [_vm._v(_vm._s(_vm.usuario.telefono))])
-                      : _c("span", [_vm._v("-")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(8),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm.usuario.direccion &&
-                    _vm.usuario.direccion.trim().length !== 0
-                      ? _c("span", [_vm._v(_vm._s(_vm.usuario.direccion))])
-                      : _c("span", [_vm._v("-")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(9),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm.usuario.codpostal
-                      ? _c("span", [_vm._v(_vm._s(_vm.usuario.codpostal))])
-                      : _c("span", [_vm._v("-")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-12 text-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-outline-dark bg-warning btn-sm my-2",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function ($event) {
-                            _vm.showEditAdmin = true
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-pencil-fill me-2" }),
-                        _c("span", { staticClass: "fw-bold" }, [
-                          _vm._v("Editar Usuario / Contraseña"),
-                        ]),
-                      ]
-                    ),
+              _vm.isDataLoaded
+                ? _c("div", { staticClass: "base-card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.usuario.name) +
+                              " " +
+                              _vm._s(_vm.usuario.apellidos) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-outline-dark bg-primary btn-sm my-2",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function ($event) {
-                            _vm.showChangeAdmin = true
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.usuario.email) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(9),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.usuario.tipo) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(10),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.usuario.telefono &&
+                          _vm.usuario.telefono.trim().length !== 0
+                            ? _c("span", [_vm._v(_vm._s(_vm.usuario.telefono))])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.usuario.direccion &&
+                          _vm.usuario.direccion.trim().length !== 0
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.usuario.direccion)),
+                              ])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(12),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.usuario.codpostal
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.usuario.codpostal)),
+                              ])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-sm-12 text-center" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-outline-dark bg-warning btn-sm my-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                _vm.showEditAdmin = true
+                              },
+                            },
                           },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-person-fill-gear me-2" }),
-                        _c("span", { staticClass: "fw-bold" }, [
-                          _vm._v("Cambiar Admin"),
-                        ]),
-                      ]
-                    ),
+                          [
+                            _c("i", { staticClass: "bi bi-pencil-fill me-2" }),
+                            _c("span", { staticClass: "fw-bold" }, [
+                              _vm._v("Usuario / Contraseña"),
+                            ]),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-outline-dark bg-primary btn-sm my-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                _vm.showChangeAdmin = true
+                              },
+                            },
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "bi bi-person-fill-gear me-2",
+                            }),
+                            _c("span", { staticClass: "fw-bold" }, [
+                              _vm._v("Cambiar Admin"),
+                            ]),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                  ])
+                : _c("div", { staticClass: "base-card-body" }, [
+                    _c("p", [_vm._v("Cargando...")]),
                   ]),
-                ]),
-              ]),
             ]),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-6 mb-3" }, [
             _c("div", { staticClass: "card base-card" }, [
-              _vm._m(10),
+              _vm._m(13),
               _vm._v(" "),
-              _c("div", { staticClass: "base-card-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(11),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.empresa.nombre) +
-                        "\n              "
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(12),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.empresa.correo) +
-                        "\n              "
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(13),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.empresa.cif) +
-                        "\n              "
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(14),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm.empresa.telefono &&
-                    _vm.empresa.telefono.trim().length !== 0
-                      ? _c("span", [_vm._v(_vm._s(_vm.empresa.telefono))])
-                      : _c("span", [_vm._v("-")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(15),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm.empresa.direccion &&
-                    _vm.empresa.direccion.trim().length !== 0
-                      ? _c("span", [_vm._v(_vm._s(_vm.empresa.direccion))])
-                      : _c("span", [_vm._v("-")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _vm._m(16),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary" }, [
-                    _vm.empresa.codigo_postal
-                      ? _c("span", [_vm._v(_vm._s(_vm.empresa.codigo_postal))])
-                      : _c("span", [_vm._v("-")]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-12 text-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-outline-dark bg-warning btn-sm my-2",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function ($event) {
-                            _vm.showEditCompany = true
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-pencil-fill me-2" }),
-                        _c("span", { staticClass: "fw-bold" }, [
-                          _vm._v("Editar Datos Empresa"),
-                        ]),
-                      ]
-                    ),
+              _vm.isDataLoaded
+                ? _c("div", { staticClass: "base-card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(14),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empresa.nombre) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-outline-dark bg-danger btn-sm my-2",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function ($event) {
-                            _vm.showDeleteCompany = true
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(15),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empresa.correo) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(16),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.empresa.cif) +
+                              "\n              "
+                          ),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(17),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.empresa.telefono &&
+                          _vm.empresa.telefono.trim().length !== 0
+                            ? _c("span", [_vm._v(_vm._s(_vm.empresa.telefono))])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(18),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.empresa.direccion &&
+                          _vm.empresa.direccion.trim().length !== 0
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.empresa.direccion)),
+                              ])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(19),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary fw-bold" },
+                        [
+                          _vm.empresa.codigo_postal
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.empresa.codigo_postal)),
+                              ])
+                            : _c("span", [_vm._v("-")]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-sm-12 text-center" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-outline-dark bg-warning btn-sm my-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                _vm.showEditCompany = true
+                              },
+                            },
                           },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-building-fill-x me-2" }),
-                        _c("span", { staticClass: "fw-bold" }, [
-                          _vm._v("Borrar Empresa"),
-                        ]),
-                      ]
-                    ),
+                          [
+                            _c("i", { staticClass: "bi bi-pencil-fill me-2" }),
+                            _c("span", { staticClass: "fw-bold" }, [
+                              _vm._v("Datos Empresa"),
+                            ]),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-outline-dark bg-danger btn-sm my-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                _vm.showDeleteCompany = true
+                              },
+                            },
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "bi bi-building-fill-x me-2",
+                            }),
+                            _c("span", { staticClass: "fw-bold" }, [
+                              _vm._v("Borrar Empresa"),
+                            ]),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                  ])
+                : _c("div", { staticClass: "base-card-body" }, [
+                    _c("p", [_vm._v("Cargando...")]),
                   ]),
-                ]),
-              ]),
             ]),
           ]),
         ]),
@@ -43722,7 +43820,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-white" }, [
-      _c("strong", [_vm._v("Atajos Laborales")]),
+      _c("strong", [_vm._v("Atajos Empleados")]),
     ])
   },
   function () {
@@ -43731,6 +43829,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-white" }, [
       _c("strong", [_vm._v("Jornada de Hoy")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "mb-3" }, [
+      _c("i", { staticClass: "bi bi-hourglass-top me-2" }),
+      _vm._v("Hora Inicio\n                    "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "mb-3" }, [
+      _c("i", { staticClass: "bi bi-hourglass-bottom me-2" }),
+      _vm._v("Hora Fin\n                    "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "mb-3" }, [
+      _c("i", { staticClass: "bi bi-pause-circle me-2" }),
+      _vm._v("Descanso\n                    "),
     ])
   },
   function () {

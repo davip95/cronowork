@@ -37,7 +37,7 @@
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
             <div class="card-header bg-white">
-              <strong>Atajos Laborales</strong>
+              <strong>Atajos Empleados</strong>
             </div>
             <div class="base-card-body">
               <div class="d-flex justify-content-center flex-column">
@@ -62,7 +62,7 @@
                   @click="showCambiarHorario = true"
                 >
                   <i class="bi bi-calendar-heart me-2"></i
-                  ><span>Cambiar Horario</span>
+                  ><span>Reasignar Horario</span>
                 </button>
               </div>
             </div>
@@ -74,72 +74,61 @@
               <strong>Jornada de Hoy</strong>
             </div>
             <div class="base-card-body">
-              <div class="d-block align-items-center text-center">
-                <h5>{{ isIntensivo() ? "Horario Intensivo" : "Horario" }}</h5>
-                <p>{{ horario.descripcion }}</p>
-                <!-- <div class="row">
-                  <div class="col-4">Hora Inicio</div>
-                  <div class="col-4">Hora Fin</div>
-                  <div class="col-4">Descanso</div>
-                </div>
-                <div class="row">
-                  <div class="col-4">
-                    {{
-                      isIntensivo()
-                        ? jornada.hora_inicio_intensiva
-                        : jornada.hora_inicio
-                    }}
-                  </div>
-                  <div class="col-4">
-                    {{
-                      isIntensivo()
-                        ? jornada.hora_fin_intensiva
-                        : jornada.hora_fin
-                    }}
-                  </div>
-                  <div class="col-4">
-                    {{
-                      isIntensivo()
-                        ? jornada.minutos_descanso_intensiva
-                        : jornada.minutos_descanso
-                    }}
-                  </div>
-                </div> -->
+              <div
+                class="d-block align-items-center text-center"
+                v-if="isDataLoaded"
+              >
+                <h5>
+                  <i class="bi bi-calendar3-week me-2"></i
+                  >{{ isIntensivo ? "Horario Intensivo" : "Horario" }}
+                </h5>
+                <p class="text-dark fw-bold">{{ horario.descripcion }}</p>
+                <hr />
                 <div class="container">
                   <div class="row">
                     <div class="col-lg">
-                      <h6 class="mb-3">Hora Inicio</h6>
-                      <p>
+                      <h6 class="mb-3">
+                        <i class="bi bi-hourglass-top me-2"></i>Hora Inicio
+                      </h6>
+                      <p class="text-dark fw-bold">
                         {{
-                          isIntensivo()
+                          isIntensivo
                             ? jornada.hora_inicio_intensiva
                             : jornada.hora_inicio
                         }}
                       </p>
                     </div>
                     <div class="col-lg">
-                      <h6 class="mb-3">Hora Fin</h6>
-                      <p>
+                      <h6 class="mb-3">
+                        <i class="bi bi-hourglass-bottom me-2"></i>Hora Fin
+                      </h6>
+                      <p class="text-dark fw-bold">
                         {{
-                          isIntensivo()
+                          isIntensivo
                             ? jornada.hora_fin_intensiva
                             : jornada.hora_fin
                         }}
                       </p>
                     </div>
                     <div class="col-lg">
-                      <h6 class="mb-3">Descanso</h6>
-                      <p>
+                      <h6 class="mb-3">
+                        <i class="bi bi-pause-circle me-2"></i>Descanso
+                      </h6>
+                      <p class="text-dark fw-bold">
                         {{
-                          isIntensivo()
+                          isIntensivo
                             ? jornada.minutos_descanso_intensiva
                             : jornada.minutos_descanso
                         }}
+                        minutos
                       </p>
                     </div>
                   </div>
                 </div>
                 <!-- <button type="button" class="btn btn-primary">Fichar</button> -->
+              </div>
+              <div class="d-block align-items-center text-center" v-else>
+                <p>Cargando...</p>
               </div>
             </div>
           </div>
@@ -193,12 +182,12 @@
             <div class="card-header bg-white">
               <strong>Datos Administrador</strong>
             </div>
-            <div class="base-card-body">
+            <div class="base-card-body" v-if="isDataLoaded">
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Nombre</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ usuario.name }} {{ usuario.apellidos }}
                 </div>
               </div>
@@ -207,7 +196,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Correo</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ usuario.email }}
                 </div>
               </div>
@@ -216,7 +205,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Rol</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ usuario.tipo }}
                 </div>
               </div>
@@ -225,7 +214,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Teléfono</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       usuario.telefono && usuario.telefono.trim().length !== 0
@@ -240,7 +229,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Dirección</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       usuario.direccion && usuario.direccion.trim().length !== 0
@@ -255,7 +244,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Código Postal</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span v-if="usuario.codpostal">{{ usuario.codpostal }}</span>
                   <span v-else>-</span>
                 </div>
@@ -269,7 +258,7 @@
                     @click="showEditAdmin = true"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
-                    ><span class="fw-bold">Editar Usuario / Contraseña</span>
+                    ><span class="fw-bold">Usuario / Contraseña</span>
                   </button>
                   <button
                     type="button"
@@ -282,6 +271,9 @@
                 </div>
               </div>
             </div>
+            <div class="base-card-body" v-else>
+              <p>Cargando...</p>
+            </div>
           </div>
         </div>
         <div class="col-lg-6 mb-3">
@@ -289,12 +281,12 @@
             <div class="card-header bg-white">
               <strong>Datos Empresa</strong>
             </div>
-            <div class="base-card-body">
+            <div class="base-card-body" v-if="isDataLoaded">
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Nombre</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ empresa.nombre }}
                 </div>
               </div>
@@ -303,7 +295,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Correo</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ empresa.correo }}
                 </div>
               </div>
@@ -312,7 +304,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Cif</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   {{ empresa.cif }}
                 </div>
               </div>
@@ -321,7 +313,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Teléfono</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       empresa.telefono && empresa.telefono.trim().length !== 0
@@ -336,7 +328,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Dirección</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span
                     v-if="
                       empresa.direccion && empresa.direccion.trim().length !== 0
@@ -351,7 +343,7 @@
                 <div class="col-sm-3">
                   <h6 class="mb-0">Código Postal</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">
+                <div class="col-sm-9 text-secondary fw-bold">
                   <span v-if="empresa.codigo_postal">{{
                     empresa.codigo_postal
                   }}</span>
@@ -367,7 +359,7 @@
                     @click="showEditCompany = true"
                   >
                     <i class="bi bi-pencil-fill me-2"></i
-                    ><span class="fw-bold">Editar Datos Empresa</span>
+                    ><span class="fw-bold">Datos Empresa</span>
                   </button>
                   <button
                     type="button"
@@ -379,6 +371,9 @@
                   </button>
                 </div>
               </div>
+            </div>
+            <div class="base-card-body" v-else>
+              <p>Cargando...</p>
             </div>
           </div>
         </div>
@@ -393,6 +388,8 @@ export default {
   props: ["user"],
   data() {
     return {
+      isDataLoaded: false,
+      isIntensivo: false,
       showEditAdmin: false,
       showEditCompany: false,
       showDeleteCompany: false,
@@ -447,12 +444,14 @@ export default {
     },
     async getHorario() {
       try {
+        this.isDataLoaded = false;
         this.$Progress.start();
         const response = await axios.get(
           `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}`
         );
         this.$Progress.finish();
-        this.horario = response.data;
+        this.horario = response.data.horario;
+        this.isIntensivo = response.data.intensivo;
       } catch (error) {
         this.$Progress.fail();
         if (error.response && error.response.status === 403) {
@@ -471,6 +470,7 @@ export default {
         );
         this.$Progress.finish();
         this.jornada = response.data;
+        this.isDataLoaded = true;
       } catch (error) {
         this.$Progress.fail();
         if (error.response && error.response.status === 403) {
@@ -481,24 +481,24 @@ export default {
         }
       }
     },
-    isIntensivo() {
-      const fechaActual = new Date();
-      const fechaInicioIntensivo = this.horario.fecha_inicio_intensivo
-        ? new Date(this.horario.fecha_inicio_intensivo)
-        : null;
-      const fechaFinIntensivo = this.horario.fecha_fin_intensivo
-        ? new Date(this.horario.fecha_fin_intensivo)
-        : null;
-      const inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
-      const finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
-      const actualSinAnio = this.getFechaSinAnio(fechaActual);
+    // isIntensivo {
+    //   const fechaActual = new Date();
+    //   const fechaInicioIntensivo = this.horario.fecha_inicio_intensivo
+    //     ? new Date(this.horario.fecha_inicio_intensivo)
+    //     : null;
+    //   const fechaFinIntensivo = this.horario.fecha_fin_intensivo
+    //     ? new Date(this.horario.fecha_fin_intensivo)
+    //     : null;
+    //   const inicioIntensivo = this.getFechaSinAnio(fechaInicioIntensivo);
+    //   const finIntensivo = this.getFechaSinAnio(fechaFinIntensivo);
+    //   const actualSinAnio = this.getFechaSinAnio(fechaActual);
 
-      return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
-    },
-    getFechaSinAnio(fecha) {
-      if (!fecha) return null;
-      return new Date(2000, fecha.getMonth(), fecha.getDate());
-    },
+    //   return actualSinAnio >= inicioIntensivo && actualSinAnio <= finIntensivo;
+    // },
+    // getFechaSinAnio(fecha) {
+    //   if (!fecha) return null;
+    //   return new Date(2000, fecha.getMonth(), fecha.getDate());
+    // },
   },
 };
 </script>

@@ -15,7 +15,11 @@
         <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/r-2.4.1/rr-1.3.3/datatables.min.css" rel="stylesheet"/>
-
+        <style>
+            .fichar:hover {
+              color: var(--bs-gray-200) !important;
+            }
+            </style>
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/r-2.4.1/rr-1.3.3/datatables.min.js"></script>
@@ -83,12 +87,12 @@
                         <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ now()->formatLocalized('%d de %B de %Y') }}</h2>
                         {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
                         @if(!is_null(auth()->user()->empresas_id))
-                        <a role="button" href="#" class="btn btn-outline-dark bg-success btn-sm">
+                        <a role="button" href="#" class="btn btn-outline-success bg-dark btn-sm fichar">
                             <i class="bi bi-box-arrow-in-right me-2"></i><span class="fw-bold">Fichar Entrada</span>
                         </a>
                         @endif
                         {{-- AQUI EL ELSE DE LA LÓGICA (DESCOMENTAR BOTON DE ABAJO) --}}
-                        {{-- <a role="button" href="#"  class="btn btn-outline-dark bg-danger btn-sm ml-2">
+                        {{-- <a role="button" href="#"  class="btn btn-outline-success bg-dark btn-sm fichar">
                             <i class="bi bi-box-arrow-left me-2"></i> <span class="fw-bold">Fichar Salida</span>
                         </a> --}}
                     </div>

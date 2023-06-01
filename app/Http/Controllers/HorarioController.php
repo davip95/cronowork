@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Horario;
 use App\Models\Jornada;
+use DateTime;
 use Illuminate\Http\Request;
 
 class HorarioController extends Controller
@@ -18,7 +19,14 @@ class HorarioController extends Controller
     public function show($empresaId, $horarioId)
     {
         $horario = Horario::find($horarioId);
-        return response()->json($horario);
+        $intensivo = $this->isIntensivo($horario);
+
+        $response = [
+            'horario' => $horario,
+            'intensivo' => $intensivo
+        ];
+
+        return response()->json($response);
     }
 
     /**
@@ -32,7 +40,48 @@ class HorarioController extends Controller
     public function verHorario($empresaId, $horarioId, $usuarioId)
     {
         $horario = Horario::find($horarioId);
-        return response()->json($horario);
+        $intensivo = $this->isIntensivo($horario);
+
+        $response = [
+            'horario' => $horario,
+            'intensivo' => $intensivo
+        ];
+
+        return response()->json($response);
+    }
+
+    /**
+     * Comprueba si un horario es intensivo o no
+     *
+     * @param  Horario $horario
+     * @return Boolean
+     */
+    private function isIntensivo($horario)
+    {
+        $fechaActual = new DateTime();
+        $fechaInicioIntensivo = $horario->fecha_inicio_intensivo
+            ? new DateTime($horario->fecha_inicio_intensivo)
+            : null;
+        $fechaFinIntensivo = $horario->fecha_fin_intensivo
+            ? new DateTime($horario->fecha_fin_intensivo)
+            : null;
+        $inicioIntensivo = $this->getFechaSinAnio($fechaInicioIntensivo);
+        $finIntensivo = $this->getFechaSinAnio($fechaFinIntensivo);
+        $actualSinAnio = $this->getFechaSinAnio($fechaActual);
+
+        return $actualSinAnio >= $inicioIntensivo && $actualSinAnio <= $finIntensivo;
+    }
+
+    /**
+     * Obtiene la fecha con un año fijo para comparar fechas almacenadas con fechas actuales
+     *
+     * @param  mixed $fecha
+     * @return void
+     */
+    private function getFechaSinAnio($fecha)
+    {
+        if (!$fecha) return null;
+        return new DateTime('2000-' . $fecha->format('m-d'));
     }
 
     /**

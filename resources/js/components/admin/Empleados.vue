@@ -129,7 +129,7 @@ export default {
                 '<div class="col-12">' +
                 '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
                 row.id +
-                '"><i class="bi bi-calendar-heart me-1"></i>Horario</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
+                '"><i class="bi bi-calendar-heart me-1"></i>Reasignar</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
                 row.id +
                 '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' +
                 "</div>" +

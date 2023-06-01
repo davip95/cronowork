@@ -56,15 +56,24 @@
 #wrapper {
     overflow-x: hidden;
     background-image: linear-gradient(90deg, rgb(187, 208, 232) 0%, rgba(98, 163, 238, 1) 100%);
+    height: 100vh;
 }
 
 #sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
     min-height: 100vh;
-    margin-left: -15rem;
+    margin-left: 0;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
     -o-transition: margin 0.25s ease-out;
     transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -77,10 +86,24 @@
 }
 
 #page-content-wrapper {
-    min-width: 100vw;
+    width: calc(100% - 15rem);
+    margin-left: 15rem;
+    -webkit-transition: margin 0.20s ease-in;
+    -moz-transition: margin 0.2s ease-in;
+    -o-transition: margin 0.2s ease-in;
+    transition: margin 0.2s ease-in;
 }
 
 #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+    position: static;
+    top: auto;
+    bottom: auto;
+    overflow-y: visible;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    width: 100%;
     margin-left: 0;
 }
 
@@ -95,7 +118,7 @@
 
 .list-group-item {
     border: none;
-    padding: 20px 30px;
+    padding: 15px 30px;
 }
 
 .list-group-item.active {
@@ -103,21 +126,6 @@
     color: #00699d !important;
     font-weight: bold;
     border: none;
-}
-
-@media (min-width: 768px) {
-    #sidebar-wrapper {
-        margin-left: 0;
-    }
-
-    #page-content-wrapper {
-        min-width: 0;
-        width: 100%;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        margin-left: -15rem;
-    }
 }
 
 @media (max-width: 576px) {
@@ -133,6 +141,42 @@
 @media (max-width: 300px) {
     #menu-toggle-sidebar {
         margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: -15rem;
+        position: static;
+        top: auto;
+        bottom: auto;
+        overflow-y: visible;
+    }
+
+    #page-content-wrapper {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        overflow-y: auto;
+        min-height: 100vh;
+        margin-left: 0;
+        -webkit-transition: margin 0.25s ease-out;
+        -moz-transition: margin 0.25s ease-out;
+        -o-transition: margin 0.25s ease-out;
+        transition: margin 0.25s ease-out;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        margin-left: 15rem;
+        -webkit-transition: margin 0.20s ease-in;
+        -moz-transition: margin 0.2s ease-in;
+        -o-transition: margin 0.2s ease-in;
+        transition: margin 0.2s ease-in;
     }
 }
 
