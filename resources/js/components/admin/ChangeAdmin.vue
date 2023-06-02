@@ -39,6 +39,7 @@
                     :class="{
                       'is-invalid': form.errors.has('email'),
                     }"
+                    required
                   />
                   <has-error :form="form" field="email"></has-error>
                 </div>
@@ -56,6 +57,7 @@
                     :class="{
                       'is-invalid': form.errors.has('email_confirmation'),
                     }"
+                    required
                   />
                   <has-error
                     :form="form"

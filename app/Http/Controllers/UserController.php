@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Models\Empresa;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -198,6 +199,34 @@ class UserController extends Controller
         $empleado->fecha_alta = null;
         $empleado->save();
         return ['mensaje' => "Empleado dado de baja"];
+    }
+
+    /**
+     * Muestra formulario para reasignar horario a un empleado.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $empresaId
+     * @return \Illuminate\Http\Response
+     */
+    public function reasignarHorario(Request $request, $empresaId)
+    {
+        $empresaId = Empresa::find($empresaId)->id;
+        $datos = $request->validate([
+            'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+            'horarioId' => ['required', 'exists:horarios,id']
+        ]);
+        try {
+            $usuario = User::select()->where('email', $datos['email'])->firstOrFail();
+            if ($usuario->empresas_id != $empresaId) {
+                return response()->json(['error' => 'Empleado no existe'], 422);
+            } else {
+                $usuario->horarios_id = $datos['horarioId'];
+                $usuario->save();
+                return ['mensaje' => "Horario de empleado cambiado"];
+            }
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
+        }
     }
 
     /**

@@ -10,6 +10,19 @@ use Illuminate\Http\Request;
 class HorarioController extends Controller
 {
     /**
+     * Muestra los horarios de la empresa.
+     *
+     * @param  int  $empresaId
+     * @return \Illuminate\Http\Response
+     */
+    public function index($empresaId)
+    {
+        $horarios = Horario::select()->where('empresas_id', $empresaId)->get();
+
+        return response()->json($horarios);
+    }
+
+    /**
      * Muestra los datos del horario.
      *
      * @param  int  $empresaId
@@ -99,7 +112,7 @@ class HorarioController extends Controller
             // Hay jornada para el día de hoy
             return response()->json($jornadaHoy);
         } else {
-            return response()->json(['error' => 'No tiene jornada hoy'], 404);
+            return response()->json([], 204);
         }
     }
 

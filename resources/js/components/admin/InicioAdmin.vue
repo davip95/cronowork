@@ -33,6 +33,12 @@
         :show="showBajaEmpleado"
         @close="showBajaEmpleado = false"
       ></baja-empleado>
+      <reasignar-horario
+        :show="showReasignar"
+        :user="user"
+        @close="showReasignar = false"
+        @updateHorario="actualizaHorario"
+      ></reasignar-horario>
       <div class="row">
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
@@ -59,7 +65,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-dark bg-info btn-sm m-1"
-                  @click="showCambiarHorario = true"
+                  @click="showReasignar = true"
                 >
                   <i class="bi bi-calendar-heart me-2"></i
                   ><span>Reasignar Horario</span>
@@ -71,7 +77,7 @@
         <div class="col-lg-9 mb-3" v-if="user.horarios_id">
           <div class="card base-card">
             <div class="card-header bg-white">
-              <strong>Jornada de Hoy</strong>
+              <strong>Jornada de {{ dayName }}</strong>
             </div>
             <div class="base-card-body">
               <div
@@ -84,7 +90,7 @@
                 </h5>
                 <p class="text-dark fw-bold">{{ horario.descripcion }}</p>
                 <hr />
-                <div class="container">
+                <div class="container" v-if="jornada">
                   <div class="row">
                     <div class="col-lg">
                       <h6 class="mb-3">
@@ -125,7 +131,37 @@
                     </div>
                   </div>
                 </div>
-                <!-- <button type="button" class="btn btn-primary">Fichar</button> -->
+                <div class="container" v-else>
+                  <div class="alert alert-dark d-inline-block w-auto mx-auto">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style="display: none"
+                    >
+                      <symbol
+                        id="info-fill"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+                        />
+                      </symbol>
+                    </svg>
+                    <svg
+                      class="bi flex-shrink-0 me-2"
+                      width="24"
+                      height="24"
+                      role="img"
+                      aria-label="Info:"
+                    >
+                      <use xlink:href="#info-fill" />
+                    </svg>
+                    <span
+                      ><strong>Recuerde:</strong> hoy no trabaja, por lo tanto
+                      no tiene que fichar.</span
+                    >
+                  </div>
+                </div>
               </div>
               <div class="d-block align-items-center text-center" v-else>
                 <p>Cargando...</p>
@@ -388,15 +424,16 @@ export default {
   props: ["user"],
   data() {
     return {
+      dayName: "",
       isDataLoaded: false,
       isIntensivo: false,
+      showReasignar: false,
       showEditAdmin: false,
       showEditCompany: false,
       showDeleteCompany: false,
       showChangeAdmin: false,
       showAltaEmpleado: false,
       showBajaEmpleado: false,
-      showCambiarHorario: false,
       empresa: {},
       usuario: {},
       horario: {},
@@ -404,10 +441,11 @@ export default {
     };
   },
   mounted() {
+    this.getDayName();
     this.getUser();
     this.getEmpresa();
-    this.getHorario();
-    this.getJornada();
+    this.getHorario(this.user.horarios_id);
+    this.getJornada(this.user.horarios_id);
   },
   methods: {
     async getUser() {
@@ -442,12 +480,12 @@ export default {
         }
       }
     },
-    async getHorario() {
+    async getHorario($horarioId) {
       try {
         this.isDataLoaded = false;
         this.$Progress.start();
         const response = await axios.get(
-          `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}`
+          `/empresas/${this.user.empresas_id}/horarios/${$horarioId}`
         );
         this.horario = response.data.horario;
         this.isIntensivo = response.data.intensivo;
@@ -462,12 +500,15 @@ export default {
         }
       }
     },
-    async getJornada() {
+    async getJornada($horarioId) {
       try {
         this.$Progress.start();
         const response = await axios.get(
-          `/empresas/${this.user.empresas_id}/horarios/${this.user.horarios_id}/jornada`
+          `/empresas/${this.user.empresas_id}/horarios/${$horarioId}/jornada`
         );
+        if (response.status === 204) {
+          this.jornada = false;
+        }
         this.jornada = response.data;
         this.isDataLoaded = true;
         this.$Progress.finish();
@@ -480,6 +521,24 @@ export default {
           console.log(error);
         }
       }
+    },
+    getDayName() {
+      const daysOfWeek = [
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+      ];
+
+      const currentDate = new Date();
+      this.dayName = daysOfWeek[currentDate.getDay()];
+    },
+    actualizaHorario($nuevoHorarioId) {
+      this.getHorario($nuevoHorarioId);
+      this.getJornada($nuevoHorarioId);
     },
   },
 };

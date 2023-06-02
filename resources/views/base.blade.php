@@ -84,7 +84,7 @@
                         @php
                             setlocale(LC_TIME, config('app.locale')); 
                         @endphp 
-                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ now()->formatLocalized('%d de %B de %Y') }}</h2>
+                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ ucfirst(strftime('%A, %d de %B de %Y')); }}</h2>
                         {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
                         @if(!is_null(auth()->user()->empresas_id))
                         <a role="button" href="#" class="btn btn-outline-success bg-dark btn-sm fichar">

@@ -30,7 +30,8 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/{empresa}/empleados/admin/listar', 'listarEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.listarEmpleados');
     Route::get('/empresas/{empresa}/empleados', 'verEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.verEmpleados');
     Route::post('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'asignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.asignarHorario');
-    Route::get('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
+    Route::put('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
+    Route::put('/empresas/{empresa}/empleados/admin/horario', 'reasignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.reasignarHorario');
     Route::post('/empresas/admin/alta', 'guardarAlta')->middleware(['auth', 'admin'])->name('admin.guardarAlta');
     Route::get('/empresas/admin/alta', 'crearAlta')->middleware(['auth', 'admin'])->name('admin.crearAlta');
     Route::get('/empresas/admin/baja/empleado/{empleado}', 'guardarBajaDatatable')->middleware(['auth', 'admin'])->name('admin.guardarBajaDatatable');
@@ -50,7 +51,7 @@ Route::controller(HorarioController::class)->group(function () {
     Route::get('empresas/{empresa}/horarios/{horario}/jornada', 'verJornada')->middleware(['auth', 'admin', 'empresa'])->name('admin.verJornada');
     Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}', 'verHorario')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verHorario');
 });
-Route::resource('empresas.horarios', HorarioController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
+Route::resource('empresas.horarios', HorarioController::class)->only(['index', 'show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
 
 // JORNADA CONTROLLER
 

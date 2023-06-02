@@ -4,9 +4,9 @@
       <div class="modal-wrapper">
         <div class="card modal-container">
           <div
-            class="card-header text-center bg-danger d-flex justify-content-between"
+            class="card-header text-center bg-warning d-flex justify-content-between"
           >
-            Baja Empleado
+            Reasignar Horario Empleado
             <button
               type="button"
               class="btn-close align-self-end"
@@ -16,7 +16,7 @@
             ></button>
           </div>
           <div class="card-body">
-            <form @submit.prevent="bajaEmpleado">
+            <form @submit.prevent="reasignarHorario">
               <div class="row mb-3">
                 <div class="col-sm-3 d-flex justify-content-end">
                   <h6 class="mb-0">Correo Empleado</h6>
@@ -56,13 +56,48 @@
                   ></has-error>
                 </div>
               </div>
+              <div class="row mb-3">
+                <div class="col-sm-3 d-flex justify-content-end">
+                  <h6 class="mb-0">Horarios Empresa</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <!-- <input
+                    v-model="form.email_confirmation"
+                    type="email"
+                    name="email_confirmation"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('email_confirmation'),
+                    }"
+                  /> -->
+                  <select
+                    class="form-select"
+                    name="horarios_id"
+                    required
+                    v-model="form.horarioId"
+                    :class="{
+                      'is-invalid': form.errors.has('email_confirmation'),
+                    }"
+                  >
+                    <option disabled selected>Selecciona Horario</option>
+                    <option
+                      v-for="horario in horarios"
+                      :key="horario.id"
+                      v-bind:value="horario.id"
+                    >
+                      {{ horario.descripcion }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="horarios_id"></has-error>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-3 d-flex justify-content-end"></div>
                 <div
                   class="col-sm-9 text-secondary d-flex justify-content-between"
                 >
-                  <button type="submit" class="btn btn-danger px-4">
-                    Dar Baja
+                  <button type="submit" class="btn btn-warning px-4">
+                    Reasignar
                   </button>
                   <button
                     type="button"
@@ -85,34 +120,70 @@
 import Form from "vform";
 
 export default {
-  props: ["show"],
-  emits: ["close"],
+  props: ["show", "user"],
+  emits: ["close", "updateHorario"],
   data() {
     return {
+      horarios: {},
       form: new Form({
         email: null,
         email_confirmation: null,
+        horarioId: null,
       }),
     };
   },
+  watch: {
+    show: function (newVal) {
+      if (newVal) {
+        this.getHorarios();
+      }
+    },
+  },
   methods: {
-    async bajaEmpleado() {
+    async getHorarios() {
       try {
         this.$Progress.start();
-        await this.form.post(`empresas/admin/baja`);
+        const response = await axios.get(
+          `/empresas/${this.user.empresas_id}/horarios`
+        );
+        this.horarios = response.data;
+        this.$Progress.finish();
+      } catch (error) {
+        this.$Progress.fail();
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
+      }
+    },
+    async reasignarHorario() {
+      try {
+        this.$Progress.start();
+        await this.form.put(
+          `empresas/${this.user.empresas_id}/empleados/admin/horario`,
+          {
+            baseURL: "http://127.0.0.1:8000/",
+          }
+        );
+        if (this.user.email == this.form.email) {
+          this.$emit("updateHorario", this.form.horarioId);
+        }
         this.$Progress.finish();
         Toast.fire({
           icon: "success",
-          title: "Empleado dado de baja",
+          title: `Horario reasignado a ${this.form.email}`,
         });
         this.form.email = null;
         this.form.email_confirmation = null;
+        this.form.horarioId = null;
         document.getElementById("close").click();
       } catch (error) {
         this.$Progress.fail();
         Toast.fire({
           icon: "error",
-          title: "No se pudo dar de baja",
+          title: "No se pudo reasignar horario",
         });
         if (error.response && error.response.status === 403) {
           // Recargar la página para mostrar el formulario de inicio de sesión
@@ -120,7 +191,7 @@ export default {
         } else if (
           error.response &&
           (error.response.status === 404 ||
-            error.response.data.error === "Empleado ya dado de baja")
+            error.response.data.error === "Empleado no existe")
         ) {
           this.form.errors.set({
             email: "No existe ningún empleado con ese email",
