@@ -212,7 +212,7 @@ class UserController extends Controller
     {
         $empresaId = Empresa::find($empresaId)->id;
         $datos = $request->validate([
-            'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+            'email' => ['required', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
             'horarioId' => ['required', 'exists:horarios,id']
         ]);
         try {
@@ -230,14 +230,22 @@ class UserController extends Controller
     }
 
     /**
-     * Muestra formulario para cambiar el horario del empleado.
+     * Muestra formulario para reasignar el horario del empleado de la datatable.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
      * @return \Illuminate\Http\Response
      */
-    public function cambiarHorario($id)
+    public function cambiarHorario(Request $request, $empresaId, $empleadoId)
     {
-        //
+        $datos = $request->validate([
+            'horarioId' => ['required', 'exists:horarios,id']
+        ]);
+        $usuario = User::find($empleadoId);
+        $usuario->horarios_id = $datos['horarioId'];
+        $usuario->save();
+        return ['mensaje' => "Horario de empleado cambiado"];
     }
 
     /**
@@ -260,7 +268,7 @@ class UserController extends Controller
      */
     public function listarEmpleados($id)
     {
-        $empleados = User::select('id', 'name', 'apellidos', 'email', 'fecha_alta', 'codpostal')
+        $empleados = User::select('id', 'name', 'apellidos', 'email', 'fecha_alta', 'codpostal', 'empresas_id')
             ->where('empresas_id', $id)
             ->where('tipo', 'empleado')
             ->get();
@@ -268,6 +276,7 @@ class UserController extends Controller
         $empleadosData = $empleados->map(function ($empleado) {
             return [
                 'id' => $empleado->id,
+                'empresas_id' => $empleado->empresas_id,
                 'name' => $empleado->name,
                 'apellidos' => $empleado->apellidos,
                 'email' => $empleado->email,

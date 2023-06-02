@@ -67,6 +67,7 @@ Vue.component('baja-empleado', require('./components/admin/BajaEmpleado.vue').de
 Vue.component('empleados-empresa', require('./components/admin/Empleados.vue').default);
 Vue.component('baja-datatable', require('./components/admin/BajaDatatable.vue').default);
 Vue.component('reasignar-horario', require('./components/admin/ReasignarHorario.vue').default);
+Vue.component('reasignar-horariodt', require('./components/admin/ReasignarHorarioDt.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

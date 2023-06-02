@@ -13,6 +13,11 @@
         @close="showAltaEmpleado = false"
         @altaDatatable="actualizarDatatable"
       ></alta-empleado>
+      <reasignar-horariodt
+        :show="showReasignar"
+        :empleado="empleado"
+        @close="showReasignar = false"
+      ></reasignar-horariodt>
       <div class="row mb-3">
         <div class="alert alert-secondary d-inline-block w-auto mx-auto">
           <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
@@ -59,7 +64,6 @@
           >
             <thead>
               <tr>
-                <th hidden>ID</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>Correo</th>
@@ -80,6 +84,7 @@ export default {
   props: ["user", "empresa"],
   data() {
     return {
+      showReasignar: false,
       showAltaEmpleado: false,
       showBajaEmpleado: false,
       empleado: {},
@@ -115,6 +120,7 @@ export default {
         },
         columns: [
           { data: "id", visible: false },
+          { data: "empresas_id", visible: false },
           { data: "name" },
           { data: "apellidos" },
           { data: "email" },
@@ -165,7 +171,8 @@ export default {
   },
   methods: {
     abrirModalHorario(datos) {
-      console.log(datos);
+      this.showReasignar = true;
+      this.empleado = datos;
     },
     abrirModalBaja(datos) {
       this.showBajaEmpleado = true;

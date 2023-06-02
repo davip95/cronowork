@@ -16,25 +16,15 @@
             ></button>
           </div>
           <div class="card-body">
-            <form @submit.prevent="reasignarHorario">
-              <div class="row mb-3">
-                <div class="col-sm-3 d-flex justify-content-end">
-                  <h6 class="mb-0">Correo Empleado</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  <input
-                    v-model="form.email"
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    :class="{
-                      'is-invalid': form.errors.has('email'),
-                    }"
-                    required
-                  />
-                  <has-error :form="form" field="email"></has-error>
-                </div>
+            <div class="row mb-3">
+              <div class="col-sm-3 d-flex justify-content-end">
+                <h6 class="mb-0">Nombre</h6>
               </div>
+              <div class="col-sm-9 text-secondary fw-bold">
+                {{ empleado.name }}
+              </div>
+            </div>
+            <form @submit.prevent="reasignarHorario">
               <div class="row mb-3">
                 <div class="col-sm-3 d-flex justify-content-end">
                   <h6 class="mb-0">Horarios Empresa</h6>
@@ -90,13 +80,12 @@
 import Form from "vform";
 
 export default {
-  props: ["show", "user"],
+  props: ["show", "empleado"],
   emits: ["close", "updateHorario"],
   data() {
     return {
       horarios: {},
       form: new Form({
-        email: null,
         horarioId: null,
       }),
     };
@@ -113,7 +102,7 @@ export default {
       try {
         this.$Progress.start();
         const response = await axios.get(
-          `/empresas/${this.user.empresas_id}/horarios`
+          `/empresas/${this.empleado.empresas_id}/horarios`
         );
         this.horarios = response.data;
         this.$Progress.finish();
@@ -131,20 +120,13 @@ export default {
       try {
         this.$Progress.start();
         await this.form.put(
-          `empresas/${this.user.empresas_id}/empleados/admin/horario`,
-          {
-            baseURL: "http://127.0.0.1:8000/",
-          }
+          `/empresas/${this.empleado.empresas_id}/empleados/${this.empleado.id}/admin/horario`
         );
-        if (this.user.email == this.form.email) {
-          this.$emit("updateHorario", this.form.horarioId);
-        }
         this.$Progress.finish();
         Toast.fire({
           icon: "success",
-          title: `Horario reasignado a ${this.form.email}`,
+          title: `Horario reasignado a ${this.empleado.email}`,
         });
-        this.form.email = null;
         this.form.horarioId = null;
         document.getElementById("close").click();
       } catch (error) {
