@@ -18,30 +18,16 @@
         :empleado="empleado"
         @close="showReasignar = false"
       ></reasignar-horariodt>
-      <div class="row mb-3">
-        <div class="alert alert-secondary d-inline-block w-auto mx-auto">
-          <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-              <path
-                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
-              />
-            </symbol>
-          </svg>
-          <svg
-            class="bi flex-shrink-0 me-2"
-            width="24"
-            height="24"
-            role="img"
-            aria-label="Info:"
-          >
-            <use xlink:href="#info-fill" />
-          </svg>
-          <span
-            ><strong>Recuerde:</strong> usted, al ser administrador de la
-            empresa, no aparece en el siguiente listado.</span
-          >
-        </div>
-      </div>
+      <change-admin
+        :show="showChangeAdmin"
+        :user="user"
+        @close="showChangeAdmin = false"
+      ></change-admin>
+      <detalles-empleado
+        :show="showDetalles"
+        :user="empleado"
+        @close="showDetalles = false"
+      ></detalles-empleado>
       <div class="card base-card">
         <div
           class="card-header bg-white text-center d-flex justify-content-between"
@@ -64,6 +50,9 @@
           >
             <thead>
               <tr>
+                <th hidden></th>
+                <th hidden></th>
+                <th hidden></th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>Correo</th>
@@ -84,6 +73,8 @@ export default {
   props: ["user", "empresa"],
   data() {
     return {
+      showDetalles: false,
+      showChangeAdmin: false,
       showReasignar: false,
       showAltaEmpleado: false,
       showBajaEmpleado: false,
@@ -121,6 +112,7 @@ export default {
         columns: [
           { data: "id", visible: false },
           { data: "empresas_id", visible: false },
+          { data: "tipo", visible: false },
           { data: "name" },
           { data: "apellidos" },
           { data: "email" },
@@ -130,17 +122,37 @@ export default {
             // Columna adicional de acciones
             targets: -1,
             render: function (data, type, row, meta) {
-              return (
-                '<div class="btn-group w-100">' +
-                '<div class="col-12">' +
-                '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
-                row.id +
-                '"><i class="bi bi-calendar-heart me-1"></i>Reasignar</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
-                row.id +
-                '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' +
-                "</div>" +
-                "</div>"
-              );
+              if (row.tipo === "admin") {
+                return (
+                  '<div class="btn-group w-100">' +
+                  '<div class="col-12">' +
+                  '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' +
+                  row.id +
+                  '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' +
+                  '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
+                  row.id +
+                  '"><i class="bi bi-calendar-heart me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-danger bg-dark btn-sm admin" data-id="' +
+                  row.id +
+                  '"><i class="bi bi-person-fill-gear me-1"></i>Admin</button>' +
+                  "</div>" +
+                  "</div>"
+                );
+              } else {
+                return (
+                  '<div class="btn-group w-100">' +
+                  '<div class="col-12">' +
+                  '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' +
+                  row.id +
+                  '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' +
+                  '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
+                  row.id +
+                  '"><i class="bi bi-calendar-heart me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
+                  row.id +
+                  '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' +
+                  "</div>" +
+                  "</div>"
+                );
+              }
             },
           },
         ],
@@ -151,7 +163,7 @@ export default {
             orderable: false,
           },
         ],
-        order: [[4, "asc"]],
+        order: [[6, "asc"]],
       });
     });
     $("#tablaEmpleados").on("click", ".baja", (event) => {
@@ -168,6 +180,20 @@ export default {
         .data();
       this.abrirModalHorario(employeeData);
     });
+    $("#tablaEmpleados").on("click", ".admin", (event) => {
+      const employeeId = $(event.target).data("id");
+      const employeeData = dataTableEmpleados
+        .row($(event.target).closest("tr"))
+        .data();
+      this.abrirModalAdmin(employeeData);
+    });
+    $("#tablaEmpleados").on("click", ".detalles", (event) => {
+      const employeeId = $(event.target).data("id");
+      const employeeData = dataTableEmpleados
+        .row($(event.target).closest("tr"))
+        .data();
+      this.abrirModalDetalles(employeeData);
+    });
   },
   methods: {
     abrirModalHorario(datos) {
@@ -178,6 +204,13 @@ export default {
       this.showBajaEmpleado = true;
       this.empleado = datos;
     },
+    abrirModalAdmin(datos) {
+      this.showChangeAdmin = true;
+    },
+    abrirModalDetalles(datos) {
+      this.showDetalles = true;
+      this.empleado = datos;
+    },
     actualizarDatatable() {
       // Volver a cargar los datos de la datatable
       $("#tablaEmpleados").DataTable().ajax.reload();
@@ -185,3 +218,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.admin:hover {
+  color: var(--bs-gray-200) !important;
+}
+</style>

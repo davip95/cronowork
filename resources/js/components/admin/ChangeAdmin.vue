@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="card modal-container">
           <div
-            class="card-header text-center bg-primary d-flex justify-content-between"
+            class="card-header text-center bg-danger d-flex justify-content-between"
           >
             Cambiar Administrador
             <button
@@ -70,7 +70,7 @@
                 <div
                   class="col-sm-9 text-secondary d-flex justify-content-between"
                 >
-                  <button type="submit" class="btn btn-primary px-4">
+                  <button type="submit" class="btn btn-danger px-4">
                     Cambiar Admin
                   </button>
                   <button
@@ -108,7 +108,7 @@ export default {
     async changeAdmin() {
       try {
         this.$Progress.start();
-        await this.form.put(`empresas/${this.user.empresas_id}/admin`);
+        await this.form.put(`/empresas/${this.user.empresas_id}/admin`);
         this.$Progress.finish();
         Toast.fire({
           icon: "success",

@@ -37,6 +37,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/admin/baja/empleado/{empleado}', 'guardarBajaDatatable')->middleware(['auth', 'admin'])->name('admin.guardarBajaDatatable');
     Route::post('/empresas/admin/baja', 'guardarBaja')->middleware(['auth', 'admin'])->name('admin.guardarBaja');
     Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
+    Route::get('/empresas/{empresa}/empleados/{empleado}', 'verDetalles')->middleware(['auth', 'admin', 'empresa'])->name('admin.verDetalles');
 });
 Route::resource('usuarios', UserController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'usuario']);
 

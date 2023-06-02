@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Models\Empresa;
+use App\Models\Horario;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -24,7 +25,38 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return response()->json($user);
+        if ($user['horarios_id']) {
+            $horario = Horario::find($user->horarios_id)->descripcion;
+        } else {
+            $horario = null;
+        }
+        $response = [
+            'user' => $user,
+            'horario' => $horario
+        ];
+        return response()->json($response);
+    }
+
+    /**
+     * Muestra los datos de contacto y laborales del empleado.
+     *
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
+     * @return \Illuminate\Http\Response
+     */
+    public function verDetalles($empresaId, $empleadoId)
+    {
+        $user = User::find($empleadoId);
+        if ($user['horarios_id']) {
+            $horario = Horario::find($user->horarios_id)->descripcion;
+        } else {
+            $horario = null;
+        }
+        $response = [
+            'user' => $user,
+            'horario' => $horario
+        ];
+        return response()->json($response);
     }
 
     /**
@@ -268,15 +300,15 @@ class UserController extends Controller
      */
     public function listarEmpleados($id)
     {
-        $empleados = User::select('id', 'name', 'apellidos', 'email', 'fecha_alta', 'codpostal', 'empresas_id')
+        $empleados = User::select('id', 'name', 'apellidos', 'email', 'fecha_alta', 'codpostal', 'empresas_id', 'tipo')
             ->where('empresas_id', $id)
-            ->where('tipo', 'empleado')
             ->get();
 
         $empleadosData = $empleados->map(function ($empleado) {
             return [
                 'id' => $empleado->id,
                 'empresas_id' => $empleado->empresas_id,
+                'tipo' => $empleado->tipo,
                 'name' => $empleado->name,
                 'apellidos' => $empleado->apellidos,
                 'email' => $empleado->email,

@@ -549,7 +549,7 @@ export default {
         this.isDataLoaded = false;
         this.$Progress.start();
         const response = await axios.get(`/usuarios/${this.user.id}`);
-        this.usuario = response.data;
+        this.usuario = response.data.user;
         this.$Progress.finish();
         this.isDataLoaded = true;
       } catch (error) {

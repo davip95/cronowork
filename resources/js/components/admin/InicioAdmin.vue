@@ -298,7 +298,7 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn-outline-dark bg-primary btn-sm my-2"
+                    class="btn btn-outline-dark bg-danger btn-sm my-2"
                     @click="showChangeAdmin = true"
                   >
                     <i class="bi bi-person-fill-gear me-2"></i
@@ -452,7 +452,7 @@ export default {
       try {
         this.$Progress.start();
         const response = await axios.get(`/usuarios/${this.user.id}`);
-        this.usuario = response.data;
+        this.usuario = response.data.user;
         this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();
