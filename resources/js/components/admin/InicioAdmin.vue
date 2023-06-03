@@ -40,6 +40,10 @@
         @close="showReasignar = false"
         @updateHorario="actualizaHorario"
       ></reasignar-horario>
+      <asignar-horario
+        :show="showAsignar"
+        @close="showAsignar = false"
+      ></asignar-horario>
       <div class="row">
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
@@ -205,6 +209,7 @@
               <button
                 type="button"
                 class="btn btn-outline-success bg-dark crearHorario"
+                @click="showAsignar = true"
               >
                 <i class="bi bi-calendar-plus me-2"></i>
                 Crear Horario
@@ -435,6 +440,7 @@ export default {
       showChangeAdmin: false,
       showAltaEmpleado: false,
       showBajaEmpleado: false,
+      showAsignar: false,
       empresa: {},
       usuario: {},
       horario: {},

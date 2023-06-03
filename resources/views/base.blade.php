@@ -86,7 +86,7 @@
                             setlocale(LC_TIME, config('app.locale'));
                             $formatoFecha = '%A, %d de %B de %Y';
                             $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
-                            $fechaActual = ucfirst(mb_convert_case($fechaActual, MB_CASE_TITLE));
+                            $fechaActual = ucfirst($fechaActual);
                         @endphp
                         <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{$fechaActual }}</h2>
                         {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
