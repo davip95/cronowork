@@ -8548,12 +8548,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     show: {
       type: Boolean
+    },
+    user: {
+      type: Object
     },
     dataTable: {
       type: Boolean,
@@ -8563,66 +8598,110 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   emits: ["close", "altaDatatable"],
   data: function data() {
     return {
+      horarios: {},
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
         email: null,
-        email_confirmation: null
+        email_confirmation: null,
+        horarioId: null
       })
     };
   },
+  watch: {
+    show: function show(newVal) {
+      if (newVal) {
+        this.getHorarios();
+      }
+    }
+  },
   methods: {
-    altaEmpleado: function altaEmpleado() {
+    getHorarios: function getHorarios() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return _this.form.post("empresas/admin/alta", {
+              return axios.get("/empresas/".concat(_this.user.empresas_id, "/horarios"));
+            case 4:
+              response = _context.sent;
+              _this.horarios = response.data;
+              _this.$Progress.finish();
+              _context.next = 13;
+              break;
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
+              _this.$Progress.fail();
+              if (_context.t0.response && _context.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context.t0);
+              }
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 9]]);
+      }))();
+    },
+    altaEmpleado: function altaEmpleado() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _this2.$Progress.start();
+              _context2.next = 4;
+              return _this2.form.post("empresas/admin/alta", {
                 baseURL: "http://127.0.0.1:8000/"
               });
             case 4:
-              if (_this.dataTable) {
-                _this.$emit("altaDatatable");
+              if (_this2.dataTable) {
+                _this2.$emit("altaDatatable");
               }
-              _this.$Progress.finish();
+              _this2.$Progress.finish();
               Toast.fire({
                 icon: "success",
                 title: "Empleado dado de alta"
               });
-              _this.form.email = null;
-              _this.form.email_confirmation = null;
+              _this2.form.email = null;
+              _this2.form.email_confirmation = null;
+              _this2.form.horarioId = null;
               document.getElementById("close").click();
-              _context.next = 17;
+              _context2.next = 18;
               break;
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context["catch"](0);
-              _this.$Progress.fail();
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](0);
+              _this2.$Progress.fail();
               Toast.fire({
                 icon: "error",
                 title: "No se pudo dar de alta"
               });
-              if (_context.t0.response && _context.t0.response.status === 403) {
+              if (_context2.t0.response && _context2.t0.response.status === 403) {
                 // Recargar la página para mostrar el formulario de inicio de sesión
                 location.reload();
-              } else if (_context.t0.response && _context.t0.response.status === 404) {
-                _this.form.errors.set({
+              } else if (_context2.t0.response && _context2.t0.response.status === 404) {
+                _this2.form.errors.set({
                   email: "No existe ningún empleado con ese email"
                 });
-              } else if (_context.t0.response && _context.t0.response.data.error === "Empleado ya dado de alta") {
-                _this.form.errors.set({
+              } else if (_context2.t0.response && _context2.t0.response.data.error === "Empleado ya dado de alta") {
+                _this2.form.errors.set({
                   email: "El empleado ya tiene empresa asignada"
                 });
               } else {
-                console.log(_context.t0.response);
+                console.log(_context2.t0.response);
               }
-            case 17:
+            case 18:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
-        }, _callee, null, [[0, 12]]);
+        }, _callee2, null, [[0, 13]]);
       }))();
     }
   }
@@ -8784,6 +8863,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 10]]);
       }))();
+    },
+    formatDate: function formatDate(dateString) {
+      moment.locale("es");
+      return moment(dateString).format("DD/MM/YYYY");
     }
   }
 });
@@ -9549,6 +9632,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 10]]);
       }))();
+    },
+    formatDate: function formatDate(dateString) {
+      moment.locale("es");
+      return moment(dateString).format("DD/MM/YYYY");
     }
   }
 });
@@ -10177,6 +10264,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["user", "empresa"],
@@ -10254,8 +10342,11 @@ __webpack_require__.r(__webpack_exports__);
           targets: -1,
           searchable: false,
           orderable: false
+        }, {
+          targets: 6,
+          render: DataTable.render.datetime("DD/MM/YYYY")
         }],
-        order: [[6, "asc"]]
+        order: [[6, "desc"]]
       });
     });
     $("#tablaEmpleados").on("click", ".baja", function (event) {
@@ -10741,6 +10832,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -10767,8 +10859,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getDayName();
     this.getUser();
     this.getEmpresa();
-    this.getHorario(this.user.horarios_id);
-    this.getJornada(this.user.horarios_id);
+    if (this.user.horarios_id) {
+      this.getHorario(this.user.horarios_id);
+      this.getJornada(this.user.horarios_id);
+    }
   },
   methods: {
     getUser: function getUser() {
@@ -10819,11 +10913,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 4:
               response = _context2.sent;
               _this2.empresa = response.data;
+              if (!_this2.user.horarios_id) {
+                _this2.isDataLoaded = true;
+              }
               _this2.$Progress.finish();
-              _context2.next = 13;
+              _context2.next = 14;
               break;
-            case 9:
-              _context2.prev = 9;
+            case 10:
+              _context2.prev = 10;
               _context2.t0 = _context2["catch"](0);
               _this2.$Progress.fail();
               if (_context2.t0.response && _context2.t0.response.status === 403) {
@@ -10832,11 +10929,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context2.t0);
               }
-            case 13:
+            case 14:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 9]]);
+        }, _callee2, null, [[0, 10]]);
       }))();
     },
     getHorario: function getHorario($horarioId) {
@@ -42120,6 +42217,101 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "row mb-3" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-3 d-flex justify-content-end" },
+                        [
+                          _c("h6", { staticClass: "mb-0" }, [
+                            _vm._v("Horarios Empresa"),
+                          ]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-9 text-secondary" },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.horarioId,
+                                  expression: "form.horarioId",
+                                },
+                              ],
+                              staticClass: "form-select",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("horarioId"),
+                              },
+                              attrs: { name: "horarios_id", required: "" },
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "horarioId",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                              },
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { disabled: "", selected: "" } },
+                                [_vm._v("Selecciona Horario")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.horarios, function (horario) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: horario.id,
+                                    domProps: { value: horario.id },
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(horario.descripcion) +
+                                        "\n                  "
+                                    ),
+                                  ]
+                                )
+                              }),
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("small", [
+                            _c("strong", [
+                              _vm._v(
+                                "Debe asignar un horario para dar de alta al\n                    empleado."
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "horarios_id" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
                       _c("div", {
                         staticClass: "col-sm-3 d-flex justify-content-end",
@@ -42298,7 +42490,7 @@ var render = function () {
                     [
                       _vm._v(
                         "\n              " +
-                          _vm._s(_vm.empleado.fecha_alta) +
+                          _vm._s(_vm.formatDate(_vm.empleado.fecha_alta)) +
                           "\n            "
                       ),
                     ]
@@ -42662,7 +42854,7 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "alert alert-warning d-inline-block w-auto mx-auto",
+                        "alert alert-danger d-inline-block w-auto mx-auto",
                     },
                     [
                       _c("span", [
@@ -43243,7 +43435,9 @@ var render = function () {
                         [
                           _vm._v(
                             "\n              " +
-                              _vm._s(_vm.empleado.user.fecha_alta) +
+                              _vm._s(
+                                _vm.formatDate(_vm.empleado.user.fecha_alta)
+                              ) +
                               "\n            "
                           ),
                         ]
@@ -43367,14 +43561,13 @@ var render = function () {
                         "div",
                         {
                           staticClass:
-                            "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
+                            "col-sm-9 text-secondary fw-bold d-flex justify-content-end",
                         },
                         [
                           _c(
                             "button",
                             {
-                              staticClass:
-                                "btn btn-secondary align-self-center",
+                              staticClass: "btn btn-secondary",
                               attrs: { type: "button" },
                               on: {
                                 click: function ($event) {
@@ -44489,7 +44682,11 @@ var render = function () {
         }),
         _vm._v(" "),
         _c("alta-empleado", {
-          attrs: { show: _vm.showAltaEmpleado, dataTable: true },
+          attrs: {
+            show: _vm.showAltaEmpleado,
+            user: _vm.user,
+            dataTable: true,
+          },
           on: {
             close: function ($event) {
               _vm.showAltaEmpleado = false
@@ -44677,7 +44874,7 @@ var render = function () {
         }),
         _vm._v(" "),
         _c("alta-empleado", {
-          attrs: { show: _vm.showAltaEmpleado },
+          attrs: { show: _vm.showAltaEmpleado, user: _vm.user },
           on: {
             close: function ($event) {
               _vm.showAltaEmpleado = false
@@ -45413,7 +45610,7 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "btn btn-outline-warning bg-dark crearHorario",
+          staticClass: "btn btn-outline-success bg-dark crearHorario",
           attrs: { type: "button" },
         },
         [
@@ -45849,7 +46046,11 @@ var render = function () {
                   _c(
                     "div",
                     { staticClass: "col-sm-3 d-flex justify-content-end" },
-                    [_c("h6", { staticClass: "mb-0" }, [_vm._v("Nombre")])]
+                    [
+                      _c("h6", { staticClass: "mb-0" }, [
+                        _vm._v("Correo Empleado"),
+                      ]),
+                    ]
                   ),
                   _vm._v(" "),
                   _c(
@@ -45858,7 +46059,7 @@ var render = function () {
                     [
                       _vm._v(
                         "\n              " +
-                          _vm._s(_vm.empleado.name) +
+                          _vm._s(_vm.empleado.email) +
                           "\n            "
                       ),
                     ]

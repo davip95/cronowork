@@ -56,6 +56,38 @@
                   ></has-error>
                 </div>
               </div>
+              <div class="row mb-3">
+                <div class="col-sm-3 d-flex justify-content-end">
+                  <h6 class="mb-0">Horarios Empresa</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <select
+                    class="form-select"
+                    name="horarios_id"
+                    required
+                    v-model="form.horarioId"
+                    :class="{
+                      'is-invalid': form.errors.has('horarioId'),
+                    }"
+                  >
+                    <option disabled selected>Selecciona Horario</option>
+                    <option
+                      v-for="horario in horarios"
+                      :key="horario.id"
+                      v-bind:value="horario.id"
+                    >
+                      {{ horario.descripcion }}
+                    </option>
+                  </select>
+                  <small
+                    ><strong
+                      >Debe asignar un horario para dar de alta al
+                      empleado.</strong
+                    ></small
+                  >
+                  <has-error :form="form" field="horarios_id"></has-error>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-3 d-flex justify-content-end"></div>
                 <div
@@ -89,6 +121,9 @@ export default {
     show: {
       type: Boolean,
     },
+    user: {
+      type: Object,
+    },
     dataTable: {
       type: Boolean,
       default: false,
@@ -97,13 +132,40 @@ export default {
   emits: ["close", "altaDatatable"],
   data() {
     return {
+      horarios: {},
       form: new Form({
         email: null,
         email_confirmation: null,
+        horarioId: null,
       }),
     };
   },
+  watch: {
+    show: function (newVal) {
+      if (newVal) {
+        this.getHorarios();
+      }
+    },
+  },
   methods: {
+    async getHorarios() {
+      try {
+        this.$Progress.start();
+        const response = await axios.get(
+          `/empresas/${this.user.empresas_id}/horarios`
+        );
+        this.horarios = response.data;
+        this.$Progress.finish();
+      } catch (error) {
+        this.$Progress.fail();
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
+      }
+    },
     async altaEmpleado() {
       try {
         this.$Progress.start();
@@ -120,6 +182,7 @@ export default {
         });
         this.form.email = null;
         this.form.email_confirmation = null;
+        this.form.horarioId = null;
         document.getElementById("close").click();
       } catch (error) {
         this.$Progress.fail();

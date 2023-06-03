@@ -139,16 +139,6 @@ class UserController extends Controller
     }
 
     /**
-     * Muestra formulario para dar de alta en una empresa a un usuario. Se le asignará empresa y horario.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function crearAlta()
-    // {
-    //     //
-    // }
-
-    /**
      * Almacena el alta de un usuario en la empresa asignándole el id de la empresa.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -159,6 +149,7 @@ class UserController extends Controller
         $empresaId = User::find(Auth::user()->id)->empresas_id;
         $datos = $request->validate([
             'email' => ['required', 'confirmed', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
+            'horarioId' => ['required', 'exists:horarios,id']
         ]);
         try {
             $usuario = User::select()->where('email', $datos['email'])->firstOrFail();
@@ -168,6 +159,7 @@ class UserController extends Controller
                 $usuario->empresas_id = $empresaId;
                 $usuario->tipo = 'empleado';
                 $usuario->fecha_alta = Carbon::now()->toDateString();
+                $usuario->horarios_id = $datos['horarioId'];
                 $usuario->save();
                 return ['mensaje' => "Empleado dado de alta"];
             }
@@ -175,17 +167,6 @@ class UserController extends Controller
             return response()->json(['error' => 'Empleado no encontrado'], 404);
         }
     }
-
-    /**
-     * Muestra formulario para dar de baja en una empresa a un empleado.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function crearBaja($id)
-    // {
-    //     //
-    // }
 
     /**
      * Almacena la baja de un empleado desasignándole el id de la empresa.
@@ -207,6 +188,7 @@ class UserController extends Controller
                 $usuario->empresas_id = null;
                 $usuario->tipo = 'usuario';
                 $usuario->fecha_alta = null;
+                $usuario->horarios_id = null;
                 $usuario->save();
                 return ['mensaje' => "Empleado dado de baja"];
             } else {
@@ -229,6 +211,7 @@ class UserController extends Controller
         $empleado->empresas_id = null;
         $empleado->tipo = 'usuario';
         $empleado->fecha_alta = null;
+        $empleado->horarios_id = null;
         $empleado->save();
         return ['mensaje' => "Empleado dado de baja"];
     }
@@ -312,7 +295,7 @@ class UserController extends Controller
                 'name' => $empleado->name,
                 'apellidos' => $empleado->apellidos,
                 'email' => $empleado->email,
-                'fecha_alta' => Carbon::parse($empleado->fecha_alta)->format('d/m/Y'),
+                'fecha_alta' => $empleado->fecha_alta, //Carbon::parse($empleado->fecha_alta)->format('d/m/Y'),
                 'codpostal' => $empleado->codpostal,
             ];
         });

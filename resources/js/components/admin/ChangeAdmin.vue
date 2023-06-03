@@ -17,7 +17,7 @@
           </div>
           <div class="card-body">
             <div class="row mb-3">
-              <div class="alert alert-warning d-inline-block w-auto mx-auto">
+              <div class="alert alert-danger d-inline-block w-auto mx-auto">
                 <span
                   ><strong>¡Cuidado {{ user.name }}!</strong> Vas a cambiar el
                   admin de tu empresa. Dejarás de tener privilegios de

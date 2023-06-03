@@ -23,6 +23,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/r-2.4.1/rr-1.3.3/datatables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
     </head>
     <body class="font-sans antialiased bg-light">
         {{-- SCROLL TOP BUTTON --}}
@@ -82,9 +83,12 @@
 
                     <div class="d-flex align-items-center mr-2 ms-auto">
                         @php
-                            setlocale(LC_TIME, config('app.locale')); 
-                        @endphp 
-                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ ucfirst(strftime('%A, %d de %B de %Y')); }}</h2>
+                            setlocale(LC_TIME, config('app.locale'));
+                            $formatoFecha = '%A, %d de %B de %Y';
+                            $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
+                            $fechaActual = ucfirst(mb_convert_case($fechaActual, MB_CASE_TITLE));
+                        @endphp
+                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{$fechaActual }}</h2>
                         {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
                         @if(!is_null(auth()->user()->empresas_id))
                         <a role="button" href="#" class="btn btn-outline-success bg-dark btn-sm fichar">
@@ -99,7 +103,7 @@
 
                     <div class="btn-group ms-auto mb-0 mt-1">
                     <button type="button" class="btn btn-outline-dark btn-sm fw-bold dropdown-toggle mb-1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                        <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-lg-inline">{{ Auth::user()->name }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end m-0">
                         <li><h6 class="dropdown-header text-center d-none d-md-block">{{ strtoupper(Auth::user()->tipo) }}</h6></li>

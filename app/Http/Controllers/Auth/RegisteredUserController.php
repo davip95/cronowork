@@ -114,18 +114,6 @@ class RegisteredUserController extends Controller
         // Asigno la fecha de alta al admin
         $datosAdmin['fecha_alta'] = Carbon::now()->toDateString();
 
-        if (is_null($datosAdmin['telefono'])) {
-            $datosAdmin['telefono'] = DB::raw('NULL');
-        }
-
-        if (is_null($datosAdmin['direccion'])) {
-            $datosAdmin['direccion'] = DB::raw('NULL');
-        }
-
-        if (is_null($datosAdmin['codpostal'])) {
-            $datosAdmin['codpostal'] = DB::raw('NULL');
-        }
-
         // Ejecuto el procedimiento almacenado
         DB::select('CALL insertarAdmin(:name, :email, :password, :apellidos, :telefono, :direccion, :codpostal, :tipo, :fecha_alta, :empresas_id)', $datosAdmin);
         // Obtengo el parámetro de salida

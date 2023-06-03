@@ -33,10 +33,8 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
     Route::put('/empresas/{empresa}/empleados/admin/horario', 'reasignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.reasignarHorario');
     Route::post('/empresas/admin/alta', 'guardarAlta')->middleware(['auth', 'admin'])->name('admin.guardarAlta');
-    Route::get('/empresas/admin/alta', 'crearAlta')->middleware(['auth', 'admin'])->name('admin.crearAlta');
     Route::get('/empresas/admin/baja/empleado/{empleado}', 'guardarBajaDatatable')->middleware(['auth', 'admin'])->name('admin.guardarBajaDatatable');
     Route::post('/empresas/admin/baja', 'guardarBaja')->middleware(['auth', 'admin'])->name('admin.guardarBaja');
-    Route::get('/empresas/admin/baja', 'crearBaja')->middleware(['auth', 'admin'])->name('admin.crearBaja');
     Route::get('/empresas/{empresa}/empleados/{empleado}', 'verDetalles')->middleware(['auth', 'admin', 'empresa'])->name('admin.verDetalles');
 });
 Route::resource('usuarios', UserController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'usuario']);

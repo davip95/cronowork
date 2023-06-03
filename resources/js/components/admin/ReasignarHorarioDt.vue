@@ -18,10 +18,10 @@
           <div class="card-body">
             <div class="row mb-3">
               <div class="col-sm-3 d-flex justify-content-end">
-                <h6 class="mb-0">Nombre</h6>
+                <h6 class="mb-0">Correo Empleado</h6>
               </div>
               <div class="col-sm-9 text-secondary fw-bold">
-                {{ empleado.name }}
+                {{ empleado.email }}
               </div>
             </div>
             <form @submit.prevent="reasignarHorario">

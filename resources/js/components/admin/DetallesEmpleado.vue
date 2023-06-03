@@ -48,7 +48,7 @@
                 <h6 class="mb-0">Fecha Alta</h6>
               </div>
               <div class="col-sm-9 text-secondary fw-bold">
-                {{ empleado.user.fecha_alta }}
+                {{ formatDate(empleado.user.fecha_alta) }}
               </div>
             </div>
             <hr />
@@ -117,11 +117,11 @@
             <div class="row">
               <div class="col-sm-3 d-flex justify-content-end"></div>
               <div
-                class="col-sm-9 text-secondary fw-bold d-flex justify-content-between"
+                class="col-sm-9 text-secondary fw-bold d-flex justify-content-end"
               >
                 <button
                   type="button"
-                  class="btn btn-secondary align-self-center"
+                  class="btn btn-secondary"
                   @click="$emit('close')"
                 >
                   Cerrar
@@ -173,6 +173,10 @@ export default {
           console.log(error);
         }
       }
+    },
+    formatDate(dateString) {
+      moment.locale("es");
+      return moment(dateString).format("DD/MM/YYYY");
     },
   },
 };

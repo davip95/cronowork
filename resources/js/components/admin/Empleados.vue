@@ -9,6 +9,7 @@
       ></baja-datatable>
       <alta-empleado
         :show="showAltaEmpleado"
+        :user="user"
         :dataTable="true"
         @close="showAltaEmpleado = false"
         @altaDatatable="actualizarDatatable"
@@ -162,8 +163,12 @@ export default {
             searchable: false,
             orderable: false,
           },
+          {
+            targets: 6,
+            render: DataTable.render.datetime("DD/MM/YYYY"),
+          },
         ],
-        order: [[6, "asc"]],
+        order: [[6, "desc"]],
       });
     });
     $("#tablaEmpleados").on("click", ".baja", (event) => {

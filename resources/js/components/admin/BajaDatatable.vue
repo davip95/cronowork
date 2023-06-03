@@ -48,7 +48,7 @@
                 <h6 class="mb-0">Fecha Alta</h6>
               </div>
               <div class="col-sm-9 text-secondary fw-bold">
-                {{ empleado.fecha_alta }}
+                {{ formatDate(empleado.fecha_alta) }}
               </div>
             </div>
             <hr />
@@ -119,6 +119,10 @@ export default {
           console.log(error);
         }
       }
+    },
+    formatDate(dateString) {
+      moment.locale("es");
+      return moment(dateString).format("DD/MM/YYYY");
     },
   },
 };

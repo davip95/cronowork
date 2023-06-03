@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'codpostal' => $this->faker->randomNumber(5, true),
             'fecha_alta' => $this->faker->dateTimeThisYear()->format('Y-m-d'),
             'empresas_id' => 1,
-            'horarios_id' => null
+            'horarios_id' => 2
         ];
     }
 

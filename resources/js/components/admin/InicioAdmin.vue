@@ -27,6 +27,7 @@
       ></change-admin>
       <alta-empleado
         :show="showAltaEmpleado"
+        :user="user"
         @close="showAltaEmpleado = false"
       ></alta-empleado>
       <baja-empleado
@@ -203,7 +204,7 @@
             <p class="mb-0 d-flex justify-content-end">
               <button
                 type="button"
-                class="btn btn-outline-warning bg-dark crearHorario"
+                class="btn btn-outline-success bg-dark crearHorario"
               >
                 <i class="bi bi-calendar-plus me-2"></i>
                 Crear Horario
@@ -444,8 +445,10 @@ export default {
     this.getDayName();
     this.getUser();
     this.getEmpresa();
-    this.getHorario(this.user.horarios_id);
-    this.getJornada(this.user.horarios_id);
+    if (this.user.horarios_id) {
+      this.getHorario(this.user.horarios_id);
+      this.getJornada(this.user.horarios_id);
+    }
   },
   methods: {
     async getUser() {
@@ -469,6 +472,9 @@ export default {
         this.$Progress.start();
         const response = await axios.get(`/empresas/${this.user.empresas_id}`);
         this.empresa = response.data;
+        if (!this.user.horarios_id) {
+          this.isDataLoaded = true;
+        }
         this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();
