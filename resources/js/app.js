@@ -72,6 +72,7 @@ Vue.component('detalles-empleado', require('./components/admin/DetallesEmpleado.
 Vue.component('asignar-horario', require('./components/admin/AsignarHorario.vue').default);
 Vue.component('horarios-empresa', require('./components/admin/HorariosEmpresa.vue').default);
 Vue.component('crear-horario', require('./components/admin/CrearHorario.vue').default);
+Vue.component('detalles-horario', require('./components/admin/DetallesHorario.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

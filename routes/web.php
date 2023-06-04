@@ -48,11 +48,8 @@ Route::resource('empresas', EmpresaController::class)->only(['show', 'update', '
 Route::controller(HorarioController::class)->group(function () {
     Route::post('/empresas/{empresa}/empleados/{empleado}/admin/horario/{dt?}', 'crearHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.crearHorario');
     Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}/jornada', 'verJornadaPropia')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verJornadaPropia');
+    Route::get('empresas/{empresa}/horarios/{horario}/jornadas/detalles', 'verJornadas')->middleware(['auth', 'admin', 'empresa'])->name('admin.verJornadas');
     Route::get('empresas/{empresa}/horarios/{horario}/jornada', 'verJornada')->middleware(['auth', 'admin', 'empresa'])->name('admin.verJornada');
     Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}', 'verHorario')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verHorario');
 });
-Route::resource('empresas.horarios', HorarioController::class)->only(['index', 'show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
-
-// JORNADA CONTROLLER
-
-// Route::resource('empresas.horarios.jornadas', HorarioController::class)->only(['show', 'update', 'destroy'])->middleware(['auth', 'admin', 'empresa']);
+Route::resource('empresas.horarios', HorarioController::class)->only(['index', 'show', 'destroy'])->middleware(['auth', 'admin', 'empresa']);

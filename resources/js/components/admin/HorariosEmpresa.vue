@@ -13,11 +13,12 @@
         @close="showCrearHorario = false"
         @actualizaHorario="actualizarDatatable"
       ></crear-horario>
-      <!-- <detalles-horario
+      <detalles-horario
         :show="showDetalles"
         :user="user"
+        :horario="horario"
         @close="showDetalles = false"
-      ></detalles-horario> -->
+      ></detalles-horario>
       <div class="card base-card">
         <div
           class="card-header bg-white text-center d-flex justify-content-between"

@@ -101,6 +101,19 @@ class HorarioController extends Controller
     }
 
     /**
+     * Muestra los datos de todas las jornadas de un horario.
+     *
+     * @param  int  $empresaId
+     * @param  int  $horarioId
+     * @return \Illuminate\Http\Response
+     */
+    public function verJornadas($empresaId, $horarioId)
+    {
+        $jornadas = Jornada::select()->where("horarios_id", $horarioId)->get();
+        return response()->json($jornadas);
+    }
+
+    /**
      * Muestra los datos de la jornada.
      *
      * @param  int  $empresaId
@@ -137,20 +150,6 @@ class HorarioController extends Controller
         } else {
             return response()->json(['error' => 'No tiene jornada hoy'], 404);
         }
-    }
-
-
-    /**
-     * Actualiza los datos del horario.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $empresaId
-     * @param  int  $horarioId
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $empresaId, $horarioId)
-    {
-        //
     }
 
     /**
