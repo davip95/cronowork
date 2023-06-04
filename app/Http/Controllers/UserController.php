@@ -283,7 +283,7 @@ class UserController extends Controller
                 'name' => $empleado->name,
                 'apellidos' => $empleado->apellidos,
                 'email' => $empleado->email,
-                'fecha_alta' => $empleado->fecha_alta, //Carbon::parse($empleado->fecha_alta)->format('d/m/Y'),
+                'fecha_alta' => $empleado->fecha_alta,
                 'codpostal' => $empleado->codpostal,
             ];
         });
@@ -301,5 +301,15 @@ class UserController extends Controller
     public function verEmpleados()
     {
         return view('admins.empleados');
+    }
+
+    /**
+     * Devuelve la vista de horarios de la empresa.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verHorarios()
+    {
+        return view('admins.horarios');
     }
 }

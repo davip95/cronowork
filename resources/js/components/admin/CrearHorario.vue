@@ -404,17 +404,17 @@ export default {
     async creaHorario() {
       try {
         this.$Progress.start();
-        const response = await this.form.post(
-          `/empresas/${this.user.empresas_id}/empleados/${this.user.id}/admin/horario`,
+        await this.form.post(
+          `/empresas/${this.user.empresas_id}/empleados/${this.user.id}/admin/horario/dt`,
           {
             baseURL: "http://127.0.0.1:8000/",
           }
         );
-        this.$emit("actualizaHorario", response.data.nuevo_horario);
+        this.$emit("actualizaHorario");
         this.$Progress.finish();
         Toast.fire({
           icon: "success",
-          title: "Horario creado y asignado",
+          title: "Horario creado",
         });
         this.form.descripcion = null;
         this.form.intensivo = null;

@@ -171,9 +171,10 @@ class HorarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $empresaId
      * @param  int  $empleadoId
+     * @param  string  $empleadoId
      * @return \Illuminate\Http\Response
      */
-    public function asignarHorario(Request $request, $empresaId, $empleadoId)
+    public function crearHorario(Request $request, $empresaId, $empleadoId, $dt = 'false')
     {
         $empresaId = Empresa::find($empresaId)->id;
         $esIntensivo = $request->intensivo;
@@ -260,10 +261,13 @@ class HorarioController extends Controller
                 Jornada::create($datosJornada);
             }
         }
-        // Asigno horario al admin
-        $usuario = User::find($empleadoId);
-        $usuario->horarios_id = $horario->id;
-        $usuario->save();
+        // Aquí compruebo si solo tengo que crear horario (la opcion en la datatable de horario) o si además debo asignarlo al admin (el primer horario de la empresa)
+        if ($dt === 'false') {
+            // Asigno horario al admin
+            $usuario = User::find($empleadoId);
+            $usuario->horarios_id = $horario->id;
+            $usuario->save();
+        }
         return ['nuevo_horario' => $horario->id];
     }
 }

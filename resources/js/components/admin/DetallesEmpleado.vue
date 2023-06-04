@@ -149,7 +149,6 @@ export default {
   watch: {
     show: function (newVal) {
       if (newVal) {
-        console.log(this.user);
         this.getUser();
       }
     },
@@ -162,7 +161,6 @@ export default {
           `/empresas/${this.user.empresas_id}/empleados/${this.user.id}`
         );
         this.empleado = response.data;
-        console.log(this.empleado.user.name);
         this.$Progress.finish();
       } catch (error) {
         this.$Progress.fail();

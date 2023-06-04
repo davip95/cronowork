@@ -64,12 +64,14 @@ Vue.component('edit-company', require('./components/admin/EditCompany.vue').defa
 Vue.component('delete-company', require('./components/admin/DeleteCompany.vue').default);
 Vue.component('alta-empleado', require('./components/admin/AltaEmpleado.vue').default);
 Vue.component('baja-empleado', require('./components/admin/BajaEmpleado.vue').default);
-Vue.component('empleados-empresa', require('./components/admin/Empleados.vue').default);
+Vue.component('empleados-empresa', require('./components/admin/EmpleadosEmpresa.vue').default);
 Vue.component('baja-datatable', require('./components/admin/BajaDatatable.vue').default);
 Vue.component('reasignar-horario', require('./components/admin/ReasignarHorario.vue').default);
 Vue.component('reasignar-horariodt', require('./components/admin/ReasignarHorarioDt.vue').default);
 Vue.component('detalles-empleado', require('./components/admin/DetallesEmpleado.vue').default);
 Vue.component('asignar-horario', require('./components/admin/AsignarHorario.vue').default);
+Vue.component('horarios-empresa', require('./components/admin/HorariosEmpresa.vue').default);
+Vue.component('crear-horario', require('./components/admin/CrearHorario.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
