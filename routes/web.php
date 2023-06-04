@@ -29,7 +29,6 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/empresas/{empresa}/admin', 'updateAdmin')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarAdmin');
     Route::get('/empresas/{empresa}/empleados/admin/listar', 'listarEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.listarEmpleados');
     Route::get('/empresas/{empresa}/empleados', 'verEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.verEmpleados');
-    Route::post('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'asignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.asignarHorario');
     Route::put('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
     Route::put('/empresas/{empresa}/empleados/admin/horario', 'reasignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.reasignarHorario');
     Route::post('/empresas/admin/alta', 'guardarAlta')->middleware(['auth', 'admin'])->name('admin.guardarAlta');
@@ -46,6 +45,7 @@ Route::resource('empresas', EmpresaController::class)->only(['show', 'update', '
 // HORARIO CONTROLLER
 
 Route::controller(HorarioController::class)->group(function () {
+    Route::post('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'asignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.asignarHorario');
     Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}/jornada', 'verJornadaPropia')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verJornadaPropia');
     Route::get('empresas/{empresa}/horarios/{horario}/jornada', 'verJornada')->middleware(['auth', 'admin', 'empresa'])->name('admin.verJornada');
     Route::get('empresas/{empresa}/horarios/{horario}/empleado/{usuario}', 'verHorario')->middleware(['auth', 'usuario', 'empleado', 'empresa'])->name('empleado.verHorario');

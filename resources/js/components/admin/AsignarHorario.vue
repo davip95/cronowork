@@ -145,15 +145,23 @@
                 <h4>Jornadas</h4>
               </div>
               <hr />
-              <div class="row mb-3">
+              <div class="row mb-4">
                 <div class="col-12">
-                  <div class="d-flex justify-content-center">
-                    <div class="btn-group grupoDias">
+                  <h6 class="text-center fw-bold">
+                    Marque los días laborables
+                  </h6>
+                  <div class="d-flex justify-content-center mt-1">
+                    <div
+                      class="btn-group grupoDias"
+                      :class="{
+                        'bg-danger': form.errors.has('dias'),
+                      }"
+                    >
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'L' }"
-                        @click="activeButton = 'L'"
+                        :class="{ active: isDaySelected(1) }"
+                        @click="toggleDay(1)"
                       >
                         L
                       </button>
@@ -161,8 +169,8 @@
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'M' }"
-                        @click="activeButton = 'M'"
+                        :class="{ active: isDaySelected(2) }"
+                        @click="toggleDay(2)"
                       >
                         M
                       </button>
@@ -170,8 +178,8 @@
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'X' }"
-                        @click="activeButton = 'X'"
+                        :class="{ active: isDaySelected(3) }"
+                        @click="toggleDay(3)"
                       >
                         X
                       </button>
@@ -179,8 +187,8 @@
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'J' }"
-                        @click="activeButton = 'J'"
+                        :class="{ active: isDaySelected(4) }"
+                        @click="toggleDay(4)"
                       >
                         J
                       </button>
@@ -188,8 +196,8 @@
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'V' }"
-                        @click="activeButton = 'V'"
+                        :class="{ active: isDaySelected(5) }"
+                        @click="toggleDay(5)"
                       >
                         V
                       </button>
@@ -197,8 +205,8 @@
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'S' }"
-                        @click="activeButton = 'S'"
+                        :class="{ active: isDaySelected(6) }"
+                        @click="toggleDay(6)"
                       >
                         S
                       </button>
@@ -206,21 +214,146 @@
                       <button
                         type="button"
                         class="btn btn-light dias"
-                        :class="{ active: activeButton === 'D' }"
-                        @click="activeButton = 'D'"
+                        :class="{ active: isDaySelected(7) }"
+                        @click="toggleDay(7)"
                       >
                         D
                       </button>
                     </div>
                   </div>
+                  <h5 class="text-center">
+                    <has-error :form="form" field="dias"></has-error>
+                  </h5>
                 </div>
               </div>
-
-              <!-- AQUI ACABA CONTENIDO DE JORNADAS -->
+              <h6 class="text-center fw-bold">Tiempos de las jornadas</h6>
+              <div class="row mb-3 mt-1">
+                <div class="col-sm-2 d-flex justify-content-end">
+                  <h6 class="mb-0">Minutos Descanso</h6>
+                </div>
+                <div class="col-sm-4 text-secondary mb-2">
+                  <input
+                    v-model="form.minutos_descanso"
+                    type="number"
+                    min="0"
+                    max="720"
+                    name="minutos_descanso"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('minutos_descanso'),
+                    }"
+                    required
+                  />
+                  <has-error :form="form" field="minutos_descanso"></has-error>
+                </div>
+                <div
+                  class="col-sm-2 d-flex justify-content-end"
+                  v-if="esIntensivo"
+                >
+                  <h6 class="mb-0">Descanso Intensivo</h6>
+                </div>
+                <div class="col-sm-4 text-secondary mb-2" v-if="esIntensivo">
+                  <input
+                    v-model="form.minutos_descanso_intensiva"
+                    type="number"
+                    min="0"
+                    max="720"
+                    name="minutos_descanso_intensiva"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has(
+                        'minutos_descanso_intensiva'
+                      ),
+                    }"
+                  />
+                  <has-error
+                    :form="form"
+                    field="minutos_descanso_intensiva"
+                  ></has-error>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-2 d-flex justify-content-end">
+                  <h6 class="mb-0">Hora Inicio</h6>
+                </div>
+                <div class="col-sm-4 text-secondary mb-2">
+                  <input
+                    v-model="form.hora_inicio"
+                    type="time"
+                    name="hora_inicio"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('hora_inicio'),
+                    }"
+                    required
+                  />
+                  <has-error :form="form" field="hora_inicio"></has-error>
+                </div>
+                <div
+                  class="col-sm-2 d-flex justify-content-end"
+                  v-if="esIntensivo"
+                >
+                  <h6 class="mb-0">H. Inicio Intensivo</h6>
+                </div>
+                <div class="col-sm-4 text-secondary mb-2" v-if="esIntensivo">
+                  <input
+                    v-model="form.hora_inicio_intensiva"
+                    type="time"
+                    name="hora_inicio_intensiva"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('hora_inicio_intensiva'),
+                    }"
+                  />
+                  <has-error
+                    :form="form"
+                    field="hora_inicio_intensiva"
+                  ></has-error>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-2 d-flex justify-content-end">
+                  <h6 class="mb-0">Hora Fin</h6>
+                </div>
+                <div class="col-sm-4 text-secondary mb-2">
+                  <input
+                    v-model="form.hora_fin"
+                    type="time"
+                    name="hora_fin"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('hora_fin'),
+                    }"
+                    required
+                  />
+                  <has-error :form="form" field="hora_fin"></has-error>
+                </div>
+                <div
+                  class="col-sm-2 d-flex justify-content-end"
+                  v-if="esIntensivo"
+                >
+                  <h6 class="mb-0">H. Fin Intensivo</h6>
+                </div>
+                <div class="col-sm-4 text-secondary mb-2" v-if="esIntensivo">
+                  <input
+                    v-model="form.hora_fin_intensiva"
+                    type="time"
+                    name="hora_fin_intensiva"
+                    class="form-control"
+                    :class="{
+                      'is-invalid': form.errors.has('hora_fin_intensiva'),
+                    }"
+                  />
+                  <has-error
+                    :form="form"
+                    field="hora_fin_intensiva"
+                  ></has-error>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-3 d-flex justify-content-end"></div>
                 <div
-                  class="col-sm-9 text-secondary d-flex justify-content-between"
+                  class="col-sm-6 text-secondary d-flex justify-content-between"
                 >
                   <button type="submit" class="btn btn-success px-4">
                     Crear
@@ -233,6 +366,7 @@
                     Cancelar
                   </button>
                 </div>
+                <div class="col-sm-3 d-flex justify-content-end"></div>
               </div>
             </form>
           </div>
@@ -246,32 +380,78 @@
 import Form from "vform";
 
 export default {
-  props: ["show"],
-  emits: ["close"],
-  //   emits: ["close", "actualizaHorario"],
+  props: ["show", "user"],
+  emits: ["close", "actualizaHorario"],
   data() {
     return {
       esIntensivo: false,
-      activeButton: "",
-      horarios: {},
       form: new Form({
         descripcion: null,
         intensivo: null,
         fecha_inicio_intensivo: null,
         fecha_fin_intensivo: null,
         dias: [],
-        minutos_descanso: {},
-        minutos_descanso_intensiva: {},
-        hora_inicio: {},
-        hora_inicio_intensiva: {},
-        hora_fin: {},
-        hora_fin_intensiva: {},
+        minutos_descanso: null,
+        minutos_descanso_intensiva: null,
+        hora_inicio: null,
+        hora_inicio_intensiva: null,
+        hora_fin: null,
+        hora_fin_intensiva: null,
       }),
     };
   },
   methods: {
     async creaHorario() {
-      console.log(this.form);
+      try {
+        this.$Progress.start();
+        const response = await this.form.post(
+          `/empresas/${this.user.empresas_id}/empleados/${this.user.id}/admin/horario`,
+          {
+            baseURL: "http://127.0.0.1:8000/",
+          }
+        );
+        this.$emit("actualizaHorario", response.data.nuevo_horario);
+        this.$Progress.finish();
+        Toast.fire({
+          icon: "success",
+          title: "Horario creado y asignado",
+        });
+        this.form.descripcion = null;
+        this.form.intensivo = null;
+        this.form.fecha_inicio_intensivo = null;
+        this.form.fecha_fin_intensivo = null;
+        this.form.dias = [];
+        this.form.minutos_descanso = null;
+        this.form.minutos_descanso_intensiva = null;
+        this.form.hora_inicio = null;
+        this.form.hora_inicio_intensiva = null;
+        this.form.hora_fin = null;
+        this.form.hora_fin_intensiva = null;
+        document.getElementById("close").click();
+      } catch (error) {
+        this.$Progress.fail();
+        Toast.fire({
+          icon: "error",
+          title: "No se pudo dar de alta",
+        });
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error.response);
+        }
+      }
+    },
+    toggleDay(day) {
+      const index = this.form.dias.indexOf(day);
+      if (index > -1) {
+        this.form.dias.splice(index, 1);
+      } else {
+        this.form.dias.push(day);
+      }
+    },
+    isDaySelected(day) {
+      return this.form.dias.includes(day);
     },
   },
 };

@@ -42,7 +42,9 @@
       ></reasignar-horario>
       <asignar-horario
         :show="showAsignar"
+        :user="user"
         @close="showAsignar = false"
+        @actualizaHorario="actualizaHorario"
       ></asignar-horario>
       <div class="row">
         <div class="col-lg-3 mb-3">
@@ -79,7 +81,10 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-9 mb-3" v-if="user.horarios_id">
+        <div
+          class="col-lg-9 mb-3"
+          v-if="user.horarios_id || Object.keys(horario).length !== 0"
+        >
           <div class="card base-card">
             <div class="card-header bg-white">
               <strong>Jornada de {{ dayName }}</strong>

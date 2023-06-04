@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
 use App\Models\Horario;
 use App\Models\Jornada;
+use App\Models\User;
 use DateTime;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class HorarioController extends Controller
@@ -160,5 +163,107 @@ class HorarioController extends Controller
     public function destroy($empresaId, $horarioId)
     {
         //
+    }
+
+    /**
+     * Crea el nuevo horario de la empresa y lo asigna al admin.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
+     * @return \Illuminate\Http\Response
+     */
+    public function asignarHorario(Request $request, $empresaId, $empleadoId)
+    {
+        $empresaId = Empresa::find($empresaId)->id;
+        $esIntensivo = $request->intensivo;
+        // Si es intensivo, valido los campos correspondientes a la jornada intensiva
+        if ($esIntensivo === "true") {
+            $fechaIniInt = $request->fecha_inicio_intensivo;
+            $datos = $request->validate([
+                'descripcion' => ['required', 'max:255', 'string'],
+                'fecha_inicio_intensivo' => ['required', 'date_format:Y-m-d'],
+                'fecha_fin_intensivo' => ['required', 'date_format:Y-m-d', function ($attribute, $value, $fail) use ($fechaIniInt) {
+                    if ($value <= $fechaIniInt) {
+                        $fail('La fecha final debe ser posterior a la inicial.');
+                    }
+                }],
+                'dias' => ['required', 'array', function ($attribute, $value, $fail) {
+                    if (count($value) == 0) {
+                        $fail('Debe seleccionar al menos un día de jornada laboral.');
+                    }
+                }],
+                'minutos_descanso' => ['required', 'numeric', 'integer', 'min:0', 'max:720'],
+                'minutos_descanso_intensiva' => ['required', 'numeric', 'integer', 'min:0', 'max:720'],
+                'hora_inicio' => ['required', 'date_format:H:i'],
+                'hora_inicio_intensiva' => ['required', 'date_format:H:i'],
+                'hora_fin' => ['required', 'date_format:H:i', 'after:hora_inicio'],
+                'hora_fin_intensiva' => ['required', 'date_format:H:i', 'after:hora_inicio_intensiva'],
+            ]);
+        } else {
+            $datos = $request->validate([
+                'descripcion' => ['required', 'max:255', 'string'],
+                'dias' => ['required', 'array', function ($attribute, $value, $fail) {
+                    if (count($value) == 0) {
+                        $fail('Debe seleccionar al menos un día de jornada laboral.');
+                    }
+                }],
+                'minutos_descanso' => ['required', 'numeric', 'integer', 'min:0', 'max:720'],
+                'hora_inicio' => ['required', 'date_format:H:i'],
+                'hora_fin' => ['required', 'date_format:H:i', 'after:hora_inicio'],
+            ]);
+        }
+        if ($esIntensivo === "true") {
+            // Creo el array para la creacion del registro horario en la bd
+            $datosHorario['descripcion'] = $datos['descripcion'];
+            $datosHorario['fecha_inicio_intensivo'] = $datos['fecha_inicio_intensivo'];
+            $datosHorario['fecha_fin_intensivo'] = $datos['fecha_fin_intensivo'];
+            $datosHorario['empresas_id'] = $empresaId;
+
+            // Creo el horario
+            $horario = Horario::create($datosHorario);
+
+            // Creo el array para la creacion del registro jornada en la bd
+            $datosJornada = [];
+            foreach ($datos['dias'] as $indice => $valor) {
+                $datosJornada = [
+                    'dia' => $valor,
+                    'minutos_descanso' => $datos['minutos_descanso'],
+                    'minutos_descanso_intensiva' => $datos['minutos_descanso_intensiva'],
+                    'hora_inicio' => $datos['hora_inicio'],
+                    'hora_inicio_intensiva' => $datos['hora_inicio_intensiva'],
+                    'hora_fin' => $datos['hora_fin'],
+                    'hora_fin_intensiva' => $datos['hora_fin_intensiva'],
+                    'horarios_id' => $horario->id
+                ];
+                // Creo la jornada
+                Jornada::create($datosJornada);
+            }
+        } else {
+            // Creo el horario
+            $datosHorario['descripcion'] = $datos['descripcion'];
+            $datosHorario['empresas_id'] = $empresaId;
+            $horario = Horario::create($datosHorario);
+
+            // Creo los datos de la jornada y luego creo la jornada
+            $datosJornada = [];
+            foreach ($datos['dias'] as $indice => $valor) {
+                $datosJornada = [
+                    'dia' => $valor,
+                    'minutos_descanso' => $datos['minutos_descanso'],
+                    'hora_inicio' => $datos['hora_inicio'],
+                    'hora_fin' => $datos['hora_fin'],
+                    'horarios_id' => $horario->id
+                ];
+
+                // Creo la jornada
+                Jornada::create($datosJornada);
+            }
+        }
+        // Asigno horario al admin
+        $usuario = User::find($empleadoId);
+        $usuario->horarios_id = $horario->id;
+        $usuario->save();
+        return ['nuevo_horario' => $horario->id];
     }
 }

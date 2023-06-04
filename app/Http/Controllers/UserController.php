@@ -264,18 +264,6 @@ class UserController extends Controller
     }
 
     /**
-     * Asigna el horario de la empresa a un empleado.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function asignarHorario(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Lista los empleados de la empresa.
      *
      * @param  int $id : ID de la empresa
