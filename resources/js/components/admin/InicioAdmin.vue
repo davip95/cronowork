@@ -74,7 +74,7 @@
                   class="btn btn-outline-dark bg-info btn-sm m-1"
                   @click="showReasignar = true"
                 >
-                  <i class="bi bi-calendar-heart me-2"></i
+                  <i class="bi bi-calendar-plus me-2"></i
                   ><span>Reasignar Horario</span>
                 </button>
               </div>

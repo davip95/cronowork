@@ -121,6 +121,14 @@
     padding: 15px 30px;
 }
 
+.list-group-item:hover {
+    color: var(--bs-dark) !important;
+}
+
+.salir:hover {
+    color: red !important;
+}
+
 .list-group-item.active {
     background-color: transparent;
     color: #00699d !important;

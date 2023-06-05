@@ -56,7 +56,9 @@ Vue.use(VueProgressBar, {
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+//Componentes Usuario
 Vue.component('edit-user', require('./components/usuario/EditUser.vue').default);
+// Componentes Admin
 Vue.component('inicio-admin', require('./components/admin/InicioAdmin.vue').default);
 Vue.component('edit-admin', require('./components/admin/EditAdmin.vue').default);
 Vue.component('change-admin', require('./components/admin/ChangeAdmin.vue').default);
@@ -73,6 +75,9 @@ Vue.component('asignar-horario', require('./components/admin/AsignarHorario.vue'
 Vue.component('horarios-empresa', require('./components/admin/HorariosEmpresa.vue').default);
 Vue.component('crear-horario', require('./components/admin/CrearHorario.vue').default);
 Vue.component('detalles-horario', require('./components/admin/DetallesHorario.vue').default);
+// Componentes Empleado
+Vue.component('mi-horario', require('./components/empleado/MiHorario.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

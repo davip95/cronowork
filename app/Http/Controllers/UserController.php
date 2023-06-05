@@ -312,4 +312,14 @@ class UserController extends Controller
     {
         return view('admins.horarios');
     }
+
+    /**
+     * Devuelve la vista del horario del empleado.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function miHorario()
+    {
+        return view('empleados.miHorario');
+    }
 }

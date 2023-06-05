@@ -79,7 +79,6 @@
               </div>
             </div>
             <div class="row text-center my-3"><h4>Jornadas</h4></div>
-            <!-- AQUI PONER LISTADO DE DIAS LABORABLES, HORAS INICIO/FIN, HORAS INICIO/FIN INTENSIVO SI HAY Y DESCANSOS -->
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Días Laborales</h6>

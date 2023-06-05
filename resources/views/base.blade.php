@@ -51,6 +51,10 @@
                     <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.ausencias') ? 'active' : '' }}">
                         <i class="bi bi-calendar2-x-fill me-2"></i></i>Mis Ausencias</a>
                     @endif
+                    @if(Auth::user()->tipo != 'usuario')
+                    <a href="{{ route('empleado.miHorario', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.miHorario') ? 'active' : '' }}">
+                        <i class="bi bi-calendar-heart me-2"></i></i>Mi Horario</a>
+                    @endif
                     <hr>
                     @if(Auth::user()->tipo == 'admin')
                     <a href="{{ route('admin.verEmpleados', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verEmpleados') ? 'active' : '' }}">
@@ -65,7 +69,7 @@
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                    <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+                    <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold salir">
                         <i class="bi bi-power me-2" style="-webkit-text-stroke: 1px;"></i>Salir</a>
                     </form>
                 </div>

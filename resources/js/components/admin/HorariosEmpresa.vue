@@ -139,17 +139,31 @@ export default {
       });
     });
     $("#tablaHorarios").on("click", ".borrar", (event) => {
-      const horarioId = $(event.target).data("id");
-      const horarioData = datatableHorarios
-        .row($(event.target).closest("tr"))
-        .data();
+      let horarioData;
+
+      if ($("#tablaHorarios").hasClass("collapsed")) {
+        horarioData = datatableHorarios
+          .row($(event.target).closest("tr").siblings(".parent").first())
+          .data();
+      } else {
+        horarioData = datatableHorarios
+          .row($(event.target).closest("tr"))
+          .data();
+      }
       this.abrirModalBorrar(horarioData);
     });
     $("#tablaHorarios").on("click", ".detalles", (event) => {
-      const horarioId = $(event.target).data("id");
-      const horarioData = datatableHorarios
-        .row($(event.target).closest("tr"))
-        .data();
+      let horarioData;
+
+      if ($("#tablaHorarios").hasClass("collapsed")) {
+        horarioData = datatableHorarios
+          .row($(event.target).closest("tr").siblings(".parent").first())
+          .data();
+      } else {
+        horarioData = datatableHorarios
+          .row($(event.target).closest("tr"))
+          .data();
+      }
       this.abrirModalDetalles(horarioData);
     });
   },
