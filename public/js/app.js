@@ -9635,13 +9635,141 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["show", "horario"],
   emits: ["horarioBorrado", "close"],
+  data: function data() {
+    return {
+      isDataLoaded: false,
+      jornadas: {}
+    };
+  },
+  watch: {
+    show: function show(newVal) {
+      if (newVal) {
+        console.log(this.horario);
+        this.getJornadas(this.horario.id);
+      }
+    }
+  },
   methods: {
-    bajaEmpleado: function bajaEmpleado() {
+    borraHorario: function borraHorario() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -9650,13 +9778,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/admin/baja/empleado/".concat(_this.empleado.id));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("empresas/".concat(_this.horario.empresas_id, "/horarios/").concat(_this.horario.id));
             case 4:
-              _this.$emit("empleadoDadoBaja");
+              _this.$emit("horarioBorrado");
               _this.$Progress.finish();
               Toast.fire({
                 icon: "success",
-                title: "Empleado dado de baja"
+                title: "Horario y Jornadas borrados"
               });
               document.getElementById("close").click();
               _context.next = 15;
@@ -9667,7 +9795,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this.$Progress.fail();
               Toast.fire({
                 icon: "error",
-                title: "No se pudo dar de baja"
+                title: "No se pudo borrar el horario"
               });
               if (_context.t0.response && _context.t0.response.status === 403) {
                 // Recargar la página para mostrar el formulario de inicio de sesión
@@ -9685,6 +9813,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     formatDate: function formatDate(dateString) {
       moment.locale("es");
       return moment(dateString).format("DD/MM/YYYY");
+    },
+    getNombreDia: function getNombreDia(dia) {
+      var diasSemana = ["", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+      return diasSemana[dia];
+    },
+    getJornadas: function getJornadas($horarioId) {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _this2.isDataLoaded = false;
+              _this2.$Progress.start();
+              _context2.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/empresas/".concat(_this2.horario.empresas_id, "/horarios/").concat($horarioId, "/jornadas/detalles"));
+            case 5:
+              response = _context2.sent;
+              _this2.jornadas = response.data;
+              _this2.isDataLoaded = true;
+              _this2.$Progress.finish();
+              _context2.next = 15;
+              break;
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](0);
+              _this2.$Progress.fail();
+              if (_context2.t0.response && _context2.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context2.t0);
+              }
+            case 15:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[0, 11]]);
+      }))();
     }
   }
 });
@@ -46766,98 +46934,390 @@ var render = function () {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-3" }, [
-                    _c("h6", { staticClass: "mb-0" }, [_vm._v("Nombre")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary fw-bold" }),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-3" }, [
-                    _c("h6", { staticClass: "mb-0" }, [_vm._v("Apellidos")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary fw-bold" }),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-3" }, [
-                    _c("h6", { staticClass: "mb-0" }, [_vm._v("Correo")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary fw-bold" }),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-3" }, [
-                    _c("h6", { staticClass: "mb-0" }, [_vm._v("Fecha Alta")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary fw-bold" }),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-3" }, [
-                    _c("h6", { staticClass: "mb-0" }, [
-                      _vm._v("Código Postal"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 text-secondary fw-bold" }),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", {
-                    staticClass: "col-sm-3 d-flex justify-content-end",
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger px-4",
-                          attrs: { type: "button" },
-                          on: { click: _vm.bajaEmpleado },
-                        },
-                        [_vm._v("\n                Dar Baja\n              ")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary align-self-end",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.$emit("close")
-                            },
+              _vm.isDataLoaded
+                ? _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function ($event) {
+                            $event.preventDefault()
+                            return _vm.borraHorario($event)
                           },
                         },
-                        [_vm._v("\n                Cancelar\n              ")]
-                      ),
-                    ]
-                  ),
-                ]),
-              ]),
+                      },
+                      [
+                        _c("div", { staticClass: "row text-center" }, [
+                          _c("h4", [_vm._v("Horario")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-3" }, [
+                            _c("h6", { staticClass: "mb-0" }, [
+                              _vm._v("Descripción"),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-9 text-secondary fw-bold" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.horario.descripcion) +
+                                  "\n              "
+                              ),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-3" }, [
+                            _c("h6", { staticClass: "mb-0" }, [
+                              _vm._v("Intensivo"),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-9 text-secondary fw-bold" },
+                            [
+                              _vm.horario.fecha_inicio_intensivo &&
+                              _vm.horario.fecha_fin_intensivo
+                                ? _c("span", [_c("strong", [_vm._v("Sí")])])
+                                : _c("span", [_c("strong", [_vm._v("No")])]),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("hr")
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c("h6", { staticClass: "mb-0" }, [
+                                  _vm._v("Fecha Inicio Intensivo"),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.formatDate(
+                                          _vm.horario.fecha_inicio_intensivo
+                                        )
+                                      )
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("hr")
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c("h6", { staticClass: "mb-0" }, [
+                                  _vm._v("Fecha Fin Intensivo"),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.formatDate(
+                                          _vm.horario.fecha_fin_intensivo
+                                        )
+                                      )
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row text-center my-3" }, [
+                          _c("h4", [_vm._v("Jornadas")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-3" }, [
+                            _c("h6", { staticClass: "mb-0" }, [
+                              _vm._v("Días Laborales"),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-9 fw-bold" }, [
+                            _c(
+                              "ul",
+                              {
+                                staticClass:
+                                  "list-group list-group-horizontal-lg",
+                              },
+                              _vm._l(_vm.jornadas, function (jornada) {
+                                return _c(
+                                  "li",
+                                  {
+                                    key: jornada.id,
+                                    staticClass:
+                                      "list-group-item text-secondary",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.getNombreDia(jornada.dia)) +
+                                        "\n                  "
+                                    ),
+                                  ]
+                                )
+                              }),
+                              0
+                            ),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-3" }, [
+                            _c("h6", { staticClass: "mb-0" }, [
+                              _vm._v("Minutos Descanso"),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-9 text-secondary fw-bold" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.jornadas[0].minutos_descanso) +
+                                  "\n              "
+                              ),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c("h6", { staticClass: "mb-0" }, [
+                                  _vm._v("Minutos Descanso Intensivo"),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.jornadas[0]
+                                          .minutos_descanso_intensiva
+                                      )
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("hr")
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-3" }, [
+                            _c("h6", { staticClass: "mb-0" }, [
+                              _vm._v("Hora Inicio"),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-9 text-secondary fw-bold" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.jornadas[0].hora_inicio) +
+                                  "\n              "
+                              ),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c("h6", { staticClass: "mb-0" }, [
+                                  _vm._v("Hora Inicio Intensivo"),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.jornadas[0].hora_inicio_intensiva
+                                      )
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("hr")
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-3" }, [
+                            _c("h6", { staticClass: "mb-0" }, [
+                              _vm._v("Hora Fin"),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-sm-9 text-secondary fw-bold" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.jornadas[0].hora_fin) +
+                                  "\n              "
+                              ),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c("h6", { staticClass: "mb-0" }, [
+                                  _vm._v("Hora Fin Intensivo"),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-sm-9 text-secondary fw-bold",
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(_vm.jornadas[0].hora_fin_intensiva)
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.horario.fecha_inicio_intensivo &&
+                        _vm.horario.fecha_fin_intensivo
+                          ? _c("hr")
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", {
+                            staticClass: "col-sm-3 d-flex justify-content-end",
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "col-sm-9 text-secondary fw-bold d-flex justify-content-between",
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger px-4",
+                                  attrs: { type: "submit" },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  Borrar\n                "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-secondary align-self-end",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.$emit("close")
+                                    },
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  Cancelar\n                "
+                                  ),
+                                ]
+                              ),
+                            ]
+                          ),
+                        ]),
+                      ]
+                    ),
+                  ])
+                : _vm._e(),
             ]),
           ]),
         ]),
