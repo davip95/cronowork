@@ -36,10 +36,20 @@ class HorarioController extends Controller
     {
         $horario = Horario::find($horarioId);
         $intensivo = $this->isIntensivo($horario);
+        // Comprueba si algun empleado tiene asignado ese horario
+        $empleadosHorario = User::select()->where('horarios_id', $horarioId)->get();
+        if ($empleadosHorario->isEmpty()) {
+            // La colección está vacía
+            $asignado = false;
+        } else {
+            // La colección no está vacía
+            $asignado = true;
+        }
 
         $response = [
             'horario' => $horario,
-            'intensivo' => $intensivo
+            'intensivo' => $intensivo,
+            'asignado' => $asignado
         ];
 
         return response()->json($response);

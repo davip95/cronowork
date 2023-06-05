@@ -75,6 +75,7 @@ Vue.component('asignar-horario', require('./components/admin/AsignarHorario.vue'
 Vue.component('horarios-empresa', require('./components/admin/HorariosEmpresa.vue').default);
 Vue.component('crear-horario', require('./components/admin/CrearHorario.vue').default);
 Vue.component('detalles-horario', require('./components/admin/DetallesHorario.vue').default);
+Vue.component('borrar-horario', require('./components/admin/BorrarHorario.vue').default);
 // Componentes Empleado
 Vue.component('mi-horario', require('./components/empleado/MiHorario.vue').default);
 

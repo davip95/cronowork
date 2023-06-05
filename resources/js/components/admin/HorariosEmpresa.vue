@@ -1,12 +1,12 @@
 <template>
   <div class="row">
     <div class="col-12 mb-3">
-      <!-- <borrar-horario
+      <borrar-horario
         :show="showBorrarHorario"
-        :empleado="empleado"
-        @empleadoDadoBaja="actualizarDatatable"
+        :horario="horario"
+        @horarioBorrado="actualizarDatatable"
         @close="showBorrarHorario = false"
-      ></borrar-horario> -->
+      ></borrar-horario>
       <crear-horario
         :show="showCrearHorario"
         :user="user"
@@ -65,7 +65,13 @@ export default {
       showCrearHorario: false,
       showBorrarHorario: false,
       horario: {},
+      asignado: null,
     };
+  },
+  watch: {
+    asignado(newVal) {
+      this.asignado = newVal;
+    },
   },
   mounted() {
     $.fn.dataTable.ext.errMode = "none";
@@ -169,8 +175,7 @@ export default {
   },
   methods: {
     abrirModalBorrar(datos) {
-      this.showBorrarHorario = true;
-      this.horario = datos;
+      this.compruebaHorario(datos);
     },
     abrirModalDetalles(datos) {
       this.showDetalles = true;
@@ -179,6 +184,36 @@ export default {
     actualizarDatatable() {
       // Volver a cargar los datos de la datatable
       $("#tablaHorarios").DataTable().ajax.reload();
+    },
+    async compruebaHorario(horario) {
+      await this.getHorario(horario.id);
+      // Si no tiene empleado asignado, abro el modal de borrado
+      if (this.asignado === false) {
+        this.showBorrarHorario = true;
+      } else {
+        // Si tiene empleado asignado, muestro mensaje de error
+        Toast.fire({
+          icon: "error",
+          title: "No se puede borrar horario",
+          text: "Este horario tiene empleado(s) asignado(s)",
+        });
+      }
+    },
+    async getHorario($horarioId) {
+      try {
+        const response = await axios.get(
+          `/empresas/${this.user.empresas_id}/horarios/${$horarioId}`
+        );
+        this.horario = response.data.horario;
+        this.asignado = response.data.asignado;
+      } catch (error) {
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
+      }
     },
   },
 };
