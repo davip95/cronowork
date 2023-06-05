@@ -172,31 +172,59 @@ export default {
       });
     });
     $("#tablaEmpleados").on("click", ".baja", (event) => {
-      const employeeId = $(event.target).data("id");
-      const employeeData = dataTableEmpleados
-        .row($(event.target).closest("tr"))
-        .data();
+      let employeeData;
+
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr").siblings(".parent").first())
+          .data();
+      } else {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr"))
+          .data();
+      }
       this.abrirModalBaja(employeeData);
     });
     $("#tablaEmpleados").on("click", ".horario", (event) => {
-      const employeeId = $(event.target).data("id");
-      const employeeData = dataTableEmpleados
-        .row($(event.target).closest("tr"))
-        .data();
+      let employeeData;
+
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr").siblings(".parent").first())
+          .data();
+      } else {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr"))
+          .data();
+      }
       this.abrirModalHorario(employeeData);
     });
     $("#tablaEmpleados").on("click", ".admin", (event) => {
-      const employeeId = $(event.target).data("id");
-      const employeeData = dataTableEmpleados
-        .row($(event.target).closest("tr"))
-        .data();
+      let employeeData;
+
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr").siblings(".parent").first())
+          .data();
+      } else {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr"))
+          .data();
+      }
       this.abrirModalAdmin(employeeData);
     });
     $("#tablaEmpleados").on("click", ".detalles", (event) => {
-      const employeeId = $(event.target).data("id");
-      const employeeData = dataTableEmpleados
-        .row($(event.target).closest("tr"))
-        .data();
+      let employeeData;
+
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr").siblings(".parent").first())
+          .data();
+      } else {
+        employeeData = dataTableEmpleados
+          .row($(event.target).closest("tr"))
+          .data();
+      }
       this.abrirModalDetalles(employeeData);
     });
   },

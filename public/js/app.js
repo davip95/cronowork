@@ -11613,23 +11613,39 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
     $("#tablaEmpleados").on("click", ".baja", function (event) {
-      var employeeId = $(event.target).data("id");
-      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      var employeeData;
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      }
       _this.abrirModalBaja(employeeData);
     });
     $("#tablaEmpleados").on("click", ".horario", function (event) {
-      var employeeId = $(event.target).data("id");
-      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      var employeeData;
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      }
       _this.abrirModalHorario(employeeData);
     });
     $("#tablaEmpleados").on("click", ".admin", function (event) {
-      var employeeId = $(event.target).data("id");
-      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      var employeeData;
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      }
       _this.abrirModalAdmin(employeeData);
     });
     $("#tablaEmpleados").on("click", ".detalles", function (event) {
-      var employeeId = $(event.target).data("id");
-      var employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      var employeeData;
+      if ($("#tablaEmpleados").hasClass("collapsed")) {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        employeeData = dataTableEmpleados.row($(event.target).closest("tr")).data();
+      }
       _this.abrirModalDetalles(employeeData);
     });
   },
