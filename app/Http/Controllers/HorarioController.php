@@ -9,6 +9,7 @@ use App\Models\User;
 use DateTime;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HorarioController extends Controller
 {
@@ -165,13 +166,19 @@ class HorarioController extends Controller
     /**
      * Elimina (soft delete) el horario.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $empresaId
      * @param  int  $horarioId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($empresaId, $horarioId)
+    public function destroy(Request $request, $empresaId, $horarioId)
     {
-        //
+        $jornadas = Jornada::select()->where('horarios_id', $horarioId)->get();
+        foreach ($jornadas as $jornada) {
+            $jornada->delete();
+        }
+        Horario::find($horarioId)->delete();
+        return ['mensaje' => "borrado"];
     }
 
     /**

@@ -16,6 +16,14 @@
             ></button>
           </div>
           <div class="card-body" v-if="isDataLoaded">
+            <div class="row mb-3">
+              <div class="alert alert-danger d-inline-block w-auto mx-auto">
+                <span
+                  ><strong>¡Cuidado!</strong> Esta acción borrará el horario y
+                  todas sus jornadas asociadas.</span
+                >
+              </div>
+            </div>
             <form @submit.prevent="borraHorario">
               <div class="row text-center"><h4>Horario</h4></div>
               <div class="row">
@@ -197,6 +205,7 @@
               </div>
             </form>
           </div>
+          <div class="card-body" v-else>Cargando...</div>
         </div>
       </div>
     </div>
@@ -217,7 +226,6 @@ export default {
   watch: {
     show: function (newVal) {
       if (newVal) {
-        console.log(this.horario);
         this.getJornadas(this.horario.id);
       }
     },
@@ -227,7 +235,7 @@ export default {
       try {
         this.$Progress.start();
         await axios.delete(
-          `empresas/${this.horario.empresas_id}/horarios/${this.horario.id}`
+          `/empresas/${this.horario.empresas_id}/horarios/${this.horario.id}`
         );
         this.$emit("horarioBorrado");
         this.$Progress.finish();

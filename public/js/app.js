@@ -9749,6 +9749,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -9763,7 +9772,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     show: function show(newVal) {
       if (newVal) {
-        console.log(this.horario);
         this.getJornadas(this.horario.id);
       }
     }
@@ -9778,7 +9786,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("empresas/".concat(_this.horario.empresas_id, "/horarios/").concat(_this.horario.id));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/empresas/".concat(_this.horario.empresas_id, "/horarios/").concat(_this.horario.id));
             case 4:
               _this.$emit("horarioBorrado");
               _this.$Progress.finish();
@@ -46936,6 +46944,24 @@ var render = function () {
               _vm._v(" "),
               _vm.isDataLoaded
                 ? _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "row mb-3" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alert alert-danger d-inline-block w-auto mx-auto",
+                        },
+                        [
+                          _c("span", [
+                            _c("strong", [_vm._v("¡Cuidado!")]),
+                            _vm._v(
+                              " Esta acción borrará el horario y\n                todas sus jornadas asociadas."
+                            ),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "form",
                       {
@@ -47317,7 +47343,9 @@ var render = function () {
                       ]
                     ),
                   ])
-                : _vm._e(),
+                : _c("div", { staticClass: "card-body" }, [
+                    _vm._v("Cargando..."),
+                  ]),
             ]),
           ]),
         ]),
