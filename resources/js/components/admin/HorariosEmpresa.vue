@@ -23,12 +23,12 @@
         <div
           class="card-header bg-white text-center d-flex justify-content-between"
         >
-          <h4 class="mb-0">
+          <h4 class="mb-0 mt-2">
             <strong>Horarios {{ empresa }}</strong>
           </h4>
           <button
             type="button"
-            class="btn btn-outline-dark bg-success btn-sm align-self-end"
+            class="btn btn-outline-dark bg-success btn-sm align-self-end mt-1 mb-1"
             @click="showCrearHorario = true"
           >
             <i class="bi bi-person-fill-up me-2"></i><span>Crear Horario</span>
@@ -87,6 +87,8 @@ export default {
         },
         responsive: true,
         autoWidth: false,
+        lengthMenu: [5, 10, 25, 50, 100],
+        pageLength: 5,
         ajax: {
           url: "../horarios",
           method: "GET",

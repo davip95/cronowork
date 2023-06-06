@@ -52,14 +52,14 @@
                         <i class="bi bi-calendar2-x-fill me-2"></i></i>Mis Ausencias</a>
                     @endif
                     @if(Auth::user()->tipo != 'usuario')
-                    <a href="{{ route('empleado.miHorario', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.miHorario') ? 'active' : '' }}">
+                    <a href="{{ route('empleado.miHorario', [Auth::user()->empresas_id, Auth::user()->id]) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.miHorario') ? 'active' : '' }}">
                         <i class="bi bi-calendar-heart me-2"></i></i>Mi Horario</a>
                     @endif
                     <hr>
                     @if(Auth::user()->tipo == 'admin')
                     <a href="{{ route('admin.verEmpleados', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verEmpleados') ? 'active' : '' }}">
                     <i class="bi bi-people-fill me-2"></i></i>Empleados</a>    
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.fichajes') ? 'active' : '' }}">
+                    <a href="{{ route('admin.verFichajes', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verFichajes') ? 'active' : '' }}">
                     <i class="bi bi-list-check me-2" style="-webkit-text-stroke: 1px;"></i></i>Fichajes Empresa</a>
                     <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.ausencias') ? 'active' : '' }}">
                     <i class="bi bi-building-fill-dash me-2"></i>Ausencias Empresa</a>
@@ -92,7 +92,7 @@
                             $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
                             $fechaActual = ucfirst($fechaActual);
                         @endphp
-                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{$fechaActual }}</h2>
+                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ $fechaActual }}</h2>
                         {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
                         @if(!is_null(auth()->user()->empresas_id))
                         <a role="button" href="#" class="btn btn-outline-success bg-dark btn-sm fichar">

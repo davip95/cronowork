@@ -322,4 +322,14 @@ class UserController extends Controller
     {
         return view('empleados.miHorario');
     }
+
+    /**
+     * Devuelve la vista de fichajes de la empresa.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verFichajes()
+    {
+        return view('admins.fichajes');
+    }
 }

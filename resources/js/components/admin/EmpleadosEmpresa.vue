@@ -33,12 +33,12 @@
         <div
           class="card-header bg-white text-center d-flex justify-content-between"
         >
-          <h4 class="mb-0">
+          <h4 class="mb-0 mt-2">
             <strong>Empleados {{ empresa }}</strong>
           </h4>
           <button
             type="button"
-            class="btn btn-outline-dark bg-success btn-sm align-self-end"
+            class="btn btn-outline-dark bg-success btn-sm align-self-end mb-1 mt-1"
             @click="showAltaEmpleado = true"
           >
             <i class="bi bi-person-fill-up me-2"></i><span>Dar Alta</span>
