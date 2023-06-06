@@ -33,6 +33,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/{empresa}/fichajes/listar', 'verFichajes')->middleware(['auth', 'admin', 'empresa'])->name('admin.verFichajes');
     Route::get('/empresas/{empresa}/empleados', 'verEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.verEmpleados');
     Route::get('/empresas/{empresa}/horarios/ver', 'verHorarios')->middleware(['auth', 'admin', 'empresa'])->name('admin.verHorarios');
+    Route::get('/empresas/{empresa}/empleados/{usuario}/mis-fichajes', 'misFichajes')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.misFichajes');
     Route::get('/empresas/{empresa}/empleados/{usuario}/mi-horario', 'miHorario')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.miHorario');
     // Fin rutas de navegación
     Route::put('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');

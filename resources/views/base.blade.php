@@ -44,7 +44,7 @@
                     <a href="{{ route('home') }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">
                         <i class="bi bi-house-fill me-2"></i>Inicio</a>
                     @if(Auth::user()->tipo != 'usuario')
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.fichajes') ? 'active' : '' }}">
+                    <a href="{{ route('empleado.misFichajes', [Auth::user()->empresas_id, Auth::user()->id]) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.misFichajes') ? 'active' : '' }}">
                         <i class="bi bi-ui-checks me-2"></i>Mis Fichajes</a>
                     @endif
                     @if(Auth::user()->tipo != 'usuario')

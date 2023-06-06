@@ -13762,6 +13762,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -14633,6 +14636,7 @@ Vue.component('fichajes-empresa', (__webpack_require__(/*! ./components/admin/Fi
 Vue.component('detalles-fichaje', (__webpack_require__(/*! ./components/admin/DetallesFichaje.vue */ "./resources/js/components/admin/DetallesFichaje.vue")["default"]));
 // Componentes Empleado
 Vue.component('mi-horario', (__webpack_require__(/*! ./components/empleado/MiHorario.vue */ "./resources/js/components/empleado/MiHorario.vue")["default"]));
+Vue.component('mis-fichajes', (__webpack_require__(/*! ./components/empleado/MisFichajes.vue */ "./resources/js/components/empleado/MisFichajes.vue")["default"]));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -44212,6 +44216,43 @@ component.options.__file = "resources/js/components/empleado/MiHorario.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/empleado/MisFichajes.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/empleado/MisFichajes.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MisFichajes_vue_vue_type_template_id_4b5896dd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MisFichajes.vue?vue&type=template&id=4b5896dd& */ "./resources/js/components/empleado/MisFichajes.vue?vue&type=template&id=4b5896dd&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _MisFichajes_vue_vue_type_template_id_4b5896dd___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MisFichajes_vue_vue_type_template_id_4b5896dd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/empleado/MisFichajes.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/usuario/EditUser.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/usuario/EditUser.vue ***!
@@ -45348,6 +45389,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MiHorario_vue_vue_type_template_id_214d0a66_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MiHorario_vue_vue_type_template_id_214d0a66_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MiHorario.vue?vue&type=template&id=214d0a66&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MiHorario.vue?vue&type=template&id=214d0a66&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/empleado/MisFichajes.vue?vue&type=template&id=4b5896dd&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/empleado/MisFichajes.vue?vue&type=template&id=4b5896dd& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MisFichajes_vue_vue_type_template_id_4b5896dd___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MisFichajes_vue_vue_type_template_id_4b5896dd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MisFichajes_vue_vue_type_template_id_4b5896dd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MisFichajes.vue?vue&type=template&id=4b5896dd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisFichajes.vue?vue&type=template&id=4b5896dd&");
 
 
 /***/ }),
@@ -53273,7 +53331,22 @@ var render = function () {
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "card base-card mb-3" }, [
-        _vm._m(0),
+        _c(
+          "div",
+          {
+            staticClass:
+              "card-header bg-white text-center d-flex justify-content-between",
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("h4", { staticClass: "align-self-end mt-2" }, [
+              _c("i", [
+                _vm._v(_vm._s(_vm.user.name + " " + _vm.user.apellidos)),
+              ]),
+            ]),
+          ]
+        ),
         _vm._v(" "),
         _vm.isDataLoaded
           ? _c("div", { staticClass: "card-body" }, [
@@ -53508,18 +53581,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "card-header bg-white text-center d-flex justify-content-start",
-      },
-      [
-        _c("h4", { staticClass: "mb-0" }, [
-          _c("strong", [_vm._v("Horario Laboral")]),
-        ]),
-      ]
-    )
+    return _c("h4", { staticClass: "mb-0 mt-2" }, [
+      _c("strong", [_vm._v("Horario Laboral")]),
+    ])
   },
   function () {
     var _vm = this
@@ -53624,6 +53688,38 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-sm-3" }, [
       _c("h6", { staticClass: "mb-0" }, [_vm._v("Hora Fin Intensivo")]),
     ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisFichajes.vue?vue&type=template&id=4b5896dd&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisFichajes.vue?vue&type=template&id=4b5896dd& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h4", [_vm._v("Mis Fichajes")])])
   },
 ]
 render._withStripped = true

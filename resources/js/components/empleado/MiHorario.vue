@@ -3,9 +3,12 @@
     <div class="col-12">
       <div class="card base-card mb-3">
         <div
-          class="card-header bg-white text-center d-flex justify-content-start"
+          class="card-header bg-white text-center d-flex justify-content-between"
         >
-          <h4 class="mb-0"><strong>Horario Laboral</strong></h4>
+          <h4 class="mb-0 mt-2"><strong>Horario Laboral</strong></h4>
+          <h4 class="align-self-end mt-2">
+            <i>{{ user.name + " " + user.apellidos }}</i>
+          </h4>
         </div>
         <div class="card-body" v-if="isDataLoaded">
           <div class="row text-center"><h4>Horario</h4></div>

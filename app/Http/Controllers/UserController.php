@@ -314,6 +314,16 @@ class UserController extends Controller
     }
 
     /**
+     * Devuelve la vista de fichajes de la empresa.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verFichajes()
+    {
+        return view('admins.fichajes');
+    }
+
+    /**
      * Devuelve la vista del horario del empleado.
      *
      * @return \Illuminate\Http\Response
@@ -324,12 +334,12 @@ class UserController extends Controller
     }
 
     /**
-     * Devuelve la vista de fichajes de la empresa.
+     * Devuelve la vista del horario del empleado.
      *
      * @return \Illuminate\Http\Response
      */
-    public function verFichajes()
+    public function misFichajes()
     {
-        return view('admins.fichajes');
+        return view('empleados.misFichajes');
     }
 }
