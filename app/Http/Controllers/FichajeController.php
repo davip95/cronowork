@@ -45,13 +45,40 @@ class FichajeController extends Controller
     }
 
     /**
-     * Muestra al admin los detalles de un fichaje de la empresa
+     * Muestra los fichajes de un empleado de su empresa actual
      *
-     * @param  int  $id
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function listarFichajes($empresaId, $empleadoId)
     {
-        //
+        $fichajes = Fichaje::select('fichajes.id', 'fichajes.tipo', 'fichajes.fecha_hora_fichaje')
+            ->join('empleados', 'fichajes.empleados_id', '=', 'empleados.id')
+            ->join('horarios', 'fichajes.horarios_id', '=', 'horarios.id')
+            ->where('empleados_id', $empleadoId)
+            ->where('empleados.empresas_id', $empresaId)
+            ->with(['empleados' => function ($query) {
+                $query->select('id', 'name', 'apellidos');
+            }])
+            ->with(['horarios' => function ($query) {
+                $query->select('id', 'descripcion');
+            }])
+            ->selectRaw('fichajes.*, empleados.name as empleado_nombre, empleados.apellidos as empleado_apellidos, horarios.descripcion as horario_descripcion')
+            ->get()
+            ->map(function ($fichaje) {
+                $fechaHora = Carbon::parse($fichaje->fecha_hora_fichaje);
+                $fichaje->fecha = $fechaHora->toDateString();
+                $fichaje->hora = $fechaHora->toTimeString();
+                $fichaje->empleado_nombre = $fichaje->empleados->name;
+                $fichaje->empleado_apellidos = $fichaje->empleados->apellidos;
+                $fichaje->horario_descripcion = $fichaje->horarios->descripcion;
+                unset($fichaje->empleados);
+                unset($fichaje->horarios);
+                return $fichaje;
+            });
+
+
+        return response()->json($fichajes);
     }
 }

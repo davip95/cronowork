@@ -65,7 +65,6 @@ Route::resource('empresas.horarios', HorarioController::class)->only(['index', '
 
 Route::controller(FichajeController::class)->group(function () {
     //Route::post('empresas/{empresa}/empleados/{usuario}/fichajes/crear', 'crearFichaje')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.crearFichaje');
-    //Route::get('empresas/{empresa}/empleados/{usuario}/fichajes/{fichaje}', 'verFichaje')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.verFichaje');
-    //Route::get('empresas/{empresa}/empleados/{usuario}/fichajes/listar', 'listarFichajes')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.listarFichajes');
+    Route::get('empresas/{empresa}/empleados/{usuario}/fichajes/listar', 'listarFichajes')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.listarFichajes');
 });
-Route::resource('empresas.fichajes', FichajeController::class)->only(['index', 'show'])->middleware(['auth', 'admin', 'empresa']);
+Route::resource('empresas.fichajes', FichajeController::class)->only(['index'])->middleware(['auth', 'admin', 'empresa']);
