@@ -18,7 +18,7 @@
         <span class="fw-bold">Fichar Salida</span>
       </button>
     </form>
-    <div class="alert alert-dark d-inline-block w-auto mx-auto" v-else>
+    <div class="alert alert-primary d-inline-block w-auto mx-auto" v-else>
       <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
         <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
           <path
@@ -51,6 +51,7 @@ export default {
       default: false,
     },
   },
+  emits: ["actualizaFichajes"],
   data() {
     return {
       fichajesHoy: null,
@@ -109,6 +110,9 @@ export default {
         );
         this.getJornada();
         this.getFichajesHoy();
+        if (this.dataTable) {
+          this.$emit("actualizaFichajes");
+        }
         this.$Progress.finish();
         Toast.fire({
           icon: "success",

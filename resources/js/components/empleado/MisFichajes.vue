@@ -6,6 +6,15 @@
         :fichaje="fichaje"
         @close="showDetalles = false"
       ></detalles-fichaje>
+      <div class="row">
+        <div class="col-12 mb-3">
+          <boton-fichar
+            :user="user"
+            :dataTable="true"
+            @actualizaFichajes="actualizarDatatable"
+          ></boton-fichar>
+        </div>
+      </div>
       <div class="card base-card">
         <div
           class="card-header bg-white text-center d-flex justify-content-between"

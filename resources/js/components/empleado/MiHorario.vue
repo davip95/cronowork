@@ -1,6 +1,11 @@
 <template>
   <div class="row">
     <div class="col-12">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <boton-fichar :user="user"></boton-fichar>
+        </div>
+      </div>
       <div class="card base-card mb-3">
         <div
           class="card-header bg-white text-center d-flex justify-content-between"

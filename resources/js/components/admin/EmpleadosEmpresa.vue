@@ -29,6 +29,11 @@
         :user="empleado"
         @close="showDetalles = false"
       ></detalles-empleado>
+      <div class="row">
+        <div class="col-12 mb-3">
+          <boton-fichar :user="user"></boton-fichar>
+        </div>
+      </div>
       <div class="card base-card">
         <div
           class="card-header bg-white text-center d-flex justify-content-between"
