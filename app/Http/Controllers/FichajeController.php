@@ -81,4 +81,21 @@ class FichajeController extends Controller
 
         return response()->json($fichajes);
     }
+
+    /**
+     * Muestra los fichajes que ha hecho hoy
+     *
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
+     * @return \Illuminate\Http\Response
+     */
+    public function infoFichaje($empresaId, $empleadoId)
+    {
+        $fechaHoy = Carbon::now()->format('Y-m-d');
+        $fichajesHoy = Fichaje::where('empleados_id', $empleadoId)
+            ->whereDate('fecha_hora_fichaje', $fechaHoy)
+            ->count();
+
+        return response()->json($fichajesHoy);
+    }
 }

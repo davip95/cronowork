@@ -47,6 +47,11 @@
         @actualizaHorario="actualizaHorario"
       ></asignar-horario>
       <div class="row">
+        <div class="col-12 mb-3">
+          <boton-fichar :user="user"></boton-fichar>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
             <div class="card-header bg-white">

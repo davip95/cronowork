@@ -159,7 +159,7 @@ class HorarioController extends Controller
             // Hay jornada para el día de hoy
             return response()->json($jornadaHoy);
         } else {
-            return response()->json(['error' => 'No tiene jornada hoy'], 404);
+            return response()->json([], 204);
         }
     }
 

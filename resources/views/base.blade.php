@@ -77,56 +77,49 @@
 
             <div id="page-content-wrapper">
                 {{-- CABECERA --}}
-                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-                    <div class="d-flex align-items-center mr-2">
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4 d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
                         <i class="bi bi-layout-sidebar-inset primary-text fs-4 me-2" id="menu-toggle"></i>
                         @if(Auth::user()->empresas_id)
-                            <h2 class="fs-4 m-0 d-none d-lg-block me-4">{{Auth::user()->empresas->nombre}}</h2>
+                            <h2 class="fs-4 m-0 d-none d-lg-block">{{Auth::user()->empresas->nombre}}</h2>
                         @endif
                     </div>
 
-                    <div class="d-flex align-items-center mr-2 ms-auto">
-                        @php
-                            setlocale(LC_TIME, config('app.locale'));
-                            $formatoFecha = '%A, %d de %B de %Y';
-                            $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
-                            $fechaActual = ucfirst($fechaActual);
-                        @endphp
-                        <h2 class="fs-6 m-0 d-none d-lg-block me-4">{{ $fechaActual }}</h2>
-                        {{-- AQUÍ LÓGICA PARA PONER EL FICHAJE DE ENTRADA O DE SALIDA --}}
-                        @if(!is_null(auth()->user()->empresas_id))
-                        <a role="button" href="#" class="btn btn-outline-success bg-dark btn-sm fichar">
-                            <i class="bi bi-box-arrow-in-right me-2"></i><span class="fw-bold">Fichar Entrada</span>
-                        </a>
-                        @endif
-                        {{-- AQUI EL ELSE DE LA LÓGICA (DESCOMENTAR BOTON DE ABAJO) --}}
-                        {{-- <a role="button" href="#"  class="btn btn-outline-success bg-dark btn-sm fichar">
-                            <i class="bi bi-box-arrow-left me-2"></i> <span class="fw-bold">Fichar Salida</span>
-                        </a> --}}
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">
+                            @php
+                                setlocale(LC_TIME, config('app.locale'));
+                                $formatoFecha = '%A, %d de %B de %Y';
+                                $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
+                                $fechaActual = ucfirst($fechaActual);
+                            @endphp
+                            <h2 class="fs-6 m-0 d-none d-md-block">{{ $fechaActual }}</h2>
+                        </div>
+    
+                        <div class="btn-group ms-auto mb-0 mt-1">
+                        <button type="button" class="btn btn-outline-dark btn-sm fw-bold dropdown-toggle mb-1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-lg-inline">{{ Auth::user()->name }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end m-0">
+                            <li><h6 class="dropdown-header text-center d-none d-md-block">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
+                            <li><h6 class="dropdown-header text-center d-md-none">{{ strtoupper(Auth::user()->name) }}</h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            @if(Auth::user()->tipo != 'usuario')
+                            <li><a href="{{ route('home') }}" class="dropdown-item fw-bold text-center">
+                                <i class="bi bi-house-fill me-3"></i>Inicio</a></li>
+                            @endif
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold text-center">
+                                        <i class="bi bi-power me-3" style="-webkit-text-stroke: 1px;"></i>Salir
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                        </div>
                     </div>
-
-                    <div class="btn-group ms-auto mb-0 mt-1">
-                    <button type="button" class="btn btn-outline-dark btn-sm fw-bold dropdown-toggle mb-1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle me-1" style="-webkit-text-stroke: 0.6px;"></i> <span class="d-none d-lg-inline">{{ Auth::user()->name }}</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end m-0">
-                        <li><h6 class="dropdown-header text-center d-none d-md-block">{{ strtoupper(Auth::user()->tipo) }}</h6></li>
-                        <li><h6 class="dropdown-header text-center d-md-none">{{ strtoupper(Auth::user()->name) }}</h6></li>
-                        <li><hr class="dropdown-divider"></li>
-                        @if(Auth::user()->tipo != 'usuario')
-                        <li><a href="{{ route('home') }}" class="dropdown-item fw-bold text-center">
-                            <i class="bi bi-house-fill me-3"></i>Inicio</a></li>
-                        @endif
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item text-danger fw-bold text-center">
-                                    <i class="bi bi-power me-3" style="-webkit-text-stroke: 1px;"></i>Salir
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
-                    </div>
+                    
                 </nav>
 
                 {{-- CONTENIDO --}}
