@@ -55,6 +55,7 @@ export default {
     return {
       fichajesHoy: null,
       jornada: {},
+      tipoFichaje: "",
     };
   },
   mounted() {
@@ -95,8 +96,37 @@ export default {
         }
       }
     },
-    fichar() {
-      //
+    async fichar() {
+      try {
+        this.$Progress.start();
+        if (this.fichajesHoy == 0) {
+          this.tipoFichaje = "entrada";
+        } else if (this.fichajesHoy == 1) {
+          this.tipoFichaje = "salida";
+        }
+        await axios.post(
+          `/empresas/${this.user.empresas_id}/empleados/${this.user.id}/fichar/${this.tipoFichaje}`
+        );
+        this.getJornada();
+        this.getFichajesHoy();
+        this.$Progress.finish();
+        Toast.fire({
+          icon: "success",
+          title: "Ha fichado correctamente",
+        });
+      } catch (error) {
+        this.$Progress.fail();
+        Toast.fire({
+          icon: "error",
+          title: "No se pudo realizar el fichaje",
+        });
+        if (error.response && error.response.status === 403) {
+          // Recargar la página para mostrar el formulario de inicio de sesión
+          location.reload();
+        } else {
+          console.log(error);
+        }
+      }
     },
     // ejecutarAnimacion() {
     //   const elemento = document.querySelector(".fichar");

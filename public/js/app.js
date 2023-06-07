@@ -13663,7 +13663,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       fichajesHoy: null,
-      jornada: {}
+      jornada: {},
+      tipoFichaje: ""
     };
   },
   mounted: function mounted() {
@@ -13737,7 +13738,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     fichar: function fichar() {
-      //
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _this3.$Progress.start();
+              if (_this3.fichajesHoy == 0) {
+                _this3.tipoFichaje = "entrada";
+              } else if (_this3.fichajesHoy == 1) {
+                _this3.tipoFichaje = "salida";
+              }
+              _context3.next = 5;
+              return axios.post("/empresas/".concat(_this3.user.empresas_id, "/empleados/").concat(_this3.user.id, "/fichar/").concat(_this3.tipoFichaje));
+            case 5:
+              _this3.getJornada();
+              _this3.getFichajesHoy();
+              _this3.$Progress.finish();
+              Toast.fire({
+                icon: "success",
+                title: "Ha fichado correctamente"
+              });
+              _context3.next = 16;
+              break;
+            case 11:
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](0);
+              _this3.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "No se pudo realizar el fichaje"
+              });
+              if (_context3.t0.response && _context3.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context3.t0);
+              }
+            case 16:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 11]]);
+      }))();
     } // ejecutarAnimacion() {
     //   const elemento = document.querySelector(".fichar");
     //   elemento.classList.add("agitar");

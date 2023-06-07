@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fichaje;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -97,5 +98,27 @@ class FichajeController extends Controller
             ->count();
 
         return response()->json($fichajesHoy);
+    }
+
+    /**
+     * Almacena el fichaje del empleado en la base de datos
+     *
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
+     * @param  string  $tipo
+     * @return \Illuminate\Http\Response
+     */
+    public function crearFichaje($empresaId, $empleadoId, $tipo)
+    {
+        $horariosId = User::find($empleadoId)->horarios_id;
+
+        Fichaje::create([
+            'tipo' => $tipo,
+            'fecha_hora_fichaje' => Carbon::now(),
+            'empleados_id' => $empleadoId,
+            'horarios_id' => $horariosId,
+        ]);
+
+        return ['mensaje' => "Fichaje realizado"];
     }
 }
