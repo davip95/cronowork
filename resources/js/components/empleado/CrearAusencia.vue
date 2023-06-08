@@ -101,8 +101,22 @@
 import Form from "vform";
 
 export default {
-  props: ["show", "user", "tipo"],
-  emits: ["close"],
+  props: {
+    show: {
+      type: Boolean,
+    },
+    user: {
+      type: Object,
+    },
+    tipo: {
+      type: String,
+    },
+    dataTable: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ["close", "actualizaAusencia"],
   data() {
     return {
       form: new Form({
@@ -122,6 +136,9 @@ export default {
             baseURL: "http://127.0.0.1:8000/",
           }
         );
+        if (this.dataTable) {
+          this.$emit("actualizaAusencia", this.tipo);
+        }
         this.$Progress.finish();
         Toast.fire({
           icon: "success",

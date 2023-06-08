@@ -14102,8 +14102,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["show", "user", "tipo"],
-  emits: ["close"],
+  props: {
+    show: {
+      type: Boolean
+    },
+    user: {
+      type: Object
+    },
+    tipo: {
+      type: String
+    },
+    dataTable: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  emits: ["close", "actualizaAusencia"],
   data: function data() {
     return {
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -14127,6 +14141,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 baseURL: "http://127.0.0.1:8000/"
               });
             case 4:
+              if (_this.dataTable) {
+                _this.$emit("actualizaAusencia", _this.tipo);
+              }
               _this.$Progress.finish();
               Toast.fire({
                 icon: "success",
@@ -14136,10 +14153,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this.form.fecha_fin = null;
               _this.form.motivos = null;
               document.getElementById("close").click();
-              _context.next = 17;
+              _context.next = 18;
               break;
-            case 12:
-              _context.prev = 12;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](0);
               _this.$Progress.fail();
               Toast.fire({
@@ -14152,11 +14169,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context.t0.response);
               }
-            case 17:
+            case 18:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 12]]);
+        }, _callee, null, [[0, 13]]);
       }))();
     }
   }
@@ -14440,6 +14457,446 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2, null, [[0, 10]]);
       }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisAusencias.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisAusencias.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["user"],
+  data: function data() {
+    return {
+      showDetalles: false,
+      showAusencia: false,
+      tipoAusencia: "",
+      ausencia: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+    $.fn.dataTable.ext.errMode = "none";
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+    var datatableVacaciones, datatablePermisos, datatableFaltas;
+    var userId = this.user.id;
+    $(document).ready(function () {
+      // DATATABLE VACACIONES
+      datatableVacaciones = $("#tablaVacaciones").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        rowReorder: {
+          selector: "td:nth-child(2)"
+        },
+        responsive: true,
+        autoWidth: false,
+        lengthMenu: [5, 10, 25, 50, 100],
+        pageLength: 5,
+        ajax: {
+          url: "../".concat(userId, "/ausencias/Vacaciones"),
+          method: "GET",
+          dataType: "json",
+          error: function error(xhr, _error) {
+            if (_error.response && _error.response.status === 403) {
+              // Recargar la página para mostrar el formulario de inicio de sesión
+              location.reload();
+            } else {
+              console.log(_error);
+            }
+          },
+          dataSrc: ""
+        },
+        columns: [{
+          data: "tipo",
+          visible: false
+        }, {
+          data: "motivos",
+          visible: false
+        }, {
+          data: "fecha_inicio",
+          render: function render(data, type, row) {
+            if (type === "display" || type === "filter") {
+              return moment(data).format("DD/MM/YYYY");
+            }
+            return data;
+          }
+        }, {
+          data: "fecha_fin",
+          render: function render(data, type, row) {
+            if (type === "display" || type === "filter") {
+              return moment(data).format("DD/MM/YYYY");
+            }
+            return data;
+          }
+        }, {
+          data: "estado_aceptada"
+        }, {
+          // Columna adicional de acciones
+          targets: -1,
+          render: function render(data, type, row, meta) {
+            return '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Detalles</button>';
+          }
+        }],
+        columnDefs: [{
+          targets: -1,
+          searchable: false,
+          orderable: false
+        }],
+        order: [[2, "desc"], [3, "desc"]]
+      });
+
+      // DATATABLE PERMISOS
+      datatablePermisos = $("#tablaPermisos").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        rowReorder: {
+          selector: "td:nth-child(2)"
+        },
+        responsive: true,
+        autoWidth: false,
+        lengthMenu: [5, 10, 25, 50, 100],
+        pageLength: 5,
+        ajax: {
+          url: "../".concat(userId, "/ausencias/Permiso"),
+          method: "GET",
+          dataType: "json",
+          error: function error(xhr, _error2) {
+            if (_error2.response && _error2.response.status === 403) {
+              // Recargar la página para mostrar el formulario de inicio de sesión
+              location.reload();
+            } else {
+              console.log(_error2);
+            }
+          },
+          dataSrc: ""
+        },
+        columns: [{
+          data: "tipo",
+          visible: false
+        }, {
+          data: "motivos",
+          visible: false
+        }, {
+          data: "fecha_inicio",
+          render: function render(data, type, row) {
+            if (type === "display" || type === "filter") {
+              return moment(data).format("DD/MM/YYYY");
+            }
+            return data;
+          }
+        }, {
+          data: "fecha_fin",
+          render: function render(data, type, row) {
+            if (type === "display" || type === "filter") {
+              return moment(data).format("DD/MM/YYYY");
+            }
+            return data;
+          }
+        }, {
+          data: "estado_aceptada"
+        }, {
+          // Columna adicional de acciones
+          targets: -1,
+          render: function render(data, type, row, meta) {
+            return '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Detalles</button>';
+          }
+        }],
+        columnDefs: [{
+          targets: -1,
+          searchable: false,
+          orderable: false
+        }],
+        order: [[2, "desc"], [3, "desc"]]
+      });
+
+      // DATATABLE FALTAS
+      datatableFaltas = $("#tablaFaltas").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        rowReorder: {
+          selector: "td:nth-child(2)"
+        },
+        responsive: true,
+        autoWidth: false,
+        lengthMenu: [5, 10, 25, 50, 100],
+        pageLength: 5,
+        ajax: {
+          url: "../".concat(userId, "/ausencias/Falta"),
+          method: "GET",
+          dataType: "json",
+          error: function error(xhr, _error3) {
+            if (_error3.response && _error3.response.status === 403) {
+              // Recargar la página para mostrar el formulario de inicio de sesión
+              location.reload();
+            } else {
+              console.log(_error3);
+            }
+          },
+          dataSrc: ""
+        },
+        columns: [{
+          data: "tipo",
+          visible: false
+        }, {
+          data: "motivos",
+          visible: false
+        }, {
+          data: "fecha_inicio",
+          render: function render(data, type, row) {
+            if (type === "display" || type === "filter") {
+              return moment(data).format("DD/MM/YYYY");
+            }
+            return data;
+          }
+        }, {
+          data: "fecha_fin",
+          render: function render(data, type, row) {
+            if (type === "display" || type === "filter") {
+              return moment(data).format("DD/MM/YYYY");
+            }
+            return data;
+          }
+        }, {
+          // Columna adicional de acciones
+          targets: -1,
+          render: function render(data, type, row, meta) {
+            return '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Detalles</button>';
+          }
+        }],
+        columnDefs: [{
+          targets: -1,
+          searchable: false,
+          orderable: false
+        }],
+        order: [[2, "desc"], [3, "desc"]]
+      });
+    });
+    $("#tablaVacaciones").on("click", ".detalles", function (event) {
+      var ausenciaData;
+      if ($("#tablaVacaciones").hasClass("collapsed")) {
+        ausenciaData = datatableVacaciones.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        ausenciaData = datatableVacaciones.row($(event.target).closest("tr")).data();
+      }
+      _this.abrirModalDetalles(ausenciaData);
+    });
+    $("#tablaPermisos").on("click", ".detalles", function (event) {
+      var ausenciaData;
+      if ($("#tablaPermisos").hasClass("collapsed")) {
+        ausenciaData = datatablePermisos.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        ausenciaData = datatablePermisos.row($(event.target).closest("tr")).data();
+      }
+      _this.abrirModalDetalles(ausenciaData);
+    });
+    $("#tablaFaltas").on("click", ".detalles", function (event) {
+      var ausenciaData;
+      if ($("#tablaFaltas").hasClass("collapsed")) {
+        ausenciaData = datatableFaltas.row($(event.target).closest("tr").siblings(".parent").first()).data();
+      } else {
+        ausenciaData = datatableFaltas.row($(event.target).closest("tr")).data();
+      }
+      _this.abrirModalDetalles(ausenciaData);
+    });
+  },
+  methods: {
+    abrirModalDetalles: function abrirModalDetalles(datos) {
+      //   this.showDetalles = true;
+      //   this.ausencia = datos;
+      console.log(datos);
+    },
+    actualizarDatatable: function actualizarDatatable($tipo) {
+      // Volver a cargar los datos de la datatable
+      if ($tipo == "Falta") {
+        $("#tablaFaltas").DataTable().ajax.reload();
+      }
+      if ($tipo == "Permiso") {
+        $("#tablaPermisos").DataTable().ajax.reload();
+      }
+      if ($tipo == "Vacaciones") {
+        $("#tablaVacaciones").DataTable().ajax.reload();
+      }
     }
   }
 });
@@ -15383,6 +15840,7 @@ Vue.component('mi-horario', (__webpack_require__(/*! ./components/empleado/MiHor
 Vue.component('mis-fichajes', (__webpack_require__(/*! ./components/empleado/MisFichajes.vue */ "./resources/js/components/empleado/MisFichajes.vue")["default"]));
 Vue.component('boton-fichar', (__webpack_require__(/*! ./components/empleado/BotonFichar.vue */ "./resources/js/components/empleado/BotonFichar.vue")["default"]));
 Vue.component('crear-ausencia', (__webpack_require__(/*! ./components/empleado/CrearAusencia.vue */ "./resources/js/components/empleado/CrearAusencia.vue")["default"]));
+Vue.component('mis-ausencias', (__webpack_require__(/*! ./components/empleado/MisAusencias.vue */ "./resources/js/components/empleado/MisAusencias.vue")["default"]));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -45150,6 +45608,45 @@ component.options.__file = "resources/js/components/empleado/MiHorario.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/empleado/MisAusencias.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/empleado/MisAusencias.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MisAusencias_vue_vue_type_template_id_a4670d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MisAusencias.vue?vue&type=template&id=a4670d5c& */ "./resources/js/components/empleado/MisAusencias.vue?vue&type=template&id=a4670d5c&");
+/* harmony import */ var _MisAusencias_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MisAusencias.vue?vue&type=script&lang=js& */ "./resources/js/components/empleado/MisAusencias.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MisAusencias_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MisAusencias_vue_vue_type_template_id_a4670d5c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MisAusencias_vue_vue_type_template_id_a4670d5c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/empleado/MisAusencias.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/empleado/MisFichajes.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/empleado/MisFichajes.vue ***!
@@ -45579,6 +46076,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MiHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MiHorario.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MiHorario.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MiHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/empleado/MisAusencias.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/empleado/MisAusencias.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MisAusencias_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MisAusencias.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisAusencias.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MisAusencias_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -46435,6 +46948,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MiHorario_vue_vue_type_template_id_214d0a66_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MiHorario_vue_vue_type_template_id_214d0a66_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MiHorario.vue?vue&type=template&id=214d0a66&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MiHorario.vue?vue&type=template&id=214d0a66&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/empleado/MisAusencias.vue?vue&type=template&id=a4670d5c&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/empleado/MisAusencias.vue?vue&type=template&id=a4670d5c& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MisAusencias_vue_vue_type_template_id_a4670d5c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MisAusencias_vue_vue_type_template_id_a4670d5c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MisAusencias_vue_vue_type_template_id_a4670d5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MisAusencias.vue?vue&type=template&id=a4670d5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisAusencias.vue?vue&type=template&id=a4670d5c&");
 
 
 /***/ }),
@@ -55432,6 +55962,333 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-sm-3" }, [
       _c("h6", { staticClass: "mb-0" }, [_vm._v("Hora Fin Intensivo")]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisAusencias.vue?vue&type=template&id=a4670d5c&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/empleado/MisAusencias.vue?vue&type=template&id=a4670d5c& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      { staticClass: "col-12" },
+      [
+        _c("crear-ausencia", {
+          attrs: {
+            show: _vm.showAusencia,
+            user: _vm.user,
+            tipo: _vm.tipoAusencia,
+            dataTable: true,
+          },
+          on: {
+            close: function ($event) {
+              _vm.showAusencia = false
+            },
+            actualizaAusencia: _vm.actualizarDatatable,
+          },
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-12 mb-3" },
+            [_c("boton-fichar", { attrs: { user: _vm.user } })],
+            1
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-3 mb-3" }, [
+            _c("div", { staticClass: "card base-card" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "base-card-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "d-flex justify-content-center flex-column" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            _vm.showAusencia = true
+                            _vm.tipoAusencia = "Falta"
+                          },
+                        },
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "bi bi-exclamation-circle-fill me-2",
+                        }),
+                        _c("span", [_vm._v("Falta")]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            _vm.showAusencia = true
+                            _vm.tipoAusencia = "Permiso"
+                          },
+                        },
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "bi bi-question-circle-fill me-2",
+                        }),
+                        _c("span", [_vm._v("Permiso")]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            _vm.showAusencia = true
+                            _vm.tipoAusencia = "Vacaciones"
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "bi bi-emoji-sunglasses me-2" }),
+                        _c("span", [_vm._v("Vacaciones")]),
+                      ]
+                    ),
+                  ]
+                ),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-9 mb-3" }, [
+            _c("div", { staticClass: "card base-card" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-header bg-white text-center d-flex justify-content-between",
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "align-self-end mt-2" }, [
+                    _c("i", [
+                      _vm._v(_vm._s(_vm.user.name + " " + _vm.user.apellidos)),
+                    ]),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(2),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 mb-3" }, [
+            _c("div", { staticClass: "card base-card" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-header bg-white text-center d-flex justify-content-between",
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "align-self-end mt-2" }, [
+                    _c("i", [
+                      _vm._v(_vm._s(_vm.user.name + " " + _vm.user.apellidos)),
+                    ]),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(4),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 mb-3" }, [
+            _c("div", { staticClass: "card base-card" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-header bg-white text-center d-flex justify-content-between",
+                },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "align-self-end mt-2" }, [
+                    _c("i", [
+                      _vm._v(_vm._s(_vm.user.name + " " + _vm.user.apellidos)),
+                    ]),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(6),
+            ]),
+          ]),
+        ]),
+      ],
+      1
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white" }, [
+      _c("strong", [_vm._v("Atajos Ausencias")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "mb-0 mt-2" }, [
+      _c("strong", [_vm._v("Faltas")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "base-card-body" }, [
+      _c(
+        "table",
+        {
+          staticClass: "table table-striped table-hover flex-wrap",
+          attrs: { id: "tablaFaltas" },
+        },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { hidden: "" } }),
+              _vm._v(" "),
+              _c("th", { attrs: { hidden: "" } }),
+              _vm._v(" "),
+              _c("th", [_vm._v("Fecha Inicio")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Fecha Fin")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Acciones")]),
+            ]),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "mb-0 mt-2" }, [
+      _c("strong", [_vm._v("Vacaciones")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "base-card-body" }, [
+      _c(
+        "table",
+        {
+          staticClass: "table table-striped table-hover flex-wrap",
+          attrs: { id: "tablaVacaciones" },
+        },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { hidden: "" } }),
+              _vm._v(" "),
+              _c("th", { attrs: { hidden: "" } }),
+              _vm._v(" "),
+              _c("th", [_vm._v("Fecha Inicio")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Fecha Fin")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Estado")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Acciones")]),
+            ]),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "mb-0 mt-2" }, [
+      _c("strong", [_vm._v("Permisos")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "base-card-body" }, [
+      _c(
+        "table",
+        {
+          staticClass: "table table-striped table-hover flex-wrap",
+          attrs: { id: "tablaPermisos" },
+        },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { hidden: "" } }),
+              _vm._v(" "),
+              _c("th", { attrs: { hidden: "" } }),
+              _vm._v(" "),
+              _c("th", [_vm._v("Fecha Inicio")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Fecha Fin")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Estado")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Acciones")]),
+            ]),
+          ]),
+        ]
+      ),
     ])
   },
 ]

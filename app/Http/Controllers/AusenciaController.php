@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ausencia;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AusenciaController extends Controller
 {
@@ -88,5 +89,26 @@ class AusenciaController extends Controller
         } else {
             return response()->json([], 204);
         }
+    }
+
+    /**
+     * Lista las ausencias de un tipo concreto de un empleado.
+     *
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
+     * @param  string  $tipo
+     * @return \Illuminate\Http\Response
+     */
+    public function listarAusencias($empresaId, $empleadoId, $tipo)
+    {
+        $ausencias = Ausencia::select([
+            '*',
+            DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada")
+        ])
+            ->where('empleados_id', $empleadoId)
+            ->where('tipo', $tipo)
+            ->get();
+
+        return response()->json($ausencias);
     }
 }

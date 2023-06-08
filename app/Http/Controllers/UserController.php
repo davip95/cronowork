@@ -342,4 +342,14 @@ class UserController extends Controller
     {
         return view('empleados.misFichajes');
     }
+
+    /**
+     * Devuelve la vista de las ausencias del empleado.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function misAusencias()
+    {
+        return view('empleados.misAusencias');
+    }
 }

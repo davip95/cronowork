@@ -48,7 +48,7 @@
                         <i class="bi bi-ui-checks me-2"></i>Mis Fichajes</a>
                     @endif
                     @if(Auth::user()->tipo != 'usuario')
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.ausencias') ? 'active' : '' }}">
+                    <a href="{{ route('empleado.misAusencias', [Auth::user()->empresas_id, Auth::user()->id]) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empleado.misAusencias') ? 'active' : '' }}">
                         <i class="bi bi-calendar2-x-fill me-2"></i></i>Mis Ausencias</a>
                     @endif
                     @if(Auth::user()->tipo != 'usuario')

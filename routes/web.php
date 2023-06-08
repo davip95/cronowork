@@ -35,7 +35,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/empresas/{empresa}/fichajes/listar', 'verFichajes')->middleware(['auth', 'admin', 'empresa'])->name('admin.verFichajes');
     Route::get('/empresas/{empresa}/empleados', 'verEmpleados')->middleware(['auth', 'admin', 'empresa'])->name('admin.verEmpleados');
     Route::get('/empresas/{empresa}/horarios/ver', 'verHorarios')->middleware(['auth', 'admin', 'empresa'])->name('admin.verHorarios');
-    //Route::get('/empresas/{empresa}/empleados/{usuario}/mis-ausencias', 'misAusencias')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.misAusencias');
+    Route::get('/empresas/{empresa}/empleados/{usuario}/mis-ausencias', 'misAusencias')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.misAusencias');
     Route::get('/empresas/{empresa}/empleados/{usuario}/mis-fichajes', 'misFichajes')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.misFichajes');
     Route::get('/empresas/{empresa}/empleados/{usuario}/mi-horario', 'miHorario')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.miHorario');
     // Fin rutas de navegación
@@ -79,6 +79,6 @@ Route::controller(AusenciaController::class)->group(function () {
     Route::post('empresas/{empresa}/empleados/{usuario}/ausencia/{tipo}', 'crearAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.crearAusencia');
     Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/info', 'infoAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.infoAusencia');
     // Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/detalles', 'detallesAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.detallesAusencia');
-    // Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/listar', 'listarAusencias')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.listarAusencias');
+    Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/{tipo}', 'listarAusencias')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.listarAusencias');
 });
 //Route::resource('empresas.ausencias', AusenciaController::class)->only(['index', 'show', 'update'])->middleware(['auth', 'admin', 'empresa']);
