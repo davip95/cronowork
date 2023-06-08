@@ -76,7 +76,7 @@ Route::resource('empresas.fichajes', FichajeController::class)->only(['index'])-
 // AUSENCIA CONTROLLER
 
 Route::controller(AusenciaController::class)->group(function () {
-    // Route::post('empresas/{empresa}/empleados/{usuario}/ausencia/{tipo}', 'crearAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.crearAusencia');
+    Route::post('empresas/{empresa}/empleados/{usuario}/ausencia/{tipo}', 'crearAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.crearAusencia');
     // Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/detalles', 'detallesAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.detallesAusencia');
     // Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/listar', 'listarAusencias')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.listarAusencias');
 });

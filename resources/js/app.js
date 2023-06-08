@@ -82,6 +82,7 @@ Vue.component('detalles-fichaje', require('./components/admin/DetallesFichaje.vu
 Vue.component('mi-horario', require('./components/empleado/MiHorario.vue').default);
 Vue.component('mis-fichajes', require('./components/empleado/MisFichajes.vue').default);
 Vue.component('boton-fichar', require('./components/empleado/BotonFichar.vue').default);
+Vue.component('crear-ausencia', require('./components/empleado/CrearAusencia.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -18,7 +18,10 @@
         <span class="fw-bold">Fichar Salida</span>
       </button>
     </form>
-    <div class="alert alert-primary d-inline-block w-auto mx-auto" v-else>
+    <div
+      class="alert alert-primary d-inline-block w-auto mx-auto alert-dismissible fade show"
+      v-else
+    >
       <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
         <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
           <path
@@ -36,6 +39,12 @@
         <use xlink:href="#info-fill" />
       </svg>
       <span><strong>Ya ha fichado su salida del trabajo hoy.</strong></span>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
     </div>
   </div>
 </template>

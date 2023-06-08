@@ -46,6 +46,12 @@
         @close="showAsignar = false"
         @actualizaHorario="actualizaHorario"
       ></asignar-horario>
+      <crear-ausencia
+        :show="showAusencia"
+        :user="user"
+        :tipo="tipoAusencia"
+        @close="showAusencia = false"
+      ></crear-ausencia>
       <div class="row">
         <div class="col-12 mb-3">
           <boton-fichar :user="user"></boton-fichar>
@@ -55,7 +61,7 @@
         <div class="col-lg-3 mb-3">
           <div class="card base-card">
             <div class="card-header bg-white">
-              <strong>Atajos Empleados</strong>
+              <strong>Atajos Laborales</strong>
             </div>
             <div class="base-card-body">
               <div class="d-flex justify-content-center flex-column">
@@ -81,6 +87,40 @@
                 >
                   <i class="bi bi-calendar-plus me-2"></i
                   ><span>Reasignar Horario</span>
+                </button>
+                <hr />
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
+                  @click="
+                    showAusencia = true;
+                    tipoAusencia = 'Falta';
+                  "
+                >
+                  <i class="bi bi-exclamation-circle-fill me-2"></i
+                  ><span>Falta</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
+                  @click="
+                    showAusencia = true;
+                    tipoAusencia = 'Permiso';
+                  "
+                >
+                  <i class="bi bi-question-circle-fill me-2"></i
+                  ><span>Permiso</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
+                  @click="
+                    showAusencia = true;
+                    tipoAusencia = 'Vacaciones';
+                  "
+                >
+                  <i class="bi bi-emoji-sunglasses me-2"></i
+                  ><span>Vacaciones</span>
                 </button>
               </div>
             </div>
@@ -451,6 +491,8 @@ export default {
       showAltaEmpleado: false,
       showBajaEmpleado: false,
       showAsignar: false,
+      showAusencia: false,
+      tipoAusencia: "",
       empresa: {},
       usuario: {},
       horario: {},
