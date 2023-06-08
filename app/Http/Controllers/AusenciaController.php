@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ausencia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AusenciaController extends Controller
@@ -63,5 +64,29 @@ class AusenciaController extends Controller
         $datos['empleados_id'] = $empleadoId;
         Ausencia::create($datos);
         return ['mensaje' => "Ausencia creada"];
+    }
+
+    /**
+     * Muestra la ausencia de hoy si es que hay.
+     *
+     * @param  int  $empresaId
+     * @param  int  $empleadoId
+     * @return \Illuminate\Http\Response
+     */
+    public function infoAusencia($empresaId, $empleadoId)
+    {
+        $fechaHoy = Carbon::now()->format('Y-m-d');
+        $ausenciaHoy = Ausencia::where('empleados_id', $empleadoId)
+            ->whereDate('fecha_inicio', '<=', $fechaHoy)
+            ->whereDate('fecha_fin', '>=', $fechaHoy)
+            ->where('aceptada', 1)
+            ->first();
+
+        if ($ausenciaHoy) {
+            // Hay ausencia para el día de hoy
+            return response()->json($ausenciaHoy->tipo);
+        } else {
+            return response()->json([], 204);
+        }
     }
 }

@@ -13719,6 +13719,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -13735,49 +13800,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       fichajesHoy: null,
       jornada: {},
-      tipoFichaje: ""
+      tipoFichaje: "",
+      ausenteHoy: null
     };
   },
   mounted: function mounted() {
-    this.getJornada();
-    this.getFichajesHoy();
+    var _this = this;
+    this.$nextTick( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _this.getJornada();
+          case 2:
+            _context.next = 4;
+            return _this.getAusenciaHoy();
+          case 4:
+            _this.getFichajesHoy();
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    })));
   },
   methods: {
     getJornada: function getJornada() {
-      var _this = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return axios.get("/empresas/".concat(_this.user.empresas_id, "/horarios/").concat(_this.user.horarios_id, "/empleado/").concat(_this.user.id, "/jornada"));
-            case 3:
-              response = _context.sent;
-              if (response.status === 204) {
-                _this.jornada = false;
-              }
-              _this.jornada = response.data;
-              _context.next = 11;
-              break;
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](0);
-              if (_context.t0.response && _context.t0.response.status === 403) {
-                // Recargar la página para mostrar el formulario de inicio de sesión
-                location.reload();
-              } else {
-                console.log(_context.t0);
-              }
-            case 11:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[0, 8]]);
-      }))();
-    },
-    getFichajesHoy: function getFichajesHoy() {
       var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var response;
@@ -13786,14 +13834,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios.get("/empresas/".concat(_this2.user.empresas_id, "/empleados/").concat(_this2.user.id, "/fichajes/info"));
+              return axios.get("/empresas/".concat(_this2.user.empresas_id, "/horarios/").concat(_this2.user.horarios_id, "/empleado/").concat(_this2.user.id, "/jornada"));
             case 3:
               response = _context2.sent;
-              _this2.fichajesHoy = response.data;
-              _context2.next = 10;
+              if (response.status === 204) {
+                _this2.jornada = false;
+              }
+              _this2.jornada = response.data;
+              _context2.next = 11;
               break;
-            case 7:
-              _context2.prev = 7;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
               if (_context2.t0.response && _context2.t0.response.status === 403) {
                 // Recargar la página para mostrar el formulario de inicio de sesión
@@ -13801,60 +13852,125 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 console.log(_context2.t0);
               }
-            case 10:
+            case 11:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 8]]);
       }))();
     },
-    fichar: function fichar() {
+    getFichajesHoy: function getFichajesHoy() {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              _this3.$Progress.start();
-              if (_this3.fichajesHoy == 0) {
-                _this3.tipoFichaje = "entrada";
-              } else if (_this3.fichajesHoy == 1) {
-                _this3.tipoFichaje = "salida";
-              }
-              _context3.next = 5;
-              return axios.post("/empresas/".concat(_this3.user.empresas_id, "/empleados/").concat(_this3.user.id, "/fichar/").concat(_this3.tipoFichaje));
-            case 5:
-              _this3.getJornada();
-              _this3.getFichajesHoy();
-              if (_this3.dataTable) {
-                _this3.$emit("actualizaFichajes");
-              }
-              _this3.$Progress.finish();
-              Toast.fire({
-                icon: "success",
-                title: "Ha fichado correctamente"
-              });
-              _context3.next = 17;
+              _context3.next = 3;
+              return axios.get("/empresas/".concat(_this3.user.empresas_id, "/empleados/").concat(_this3.user.id, "/fichajes/info"));
+            case 3:
+              response = _context3.sent;
+              _this3.fichajesHoy = response.data;
+              _context3.next = 10;
               break;
-            case 12:
-              _context3.prev = 12;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
-              _this3.$Progress.fail();
-              Toast.fire({
-                icon: "error",
-                title: "No se pudo realizar el fichaje"
-              });
               if (_context3.t0.response && _context3.t0.response.status === 403) {
                 // Recargar la página para mostrar el formulario de inicio de sesión
                 location.reload();
               } else {
                 console.log(_context3.t0);
               }
-            case 17:
+            case 10:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[0, 12]]);
+        }, _callee3, null, [[0, 7]]);
+      }))();
+    },
+    getAusenciaHoy: function getAusenciaHoy() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios.get("/empresas/".concat(_this4.user.empresas_id, "/empleados/").concat(_this4.user.id, "/ausencias/info"));
+            case 3:
+              response = _context4.sent;
+              if (response.status === 204) {
+                _this4.ausenteHoy = false;
+              }
+              _this4.ausenteHoy = response.data;
+              _context4.next = 11;
+              break;
+            case 8:
+              _context4.prev = 8;
+              _context4.t0 = _context4["catch"](0);
+              if (_context4.t0.response && _context4.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context4.t0);
+              }
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, null, [[0, 8]]);
+      }))();
+    },
+    fichar: function fichar() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _this5.$Progress.start();
+              if (_this5.fichajesHoy == 0) {
+                _this5.tipoFichaje = "entrada";
+              } else if (_this5.fichajesHoy == 1) {
+                _this5.tipoFichaje = "salida";
+              }
+              _context5.next = 5;
+              return axios.post("/empresas/".concat(_this5.user.empresas_id, "/empleados/").concat(_this5.user.id, "/fichar/").concat(_this5.tipoFichaje));
+            case 5:
+              _this5.getJornada();
+              _this5.getFichajesHoy();
+              if (_this5.dataTable) {
+                _this5.$emit("actualizaFichajes");
+              }
+              _this5.$Progress.finish();
+              Toast.fire({
+                icon: "success",
+                title: "Ha fichado correctamente"
+              });
+              _context5.next = 17;
+              break;
+            case 12:
+              _context5.prev = 12;
+              _context5.t0 = _context5["catch"](0);
+              _this5.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "No se pudo realizar el fichaje"
+              });
+              if (_context5.t0.response && _context5.t0.response.status === 403) {
+                // Recargar la página para mostrar el formulario de inicio de sesión
+                location.reload();
+              } else {
+                console.log(_context5.t0);
+              }
+            case 17:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, null, [[0, 12]]);
       }))();
     } // ejecutarAnimacion() {
     //   const elemento = document.querySelector(".fichar");
@@ -54372,118 +54488,253 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.jornada
-    ? _c("div", { staticClass: "d-flex justify-content-center" }, [
-        _vm.fichajesHoy != 2
-          ? _c(
-              "form",
-              {
-                on: {
-                  submit: function ($event) {
-                    $event.preventDefault()
-                    return _vm.fichar($event)
-                  },
-                },
-              },
-              [
-                _vm.fichajesHoy == 0
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-success bg-dark fichar",
-                        attrs: { type: "submit" },
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "bi bi-box-arrow-in-right me-2",
-                        }),
-                        _c("span", { staticClass: "fw-bold" }, [
-                          _vm._v("Fichar Entrada"),
-                        ]),
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.fichajesHoy == 1
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-danger bg-dark fichar",
-                        attrs: { type: "submit" },
-                      },
-                      [
-                        _c("i", { staticClass: "bi bi-box-arrow-left me-2" }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw-bold" }, [
-                          _vm._v("Fichar Salida"),
-                        ]),
-                      ]
-                    )
-                  : _vm._e(),
-              ]
-            )
-          : _c(
-              "div",
-              {
-                staticClass:
-                  "alert alert-primary d-inline-block w-auto mx-auto alert-dismissible fade show",
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticStyle: { display: "none" },
-                    attrs: { xmlns: "http://www.w3.org/2000/svg" },
-                  },
-                  [
-                    _c(
-                      "symbol",
-                      {
-                        attrs: {
-                          id: "info-fill",
-                          fill: "currentColor",
-                          viewBox: "0 0 16 16",
-                        },
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d: "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z",
-                          },
-                        }),
-                      ]
-                    ),
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "svg",
-                  {
-                    staticClass: "bi flex-shrink-0 me-2",
-                    attrs: {
-                      width: "24",
-                      height: "24",
-                      role: "img",
-                      "aria-label": "Info:",
+  return _c("div", [
+    _vm.jornada && !_vm.ausenteHoy
+      ? _c("div", { staticClass: "d-flex justify-content-center" }, [
+          _vm.fichajesHoy != 2
+            ? _c(
+                "form",
+                {
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.fichar($event)
                     },
                   },
-                  [_c("use", { attrs: { "xlink:href": "#info-fill" } })]
-                ),
-                _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
-                _c("button", {
-                  staticClass: "btn-close",
-                  attrs: {
-                    type: "button",
-                    "data-bs-dismiss": "alert",
-                    "aria-label": "Close",
+                },
+                [
+                  _vm.fichajesHoy == 0
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-success bg-dark fichar",
+                          attrs: { type: "submit" },
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "bi bi-box-arrow-in-right me-2",
+                          }),
+                          _c("span", { staticClass: "fw-bold" }, [
+                            _vm._v("Fichar Entrada"),
+                          ]),
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.fichajesHoy == 1
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-danger bg-dark fichar",
+                          attrs: { type: "submit" },
+                        },
+                        [
+                          _c("i", { staticClass: "bi bi-box-arrow-left me-2" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "fw-bold" }, [
+                            _vm._v("Fichar Salida"),
+                          ]),
+                        ]
+                      )
+                    : _vm._e(),
+                ]
+              )
+            : _c(
+                "div",
+                {
+                  staticClass:
+                    "alert alert-primary d-inline-block w-auto mx-auto alert-dismissible fade show",
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticStyle: { display: "none" },
+                      attrs: { xmlns: "http://www.w3.org/2000/svg" },
+                    },
+                    [
+                      _c(
+                        "symbol",
+                        {
+                          attrs: {
+                            id: "info-fill",
+                            fill: "currentColor",
+                            viewBox: "0 0 16 16",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d: "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z",
+                            },
+                          }),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi flex-shrink-0 me-2",
+                      attrs: {
+                        width: "24",
+                        height: "24",
+                        role: "img",
+                        "aria-label": "Info:",
+                      },
+                    },
+                    [_c("use", { attrs: { "xlink:href": "#info-fill" } })]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "btn-close",
+                    attrs: {
+                      type: "button",
+                      "data-bs-dismiss": "alert",
+                      "aria-label": "Close",
+                    },
+                  }),
+                ]
+              ),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.jornada
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "alert alert-dark d-flex w-auto mx-auto alert-dismissible fade show justify-content-center",
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticStyle: { display: "none" },
+                attrs: { xmlns: "http://www.w3.org/2000/svg" },
+              },
+              [
+                _c(
+                  "symbol",
+                  {
+                    attrs: {
+                      id: "info-fill",
+                      fill: "currentColor",
+                      viewBox: "0 0 16 16",
+                    },
                   },
-                }),
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z",
+                      },
+                    }),
+                  ]
+                ),
               ]
             ),
-      ])
-    : _vm._e()
+            _vm._v(" "),
+            _c(
+              "svg",
+              {
+                staticClass: "bi flex-shrink-0 me-2",
+                attrs: {
+                  width: "24",
+                  height: "24",
+                  role: "img",
+                  "aria-label": "Info:",
+                },
+              },
+              [_c("use", { attrs: { "xlink:href": "#info-fill" } })]
+            ),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c("button", {
+              staticClass: "btn-close",
+              attrs: {
+                type: "button",
+                "data-bs-dismiss": "alert",
+                "aria-label": "Close",
+              },
+            }),
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.jornada && _vm.ausenteHoy
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "alert alert-dark d-flex w-auto mx-auto alert-dismissible fade show justify-content-center",
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticStyle: { display: "none" },
+                attrs: { xmlns: "http://www.w3.org/2000/svg" },
+              },
+              [
+                _c(
+                  "symbol",
+                  {
+                    attrs: {
+                      id: "info-fill",
+                      fill: "currentColor",
+                      viewBox: "0 0 16 16",
+                    },
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d: "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z",
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "svg",
+              {
+                staticClass: "bi flex-shrink-0 me-2",
+                attrs: {
+                  width: "24",
+                  height: "24",
+                  role: "img",
+                  "aria-label": "Info:",
+                },
+              },
+              [_c("use", { attrs: { "xlink:href": "#info-fill" } })]
+            ),
+            _vm._v(" "),
+            _c("span", [
+              _c("strong", [
+                _vm._v(
+                  "Hoy está ausente y no tiene que fichar. Motivo:\n        " +
+                    _vm._s(_vm.ausenteHoy)
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("button", {
+              staticClass: "btn-close",
+              attrs: {
+                type: "button",
+                "data-bs-dismiss": "alert",
+                "aria-label": "Close",
+              },
+            }),
+          ]
+        )
+      : _vm._e(),
+  ])
 }
 var staticRenderFns = [
   function () {
@@ -54493,6 +54744,12 @@ var staticRenderFns = [
     return _c("span", [
       _c("strong", [_vm._v("Ya ha fichado su salida del trabajo hoy.")]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("strong", [_vm._v("Hoy no tiene jornada laboral")])])
   },
 ]
 render._withStripped = true
