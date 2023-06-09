@@ -324,6 +324,16 @@ class UserController extends Controller
     }
 
     /**
+     * Devuelve la vista de ausencias de la empresa.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verAusencias()
+    {
+        return view('admins.ausencias');
+    }
+
+    /**
      * Devuelve la vista del horario del empleado.
      *
      * @return \Illuminate\Http\Response

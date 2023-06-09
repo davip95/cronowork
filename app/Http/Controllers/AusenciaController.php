@@ -10,36 +10,78 @@ use Illuminate\Support\Facades\DB;
 class AusenciaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra las ausencias de una empresa.
      *
+     * @param  int  $empresaId
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($empresaId)
     {
-        //
-    }
+        $faltas = Ausencia::select([
+            'ausencias.*',
+            DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada")
+        ])
+            ->join('empleados', 'ausencias.empleados_id', '=', 'empleados.id')
+            ->where('empleados.empresas_id', $empresaId)
+            ->where('ausencias.tipo', 'Falta')
+            ->with(['empleados' => function ($query) {
+                $query->select('id', 'name', 'apellidos');
+            }])
+            ->selectRaw('empleados.id as empleadoId, empleados.name as empleado_nombre, empleados.apellidos as empleado_apellidos')
+            ->get()
+            ->map(function ($ausencia) {
+                $ausencia->empleadoId = $ausencia->empleados->id;
+                $ausencia->name = $ausencia->empleados->name;
+                $ausencia->apellidos = $ausencia->empleados->apellidos;
+                unset($ausencia->empleados);
+                return $ausencia;
+            });
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $permisos = Ausencia::select([
+            'ausencias.*',
+            DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada")
+        ])
+            ->join('empleados', 'ausencias.empleados_id', '=', 'empleados.id')
+            ->where('empleados.empresas_id', $empresaId)
+            ->where('ausencias.tipo', 'Permiso')
+            ->with(['empleados' => function ($query) {
+                $query->select('id', 'name', 'apellidos');
+            }])
+            ->selectRaw('empleados.id as empleadoId, empleados.name as empleado_nombre, empleados.apellidos as empleado_apellidos')
+            ->get()
+            ->map(function ($ausencia) {
+                $ausencia->empleadoId = $ausencia->empleados->id;
+                $ausencia->name = $ausencia->empleados->name;
+                $ausencia->apellidos = $ausencia->empleados->apellidos;
+                unset($ausencia->empleados);
+                return $ausencia;
+            });
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        $vacaciones = Ausencia::select([
+            'ausencias.*',
+            DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada")
+        ])
+            ->join('empleados', 'ausencias.empleados_id', '=', 'empleados.id')
+            ->where('empleados.empresas_id', $empresaId)
+            ->where('ausencias.tipo', 'Vacaciones')
+            ->with(['empleados' => function ($query) {
+                $query->select('id', 'name', 'apellidos');
+            }])
+            ->selectRaw('empleados.id as empleadoId, empleados.name as empleado_nombre, empleados.apellidos as empleado_apellidos')
+            ->get()
+            ->map(function ($ausencia) {
+                $ausencia->empleadoId = $ausencia->empleados->id;
+                $ausencia->name = $ausencia->empleados->name;
+                $ausencia->apellidos = $ausencia->empleados->apellidos;
+                unset($ausencia->empleados);
+                return $ausencia;
+            });
+
+        return response()->json([
+            'faltas' => $faltas,
+            'permisos' => $permisos,
+            'vacaciones' => $vacaciones
+        ]);
     }
 
     /**
@@ -104,7 +146,8 @@ class AusenciaController extends Controller
         $ausencias = Ausencia::select([
             'ausencias.*',
             DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada"),
-            'empleados.name'
+            'empleados.name',
+            'empleados.apellidos'
         ])
             ->join('empleados', 'ausencias.empleados_id', '=', 'empleados.id')
             ->where('ausencias.empleados_id', $empleadoId)

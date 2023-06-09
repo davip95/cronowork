@@ -61,7 +61,7 @@
                     <i class="bi bi-people-fill me-2"></i></i>Empleados</a>    
                     <a href="{{ route('admin.verFichajes', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verFichajes') ? 'active' : '' }}">
                     <i class="bi bi-list-check me-2" style="-webkit-text-stroke: 1px;"></i></i>Fichajes Empresa</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('empresa.ausencias') ? 'active' : '' }}">
+                    <a href="{{ route('admin.verAusencias', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verAusencias') ? 'active' : '' }}">
                     <i class="bi bi-building-fill-dash me-2"></i>Ausencias Empresa</a>
                     <a href="{{ route('admin.verHorarios', Auth::user()->empresas_id) }}" class="list-group-item list-group-item-action bg-transparent text-black-50 fw-bold {{ request()->routeIs('admin.verHorarios') ? 'active' : '' }}">
                     <i class="bi bi-calendar3 me-2" style="-webkit-text-stroke: 1px;"></i></i>Horarios Empresa</a>

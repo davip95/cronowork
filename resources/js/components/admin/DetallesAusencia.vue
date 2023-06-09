@@ -30,7 +30,7 @@
                 <h6 class="mb-0">Empleado</h6>
               </div>
               <div class="col-sm-9 text-secondary fw-bold">
-                {{ ausencia.name }}
+                {{ ausencia.name + " " + ausencia.apellidos }}
               </div>
             </div>
             <hr />
@@ -52,7 +52,7 @@
               </div>
             </div>
             <hr />
-            <div class="row">
+            <div class="row" v-if="ausencia.tipo != 'Falta'">
               <div class="col-sm-3">
                 <h6 class="mb-0">Estado</h6>
               </div>
@@ -60,13 +60,14 @@
                 {{ ausencia.estado_aceptada }}
               </div>
             </div>
-            <hr />
+            <hr v-if="ausencia.tipo != 'Falta'" />
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Motivos Ausencia</h6>
               </div>
               <div class="col-sm-9 text-secondary fw-bold">
-                {{ ausencia.motivos }}
+                <span v-if="ausencia.motivos">{{ ausencia.motivos }}</span>
+                <span v-else>-</span>
               </div>
             </div>
             <hr />
