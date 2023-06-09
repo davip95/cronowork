@@ -217,6 +217,29 @@ class UserController extends Controller
     }
 
     /**
+     * Almacena la baja pedida por el empleado. Éste pasa a ser usuario sin empresa.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $empresaId
+     * @param  int  $usuarioId
+     * @return \Illuminate\Http\Response
+     */
+    public function bajaEmpleado(Request $request, $empresaId, $usuarioId)
+    {
+        $empleado = User::find($usuarioId);
+        $empleado->empresas_id = null;
+        $empleado->tipo = 'usuario';
+        $empleado->fecha_alta = null;
+        $empleado->horarios_id = null;
+        $empleado->save();
+        // Cierro sesión
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return ['mensaje' => "Empleado dado de baja"];
+    }
+
+    /**
      * Muestra formulario para reasignar horario a un empleado.
      *
      * @param  \Illuminate\Http\Request  $request

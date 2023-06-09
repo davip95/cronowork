@@ -6,7 +6,6 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\FichajeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HorarioController;
-use App\Http\Controllers\JornadaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +41,7 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/empresas/{empresa}/empleados/{empleado}/admin/horario', 'cambiarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.cambiarHorario');
     Route::put('/empresas/{empresa}/empleados/admin/horario', 'reasignarHorario')->middleware(['auth', 'admin', 'empresa'])->name('admin.reasignarHorario');
     Route::post('/empresas/admin/alta', 'guardarAlta')->middleware(['auth', 'admin'])->name('admin.guardarAlta');
+    Route::put('/empresas/{empresa}/empleados/{usuario}/baja', 'bajaEmpleado')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.bajaEmpleado');
     Route::get('/empresas/admin/baja/empleado/{empleado}', 'guardarBajaDatatable')->middleware(['auth', 'admin'])->name('admin.guardarBajaDatatable');
     Route::post('/empresas/admin/baja', 'guardarBaja')->middleware(['auth', 'admin'])->name('admin.guardarBaja');
     Route::get('/empresas/{empresa}/empleados/{empleado}', 'verDetalles')->middleware(['auth', 'admin', 'empresa'])->name('admin.verDetalles');
@@ -79,6 +79,6 @@ Route::controller(AusenciaController::class)->group(function () {
     Route::post('empresas/{empresa}/empleados/{usuario}/ausencia/{tipo}', 'crearAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.crearAusencia');
     Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/info', 'infoAusencia')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.infoAusencia');
     Route::get('empresas/{empresa}/empleados/{usuario}/ausencias/{tipo}', 'listarAusencias')->middleware(['auth', 'usuario', 'empresa'])->name('empleado.listarAusencias');
-    Route::get('empresas/{empresa}/ausencia/{ausencia}/{resolucion}', 'resolverSolicitud')->middleware(['auth', 'admin', 'empresa']);
+    Route::get('empresas/{empresa}/ausencia/{ausencia}/{resolucion}', 'resolverSolicitud')->middleware(['auth', 'admin', 'empresa'])->name('admin.resolverSolicitud');
 });
 Route::resource('empresas.ausencias', AusenciaController::class)->only(['index'])->middleware(['auth', 'admin', 'empresa']);

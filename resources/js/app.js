@@ -60,7 +60,6 @@ Vue.use(VueProgressBar, {
 Vue.component('edit-user', require('./components/usuario/EditUser.vue').default);
 // Componentes Admin
 Vue.component('inicio-admin', require('./components/admin/InicioAdmin.vue').default);
-Vue.component('edit-admin', require('./components/admin/EditAdmin.vue').default);
 Vue.component('change-admin', require('./components/admin/ChangeAdmin.vue').default);
 Vue.component('edit-company', require('./components/admin/EditCompany.vue').default);
 Vue.component('delete-company', require('./components/admin/DeleteCompany.vue').default);
@@ -81,11 +80,14 @@ Vue.component('detalles-fichaje', require('./components/admin/DetallesFichaje.vu
 Vue.component('detalles-ausencia', require('./components/admin/DetallesAusencia.vue').default);
 Vue.component('ausencias-empresa', require('./components/admin/AusenciasEmpresa.vue').default);
 // Componentes Empleado
+Vue.component('edit-empleado', require('./components/empleado/EditEmpleado.vue').default);
 Vue.component('mi-horario', require('./components/empleado/MiHorario.vue').default);
 Vue.component('mis-fichajes', require('./components/empleado/MisFichajes.vue').default);
 Vue.component('boton-fichar', require('./components/empleado/BotonFichar.vue').default);
 Vue.component('crear-ausencia', require('./components/empleado/CrearAusencia.vue').default);
 Vue.component('mis-ausencias', require('./components/empleado/MisAusencias.vue').default);
+Vue.component('inicio-empleado', require('./components/empleado/InicioEmpleado.vue').default);
+Vue.component('baja-empresa', require('./components/empleado/BajaEmpresa.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
