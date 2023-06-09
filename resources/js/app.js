@@ -78,6 +78,7 @@ Vue.component('detalles-horario', require('./components/admin/DetallesHorario.vu
 Vue.component('borrar-horario', require('./components/admin/BorrarHorario.vue').default);
 Vue.component('fichajes-empresa', require('./components/admin/FichajesEmpresa.vue').default);
 Vue.component('detalles-fichaje', require('./components/admin/DetallesFichaje.vue').default);
+Vue.component('detalles-ausencia', require('./components/admin/DetallesAusencia.vue').default);
 // Componentes Empleado
 Vue.component('mi-horario', require('./components/empleado/MiHorario.vue').default);
 Vue.component('mis-fichajes', require('./components/empleado/MisFichajes.vue').default);

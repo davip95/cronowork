@@ -1,11 +1,13 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <!-- <detalles-ausencia
+      <detalles-ausencia
         :show="showDetalles"
         :ausencia="ausencia"
+        :user="user"
         @close="showDetalles = false"
-      ></detalles-ausencia> -->
+        @actualizaAusencia="actualizarDatatable"
+      ></detalles-ausencia>
       <crear-ausencia
         :show="showAusencia"
         :user="user"
@@ -446,9 +448,8 @@ export default {
   },
   methods: {
     abrirModalDetalles(datos) {
-      //   this.showDetalles = true;
-      //   this.ausencia = datos;
-      console.log(datos);
+      this.showDetalles = true;
+      this.ausencia = datos;
     },
     actualizarDatatable($tipo) {
       // Volver a cargar los datos de la datatable

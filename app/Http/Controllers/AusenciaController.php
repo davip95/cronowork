@@ -102,13 +102,35 @@ class AusenciaController extends Controller
     public function listarAusencias($empresaId, $empleadoId, $tipo)
     {
         $ausencias = Ausencia::select([
-            '*',
-            DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada")
+            'ausencias.*',
+            DB::raw("IF(aceptada IS NULL, 'Pendiente', IF(aceptada = 0, 'Rechazada', 'Aceptada')) AS estado_aceptada"),
+            'empleados.name'
         ])
-            ->where('empleados_id', $empleadoId)
-            ->where('tipo', $tipo)
+            ->join('empleados', 'ausencias.empleados_id', '=', 'empleados.id')
+            ->where('ausencias.empleados_id', $empleadoId)
+            ->where('ausencias.tipo', $tipo)
             ->get();
 
         return response()->json($ausencias);
+    }
+
+    /**
+     * Resuelve una solicitud de ausencia aceptándola o rechazándola.
+     *
+     * @param  int  $empresaId
+     * @param  int  $ausenciaId
+     * @param  string  $resolucion
+     * @return \Illuminate\Http\Response
+     */
+    public function resolverSolicitud($empresaId, $ausenciaId, $resolucion)
+    {
+        if ($resolucion == 'aceptar') {
+            $ausencia['aceptada'] = 1;
+        } else if ($resolucion == 'rechazar') {
+            $ausencia['aceptada'] = 0;
+        }
+
+        Ausencia::find($ausenciaId)->update($ausencia);
+        return response("Solicitud de ausencia resuelta");
     }
 }
