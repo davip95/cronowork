@@ -12403,9 +12403,9 @@ __webpack_require__.r(__webpack_exports__);
           targets: -1,
           render: function render(data, type, row, meta) {
             if (row.tipo === "admin") {
-              return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-plus me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-danger bg-dark btn-sm admin" data-id="' + row.id + '"><i class="bi bi-person-fill-gear me-1"></i>Admin</button>' + "</div>" + "</div>";
+              return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-check me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-danger bg-dark btn-sm admin" data-id="' + row.id + '"><i class="bi bi-person-fill-gear me-1"></i>Admin</button>' + "</div>" + "</div>";
             } else {
-              return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-plus me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
+              return '<div class="btn-group w-100">' + '<div class="col-12">' + '<button class="btn btn-outline-dark bg-info btn-sm detalles" data-id="' + row.id + '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' + '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' + row.id + '"><i class="bi bi-calendar-check me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' + row.id + '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' + "</div>" + "</div>";
             }
           }
         }],
@@ -13399,6 +13399,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -13416,6 +13429,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       showAltaEmpleado: false,
       showBajaEmpleado: false,
       showAsignar: false,
+      showCrearHorario: false,
       showAusencia: false,
       tipoAusencia: "",
       empresa: {},
@@ -55129,7 +55143,7 @@ var render = function () {
                   },
                 },
                 [
-                  _c("i", { staticClass: "bi bi-person-fill-up me-2" }),
+                  _c("i", { staticClass: "bi bi-calendar-plus me-2" }),
                   _c("span", [_vm._v("Crear Horario")]),
                 ]
               ),
@@ -55300,6 +55314,15 @@ var render = function () {
           },
         }),
         _vm._v(" "),
+        _c("crear-horario", {
+          attrs: { show: _vm.showCrearHorario, user: _vm.user },
+          on: {
+            close: function ($event) {
+              _vm.showCrearHorario = false
+            },
+          },
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
@@ -55365,8 +55388,25 @@ var render = function () {
                         },
                       },
                       [
-                        _c("i", { staticClass: "bi bi-calendar-plus me-2" }),
+                        _c("i", { staticClass: "bi bi-calendar-check me-2" }),
                         _c("span", [_vm._v("Reasignar Horario")]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-dark bg-info btn-sm m-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            _vm.showCrearHorario = true
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "bi bi-calendar-plus me-2" }),
+                        _c("span", [_vm._v("Crear Horario")]),
                       ]
                     ),
                     _vm._v(" "),

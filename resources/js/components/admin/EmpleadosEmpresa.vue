@@ -137,7 +137,7 @@ export default {
                   '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' +
                   '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
                   row.id +
-                  '"><i class="bi bi-calendar-plus me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-danger bg-dark btn-sm admin" data-id="' +
+                  '"><i class="bi bi-calendar-check me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-danger bg-dark btn-sm admin" data-id="' +
                   row.id +
                   '"><i class="bi bi-person-fill-gear me-1"></i>Admin</button>' +
                   "</div>" +
@@ -152,7 +152,7 @@ export default {
                   '"><i class="bi bi-eye-fill me-1"></i>Info</button>&nbsp&nbsp&nbsp' +
                   '<button class="btn btn-outline-dark bg-warning btn-sm horario" data-id="' +
                   row.id +
-                  '"><i class="bi bi-calendar-plus me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
+                  '"><i class="bi bi-calendar-check me-1"></i>Horario</button>&nbsp&nbsp&nbsp<button class="btn btn-outline-dark bg-danger btn-sm baja" data-id="' +
                   row.id +
                   '"><i class="bi bi-person-fill-down me-1"></i>Baja</button>' +
                   "</div>" +

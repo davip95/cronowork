@@ -39,8 +39,8 @@ class EmpresaController extends Controller
             'nombre' => ['nullable', 'max:255', 'string'],
             'cif' => ['nullable', 'max:255', 'regex:/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/', Rule::unique('empresas')->ignore($id)],
             'correo' => ['nullable', 'max:255', 'regex:/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/'],
-            'telefono_empresa' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
-            'direccion_empresa' => ['nullable', 'max:255', 'string'],
+            'telefono' => ['nullable', 'max:45', 'regex:/(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}/'],
+            'direccion' => ['nullable', 'max:255', 'string'],
             'codigo_postal' => ['nullable', 'max:45', 'regex:/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/'],
         ]);
         // Convertir los strings vacíos a null

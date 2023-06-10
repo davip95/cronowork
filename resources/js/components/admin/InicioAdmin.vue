@@ -52,6 +52,11 @@
         :tipo="tipoAusencia"
         @close="showAusencia = false"
       ></crear-ausencia>
+      <crear-horario
+        :show="showCrearHorario"
+        :user="user"
+        @close="showCrearHorario = false"
+      ></crear-horario>
       <div class="row">
         <div class="col-12 mb-3">
           <boton-fichar :user="user"></boton-fichar>
@@ -85,8 +90,16 @@
                   class="btn btn-outline-dark bg-info btn-sm m-1"
                   @click="showReasignar = true"
                 >
-                  <i class="bi bi-calendar-plus me-2"></i
+                  <i class="bi bi-calendar-check me-2"></i
                   ><span>Reasignar Horario</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark bg-info btn-sm m-1"
+                  @click="showCrearHorario = true"
+                >
+                  <i class="bi bi-calendar-plus me-2"></i
+                  ><span>Crear Horario</span>
                 </button>
                 <hr />
                 <button
@@ -491,6 +504,7 @@ export default {
       showAltaEmpleado: false,
       showBajaEmpleado: false,
       showAsignar: false,
+      showCrearHorario: false,
       showAusencia: false,
       tipoAusencia: "",
       empresa: {},

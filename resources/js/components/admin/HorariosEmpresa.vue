@@ -36,7 +36,7 @@
             class="btn btn-outline-dark bg-success btn-sm align-self-end mt-1 mb-1"
             @click="showCrearHorario = true"
           >
-            <i class="bi bi-person-fill-up me-2"></i><span>Crear Horario</span>
+            <i class="bi bi-calendar-plus me-2"></i><span>Crear Horario</span>
           </button>
         </div>
         <div class="base-card-body">
