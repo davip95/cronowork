@@ -127,10 +127,7 @@ export default {
       try {
         this.$Progress.start();
         await axios.get(
-          `empresas/${this.user.empresas_id}/ausencia/${this.ausencia.id}/${resolucion}`,
-          {
-            baseURL: "http://127.0.0.1:8000/",
-          }
+          `empresas/${this.user.empresas_id}/ausencia/${this.ausencia.id}/${resolucion}`
         );
         this.$emit("actualizaAusencia", this.ausencia.tipo);
         this.$Progress.finish();

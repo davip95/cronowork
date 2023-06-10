@@ -405,10 +405,7 @@ export default {
       try {
         this.$Progress.start();
         const response = await this.form.post(
-          `/empresas/${this.user.empresas_id}/empleados/${this.user.id}/admin/horario`,
-          {
-            baseURL: "http://127.0.0.1:8000/",
-          }
+          `/empresas/${this.user.empresas_id}/empleados/${this.user.id}/admin/horario`
         );
         this.$emit("actualizaHorario", response.data.nuevo_horario);
         this.$Progress.finish();

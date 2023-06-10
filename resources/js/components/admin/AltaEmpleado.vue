@@ -169,9 +169,7 @@ export default {
     async altaEmpleado() {
       try {
         this.$Progress.start();
-        await this.form.post(`empresas/admin/alta`, {
-          baseURL: "http://127.0.0.1:8000/",
-        });
+        await this.form.post(`empresas/admin/alta`);
         if (this.dataTable) {
           this.$emit("altaDatatable");
         }

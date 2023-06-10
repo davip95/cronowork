@@ -131,10 +131,7 @@ export default {
       try {
         this.$Progress.start();
         await this.form.post(
-          `empresas/${this.user.empresas_id}/empleados/${this.user.id}/ausencia/${this.tipo}`,
-          {
-            baseURL: "http://127.0.0.1:8000/",
-          }
+          `empresas/${this.user.empresas_id}/empleados/${this.user.id}/ausencia/${this.tipo}`
         );
         if (this.dataTable) {
           this.$emit("actualizaAusencia", this.tipo);

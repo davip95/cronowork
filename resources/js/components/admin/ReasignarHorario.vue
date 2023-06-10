@@ -131,10 +131,7 @@ export default {
       try {
         this.$Progress.start();
         await this.form.put(
-          `empresas/${this.user.empresas_id}/empleados/admin/horario`,
-          {
-            baseURL: "http://127.0.0.1:8000/",
-          }
+          `empresas/${this.user.empresas_id}/empleados/admin/horario`
         );
         if (this.user.email == this.form.email) {
           this.$emit("updateHorario", this.form.horarioId);

@@ -8657,9 +8657,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context2.prev = 0;
               _this2.$Progress.start();
               _context2.next = 4;
-              return _this2.form.post("empresas/admin/alta", {
-                baseURL: "http://127.0.0.1:8000/"
-              });
+              return _this2.form.post("empresas/admin/alta");
             case 4:
               if (_this2.dataTable) {
                 _this2.$emit("altaDatatable");
@@ -9137,9 +9135,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return _this.form.post("/empresas/".concat(_this.user.empresas_id, "/empleados/").concat(_this.user.id, "/admin/horario"), {
-                baseURL: "http://127.0.0.1:8000/"
-              });
+              return _this.form.post("/empresas/".concat(_this.user.empresas_id, "/empleados/").concat(_this.user.id, "/admin/horario"));
             case 4:
               response = _context.sent;
               _this.$emit("actualizaHorario", response.data.nuevo_horario);
@@ -10925,9 +10921,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return _this.form.post("/empresas/".concat(_this.user.empresas_id, "/empleados/").concat(_this.user.id, "/admin/horario/dt"), {
-                baseURL: "http://127.0.0.1:8000/"
-              });
+              return _this.form.post("/empresas/".concat(_this.user.empresas_id, "/empleados/").concat(_this.user.id, "/admin/horario/dt"));
             case 4:
               _this.$emit("actualizaHorario");
               _this.$Progress.finish();
@@ -11350,9 +11344,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return axios.get("empresas/".concat(_this.user.empresas_id, "/ausencia/").concat(_this.ausencia.id, "/").concat(resolucion), {
-                baseURL: "http://127.0.0.1:8000/"
-              });
+              return axios.get("empresas/".concat(_this.user.empresas_id, "/ausencia/").concat(_this.ausencia.id, "/").concat(resolucion));
             case 4:
               _this.$emit("actualizaAusencia", _this.ausencia.tipo);
               _this.$Progress.finish();
@@ -13770,9 +13762,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context2.prev = 0;
               _this2.$Progress.start();
               _context2.next = 4;
-              return _this2.form.put("empresas/".concat(_this2.user.empresas_id, "/empleados/admin/horario"), {
-                baseURL: "http://127.0.0.1:8000/"
-              });
+              return _this2.form.put("empresas/".concat(_this2.user.empresas_id, "/empleados/admin/horario"));
             case 4:
               if (_this2.user.email == _this2.form.email) {
                 _this2.$emit("updateHorario", _this2.form.horarioId);
@@ -14673,9 +14663,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this.$Progress.start();
               _context.next = 4;
-              return _this.form.post("empresas/".concat(_this.user.empresas_id, "/empleados/").concat(_this.user.id, "/ausencia/").concat(_this.tipo), {
-                baseURL: "http://127.0.0.1:8000/"
-              });
+              return _this.form.post("empresas/".concat(_this.user.empresas_id, "/empleados/").concat(_this.user.id, "/ausencia/").concat(_this.tipo));
             case 4:
               if (_this.dataTable) {
                 _this.$emit("actualizaAusencia", _this.tipo);
@@ -17139,6 +17127,8 @@ window.bootstrap = bootstrap;
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+//window.axios.defaults.baseURL = 'https://ieslamarisma.net/proyectos/2023/davidperez/cronowork1/public';
+window.axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

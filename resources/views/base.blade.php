@@ -88,10 +88,47 @@
                     <div class="d-flex align-items-center">
                         <div class="me-2">
                             @php
-                                setlocale(LC_TIME, config('app.locale'));
+                                $traducciones = [
+                                    "Monday" => "Lunes",
+                                    "Tuesday" => "Martes",
+                                    "Wednesday" => "Miércoles",
+                                    "Thursday" => "Jueves",
+                                    "Friday" => "Viernes",
+                                    "Saturday" => "Sábado",
+                                    "Sunday" => "Domingo",
+                                    "January" => "Enero",
+                                    "February" => "Febrero",
+                                    "March" => "Marzo",
+                                    "April" => "Abril",
+                                    "May" => "Mayo",
+                                    "June" => "Junio",
+                                    "July" => "Julio",
+                                    "August" => "Agosto",
+                                    "September" => "Septiembre",
+                                    "October" => "Octubre",
+                                    "November" => "Noviembre",
+                                    "December" => "Diciembre",
+                                ];
+                                function convertirFecha($dia, $mes, $traducciones)
+                                {
+                                    $formatoFecha = "%A, %d de %B de %Y";
+                                    $fechaActual = strftime($formatoFecha);
+
+                                    $diaIngles = strftime("%A");
+                                    $mesIngles = strftime("%B");
+
+                                    $diaEspañol = isset($traducciones[$diaIngles]) ? $traducciones[$diaIngles] : $dia;
+                                    $mesEspañol = isset($traducciones[$mesIngles]) ? $traducciones[$mesIngles] : $mes;
+
+                                    $fechaActual = str_replace($diaIngles, $diaEspañol, $fechaActual);
+                                    $fechaActual = str_replace($mesIngles, $mesEspañol, $fechaActual);
+
+                                    return ucfirst($fechaActual);
+                                }
+                                
                                 $formatoFecha = '%A, %d de %B de %Y';
                                 $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
-                                $fechaActual = ucfirst($fechaActual);
+                                $fechaActual = convertirFecha("%A", "%B", $traducciones);
                             @endphp
                             <h2 class="fs-6 m-0 d-none d-md-block">{{ $fechaActual }}</h2>
                         </div>
