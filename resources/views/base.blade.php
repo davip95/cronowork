@@ -109,26 +109,26 @@
                                     "November" => "Noviembre",
                                     "December" => "Diciembre",
                                 ];
-                                function convertirFecha($dia, $mes, $traducciones)
-                                {
-                                    $formatoFecha = "%A, %d de %B de %Y";
-                                    $fechaActual = strftime($formatoFecha);
+                                // function convertirFecha($dia, $mes, $traducciones)
+                                // {
+                                //     $formatoFecha = "%A, %d de %B de %Y";
+                                //     $fechaActual = strftime($formatoFecha);
 
-                                    $diaIngles = strftime("%A");
-                                    $mesIngles = strftime("%B");
+                                //     $diaIngles = strftime("%A");
+                                //     $mesIngles = strftime("%B");
 
-                                    $diaEspañol = isset($traducciones[$diaIngles]) ? $traducciones[$diaIngles] : $dia;
-                                    $mesEspañol = isset($traducciones[$mesIngles]) ? $traducciones[$mesIngles] : $mes;
+                                //     $diaEspañol = isset($traducciones[$diaIngles]) ? $traducciones[$diaIngles] : $dia;
+                                //     $mesEspañol = isset($traducciones[$mesIngles]) ? $traducciones[$mesIngles] : $mes;
 
-                                    $fechaActual = str_replace($diaIngles, $diaEspañol, $fechaActual);
-                                    $fechaActual = str_replace($mesIngles, $mesEspañol, $fechaActual);
+                                //     $fechaActual = str_replace($diaIngles, $diaEspañol, $fechaActual);
+                                //     $fechaActual = str_replace($mesIngles, $mesEspañol, $fechaActual);
 
-                                    return ucfirst($fechaActual);
-                                }
+                                //     return ucfirst($fechaActual);
+                                // }
                                 
                                 $formatoFecha = '%A, %d de %B de %Y';
                                 $fechaActual = iconv('ISO-8859-1', 'UTF-8', strftime($formatoFecha));
-                                $fechaActual = convertirFecha("%A", "%B", $traducciones);
+                                // $fechaActual = convertirFecha("%A", "%B", $traducciones);
                             @endphp
                             <h2 class="fs-6 m-0 d-none d-md-block">{{ $fechaActual }}</h2>
                         </div>

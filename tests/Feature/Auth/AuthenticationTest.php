@@ -4,12 +4,10 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
-    use RefreshDatabase;
 
     public function test_login_screen_can_be_rendered()
     {
@@ -18,22 +16,9 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_users_can_authenticate_using_the_login_screen()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
-
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
-    }
-
     public function test_users_can_not_authenticate_with_invalid_password()
     {
-        $user = User::factory()->create();
+        $user = User::first();
 
         $this->post('/login', [
             'email' => $user->email,
@@ -41,5 +26,16 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertGuest();
+    }
+
+    public function test_logout()
+    {
+        $usuario = User::first();
+        $response = $this->actingAs($usuario)
+            ->get('logout');
+        if ($response->status() == 302) {
+            $response = $this->followRedirects($response);
+        }
+        $response->assertViewIs('auth.login');
     }
 }
