@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Ausencia;
 use App\Models\Empresa;
 use App\Models\Fichaje;
+use App\Models\Horario;
 use App\Models\Jornada;
 use App\Models\User;
 use Carbon\Carbon;
@@ -263,5 +264,161 @@ class RutasTest extends TestCase
             $response = $this->followRedirects($response);
         }
         $response->assertViewIs('empleados.misFichajes');
+    }
+
+    public function test_admin_ver_fichajes_empresa()
+    {
+        $usuario = User::where('tipo', 'admin')->first();
+
+        $fichajes = Fichaje::select('fichajes.id', 'fichajes.tipo', 'fichajes.fecha_hora_fichaje')
+            ->join('empleados', 'fichajes.empleados_id', '=', 'empleados.id')
+            ->join('horarios', 'fichajes.horarios_id', '=', 'horarios.id')
+            ->where('empleados.empresas_id', $usuario->empresas_id)
+            ->with(['empleados' => function ($query) {
+                $query->select('id', 'name', 'apellidos');
+            }])
+            ->with(['horarios' => function ($query) {
+                $query->select('id', 'descripcion');
+            }])
+            ->selectRaw('fichajes.*, empleados.name as empleado_nombre, empleados.apellidos as empleado_apellidos, horarios.descripcion as horario_descripcion')
+            ->get()
+            ->map(function ($fichaje) {
+                $fechaHora = Carbon::parse($fichaje->fecha_hora_fichaje);
+                $fichaje->fecha = $fechaHora->toDateString();
+                $fichaje->hora = $fechaHora->toTimeString();
+                $fichaje->empleado_nombre = $fichaje->empleados->name;
+                $fichaje->empleado_apellidos = $fichaje->empleados->apellidos;
+                $fichaje->horario_descripcion = $fichaje->horarios->descripcion;
+                unset($fichaje->empleados);
+                unset($fichaje->horarios);
+                return $fichaje;
+            });
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/fichajes');
+
+        $response->assertStatus(200)
+            ->assertJson($fichajes->toArray());
+    }
+
+    public function test_admin_ver_fichajes_empresa_vista()
+    {
+        $usuario = User::where('tipo', 'admin')->first();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/fichajes/listar');
+
+        if ($response->status() == 302) {
+            $response = $this->followRedirects($response);
+        }
+        $response->assertViewIs('admins.fichajes');
+    }
+
+    public function test_admin_ver_horarios_empresa()
+    {
+        $usuario = User::where('tipo', 'admin')->first();
+
+        $horarios = Horario::select()->where('empresas_id', $usuario->empresas_id)->get();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios');
+
+        $response->assertStatus(200)
+            ->assertJson($horarios->toArray());
+    }
+
+    public function test_admin_ver_horarios_empresa_vista()
+    {
+        $usuario = User::where('tipo', 'admin')->first();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios/ver');
+
+        if ($response->status() == 302) {
+            $response = $this->followRedirects($response);
+        }
+        $response->assertViewIs('admins.horarios');
+    }
+
+    public function test_admin_ver_horario()
+    {
+        $usuario = User::where('tipo', 'admin')->first();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios/' . $usuario->horarios_id);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'horario',
+                'intensivo',
+                'asignado'
+            ]);
+    }
+
+    public function test_empleado_ver_horario()
+    {
+        $usuario = User::where('tipo', 'empleado')->first();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios/' . $usuario->horarios_id . '/empleado/' . $usuario->id);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'horario',
+                'intensivo'
+            ]);
+    }
+
+    public function test_empleado_ver_jornada()
+    {
+        $usuario = User::where('tipo', 'empleado')->first();
+
+        $numDia = date("N");
+        $jornadaHoy = Jornada::select()->where("horarios_id", $usuario->horarios_id)->where("dia", $numDia)->first();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios/' . $usuario->horarios_id . '/empleado/' . $usuario->id . '/jornada');
+
+        if ($jornadaHoy) {
+            // Comprobamos que se devuelva la respuesta esperada cuando hay una jornada para el día de hoy
+            $response->assertStatus(200)
+                ->assertExactJson($jornadaHoy->toArray());
+        } else {
+            // Comprobamos que se devuelva la respuesta esperada cuando no hay jornada para el día de hoy
+            $response->assertStatus(204);
+        }
+    }
+
+    public function test_empleado_ver_jornadas()
+    {
+        $usuario = User::where('tipo', 'empleado')->first();
+
+        $jornadas = Jornada::select()->where("horarios_id", $usuario->horarios_id)->get();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios/' . $usuario->horarios_id . '/empleado/' . $usuario->id . '/jornadas');
+
+        $response->assertStatus(200)
+            ->assertExactJson($jornadas->toArray());
+    }
+
+    public function test_admin_ver_jornada()
+    {
+        $usuario = User::where('tipo', 'admin')->first();
+
+        $numDia = date("N");
+        $jornadaHoy = Jornada::select()->where("horarios_id", $usuario->horarios_id)->where("dia", $numDia)->first();
+
+        $response = $this->actingAs($usuario)
+            ->get('empresas/' . $usuario->empresas_id . '/horarios/' . $usuario->horarios_id . '/empleado/' . $usuario->id . '/jornada');
+
+        if ($jornadaHoy) {
+            // Comprobamos que se devuelva la respuesta esperada cuando hay una jornada para el día de hoy
+            $response->assertStatus(200)
+                ->assertExactJson($jornadaHoy->toArray());
+        } else {
+            // Comprobamos que se devuelva la respuesta esperada cuando no hay jornada para el día de hoy
+            $response->assertStatus(204);
+        }
     }
 }
